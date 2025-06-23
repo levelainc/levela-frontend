@@ -1,0 +1,87 @@
+<aside>
+  <header>
+    <a iconStart="@tui.layout-dashboard" tuiAsideItem routerLink="/dashboard">Dashboard</a>
+  </header>
+
+  <tui-aside-group>
+    <button tuiAsideItem iconStart="@tui.house" tuiChevron>
+      Housing
+      <ng-template>
+        <button tuiAsideItem>Browse Listings</button>
+        <button tuiAsideItem>My Listings</button>
+        <button tuiAsideItem>Post New Listing</button>
+      </ng-template>
+    </button>
+  </tui-aside-group>
+
+  <tui-aside-group>
+    <button tuiAsideItem iconStart="@tui.shopping-basket" tuiChevron>
+      Marketplace
+      <ng-template>
+        <button tuiAsideItem>Products</button>
+        <tui-aside-group>
+          <button tuiAsideItem iconStart="@tui.square-stack" tuiChevron>
+            Categories
+            <ng-template>
+              <button tuiAsideItem>Beauty</button>
+              <button tuiAsideItem>Electronics</button>
+              <button tuiAsideItem>Stationery</button>
+            </ng-template>
+          </button>
+        </tui-aside-group>
+        <button tuiAsideItem>Orders</button>
+        <button tuiAsideItem>Sell</button>
+      </ng-template>
+    </button>
+  </tui-aside-group>
+
+  <tui-aside-group>
+    <button tuiAsideItem iconStart="@tui.cog" tuiChevron>
+      Services
+      <ng-template>
+        <button tuiAsideItem>Browse</button>
+        <button tuiAsideItem>Bookings</button>
+        <button tuiAsideItem>Become Provider</button>
+      </ng-template>
+    </button>
+  </tui-aside-group>
+
+  <tui-aside-group>
+    <button tuiAsideItem iconStart="@tui.user-round-cog" tuiChevron>
+      Profile & Account
+      <ng-template>
+        <button tuiAsideItem>View Profile</button>
+        <button tuiAsideItem>Edit Profile</button>
+        <button tuiAsideItem>Payments</button>
+        <button tuiAsideItem>Preferences</button>
+      </ng-template>
+    </button>
+  </tui-aside-group>
+
+  <tui-aside-group *ngIf="isAdmin">
+    <button tuiAsideItem iconStart="@tui.shield-user" tuiChevron>
+      Admin Panel
+      <ng-template>
+        <button tuiAsideItem>Users</button>
+        <button tuiAsideItem>Moderation</button>
+        <button tuiAsideItem>Reports</button>
+        <button tuiAsideItem>Settings</button>
+      </ng-template>
+    </button>
+  </tui-aside-group>
+
+  <hr />
+
+  <footer>
+    <button tuiAsideItem iconStart="@tui.log-out" (click)="logoutClick.emit()">Logout</button>
+    <button
+      tuiAsideItem
+      type="button"
+      tuiIconButton
+      [iconStart]="expanded() ? '@tui.chevron-left' : '@tui.chevron-right'"
+      (click)="toggle.emit()"
+    >
+      {{ expanded() ? 'Collapse' : 'Expand' }}
+    </button>
+  </footer>
+</aside>

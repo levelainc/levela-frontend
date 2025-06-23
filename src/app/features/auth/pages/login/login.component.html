@@ -1,0 +1,71 @@
+<form
+  tuiAppearance="floating"
+  tuiCardLarge
+  tuiForm="m"
+  [formGroup]="form"
+  [style.max-width.rem]="32"
+>
+  <header tuiHeader>
+    <h2 tuiTitle>
+      Welcome Back
+      <span tuiSubtitle>Please login to continue</span>
+    </h2>
+  </header>
+
+  <tui-notification appearance="info">
+    <h3 tuiTitle>
+      Secure Login
+      <span tuiSubtitle>We protect your privacy</span>
+    </h3>
+  </tui-notification>
+
+  <!-- Email -->
+  <tui-textfield>
+    <label tuiLabel>Email</label>
+    <input
+      formControlName="email"
+      tuiTextfield
+      type="email"
+      placeholder="your@email.com"
+    />
+  </tui-textfield>
+  <tui-error
+    formControlName="email"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <!-- Password -->
+  <tui-textfield>
+    <label tuiLabel>Password</label>
+    <input
+      formControlName="password"
+      tuiTextfield
+      type="password"
+      placeholder="••••••••"
+    />
+  </tui-textfield>
+  <tui-error
+    formControlName="password"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <!-- Buttons -->
+  <footer>
+    <button
+      appearance="secondary"
+      tuiButton
+      type="button"
+      routerLink="/"
+    >
+      Cancel
+    </button>
+
+    <button
+      tuiButton
+      type="submit"
+    >
+      Login
+    </button>
+  </footer>
+</form>
+

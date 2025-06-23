@@ -1,0 +1,88 @@
+<header tuiNavigationHeader>
+  <!-- Left Section: Logo + Drawer (mobile only) -->
+  <!-- Drawer Toggle Button -->
+  <button
+    tuiIconButton
+    tuiNavigationDrawer
+    [(open)]="openDrawer"
+    type="button"
+    title="menu"
+  >
+
+
+  </button>
+
+  <!-- App Logo -->
+  <span tuiNavigationLogo class="logo">Levela</span>
+
+  <hr />
+  <!-- Center Section: Search -->
+  <div>
+    <tui-textfield (pointerdown.capture.stop)="(0)">
+      <input
+        tuiSearchHotkey
+        [formControl]="control"
+        [tuiInputSearch]="search"
+        [(tuiInputSearchOpen)]="open"
+      />
+      <ng-template #search>
+        <tui-search-results [results]="results$ | async">
+          <tui-search-history [popular]="popular" />
+          <ng-template let-item>
+            <a tuiCell [href]="item.href">
+              <tui-avatar [src]="item.icon || '@tui.file'" />
+              <span tuiTitle>
+                {{ item.title }}
+                <span tuiSubtitle>{{ item.subtitle }}</span>
+              </span>
+            </a>
+          </ng-template>
+        </tui-search-results>
+      </ng-template>
+    </tui-textfield>
+  </div>
+  <hr />
+  <!-- Right Section: Icons + Profile -->
+  <div class="header-right">
+    <button tuiIconButton tuiHint="Notifications">
+      <tui-icon icon="@tui.bell"></tui-icon>
+    </button>
+
+    <button tuiIconButton tuiHint="Messages">
+      <tui-icon icon="@tui.mail"></tui-icon>
+    </button>
+
+    <button
+      tuiButton
+      tuiChevron
+      tuiDropdownOpen
+      type="button"
+      [tuiDropdown]="profile"
+    >
+      <span class="profile-label">
+        <!-- {{ username }} -->Profile
+      </span>
+      <ng-template #profile>
+        <tui-data-list size="s">
+          <a tuiOption [routerLink]="'/profile'">
+            Profile
+            <tui-icon icon="@tui.user" [style.font-size.em]="1" [style.margin-left.rem]="0.5"></tui-icon>
+          </a>
+          <a tuiOption [routerLink]="'/settings'">
+            Settings
+            <tui-icon icon="@tui.settings" [style.font-size.em]="1" [style.margin-left.rem]="0.5"></tui-icon>
+          </a>
+          <button tuiOption (click)="logout()">
+            Logout
+            <tui-icon icon="@tui.log-out" [style.font-size.em]="1" [style.margin-left.rem]="0.5"></tui-icon>
+          </button>
+        </tui-data-list>
+      </ng-template>
+
+    </button>
+
+    <button tuiIconButton tuiHint="Languages">
+      <tui-icon icon="@tui.languages"></tui-icon>
+    </button>
+  </div>
+</header>
