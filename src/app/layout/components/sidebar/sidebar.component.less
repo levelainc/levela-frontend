@@ -1,19 +1,39 @@
-.sub-item {
-  padding-left: 2rem;
-  font-size: 0.95em;
-  opacity: 0.9;
+// .sub-item {
+//   padding-left: 2rem;
+//   font-size: 0.95em;
+//   opacity: 0.9;
+// }
+
+// aside footer {
+//   margin-top: 1rem;
+//   padding-top: 1rem;
+//   border-top: 1px solid var(--tui-base-03);
+//   display: flex;
+//   flex-direction: column;
+//   gap: 0.5rem;
+// }
+
+
+// :host-context(.mobile-sidebar) aside {
+//   padding: 1rem;
+// }
+@import '@taiga-ui/core/styles/taiga-ui-local';
+
+.aside-bar {
+    block-size: calc(100vh - 3rem);
+
+    & + main[tuiNavigationMain] {
+        grid-auto-rows: min-content;
+    }
 }
 
-aside footer {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--tui-base-03);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+@media @tui-mobile {
+    .aside-bar {
+        display: none;
+        inline-size: 100%;
 
-
-:host-context(.mobile-sidebar) aside {
-  padding: 1rem;
+        & + main[tuiNavigationMain] {
+            max-inline-size: 100%;
+        }
+    }
 }

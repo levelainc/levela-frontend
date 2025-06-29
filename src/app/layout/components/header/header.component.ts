@@ -1,4 +1,4 @@
-import { Component, signal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {TUI_DEFAULT_MATCHER} from '@taiga-ui/cdk';
@@ -65,7 +65,8 @@ import {
   TuiOption,
   TuiTitle,
   TuiTextfield,
-
+  TUI_DARK_MODE,
+  TUI_DARK_MODE_KEY
 } from '@taiga-ui/core';
 import { filter, map, startWith, switchMap, timer } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
@@ -91,14 +92,21 @@ import { Router, RouterLink } from '@angular/router';
     TuiInputSearch,
     TuiSearchResults,
     TuiSearchHistory,
-    RouterLink
+    RouterLink,
+    TuiDataList
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.less'
+  styleUrl: './header.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   constructor(private router: Router) {}
-  
+  // dark mode
+  protected readonly darkMode = inject(TUI_DARK_MODE);
+  protected readonly icon = computed(() =>
+      this.darkMode() ? '@tui.sun' : '@tui.moon',
+  );
+
   protected open = false;
   protected openDrawer=false;
   expanded=signal(true)

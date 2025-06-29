@@ -1,1 +1,110 @@
-<p>register works!</p>
+<form
+  tuiAppearance="floating"
+  tuiCardLarge
+  tuiForm="m"
+  [formGroup]="form"
+  [style.max-width.rem]="32"
+  (ngSubmit)="register()"
+>
+  <header tuiHeader>
+    <h2 tuiTitle>
+      Join Levela
+      <span tuiSubtitle>Create your account</span>
+    </h2>
+  </header>
+
+  <tui-notification appearance="info">
+    <h3 tuiTitle>
+      Quick Signup
+      <span tuiSubtitle>Just the basics to get started</span>
+    </h3>
+  </tui-notification>
+
+  <!-- Full Name -->
+  <tui-textfield>
+    <label tuiLabel>Full Name</label>
+    <input
+      formControlName="full_name"
+      tuiTextfield
+      type="text"
+      placeholder="e.g. Michael Owino"
+    />
+  </tui-textfield>
+  <tui-error
+    formControlName="full_name"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <!-- Email -->
+  <tui-textfield>
+    <label tuiLabel>Email</label>
+    <input
+      formControlName="email"
+      tuiTextfield
+      type="email"
+      placeholder="your@email.com"
+    />
+  </tui-textfield>
+  <tui-error
+    formControlName="email"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <!-- Password -->
+  <tui-textfield>
+    <label tuiLabel>Password</label>
+    <input
+      formControlName="password"
+      tuiTextfield
+      type="password"
+      placeholder="••••••••"
+    />
+  </tui-textfield>
+  <tui-error
+    formControlName="password"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <!-- Confirm Password -->
+  <tui-textfield>
+    <label tuiLabel>Confirm Password</label>
+    <input
+      formControlName="confirm_password"
+      tuiTextfield
+      type="password"
+      placeholder="••••••••"
+    />
+  </tui-textfield>
+  <tui-error
+    formControlName="confirm_password"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <footer>
+    <button
+      appearance="secondary"
+      tuiButton
+      type="button"
+      routerLink="/auth/login"
+    >
+      Cancel
+    </button>
+
+    <button tuiButton type="submit">
+      Register
+    </button>
+  </footer>
+
+  <!-- Login Prompt -->
+  <div style="margin-top: 1rem; text-align: center; font-size: 0.875rem;">
+    Already have an account?
+    <a
+      tuiLink
+      routerLink="/auth/login"
+      iconStart="@tui.log-in"
+      style="text-decoration: underline; color: var(--tui-link)"
+    >
+      <strong>Login</strong>
+    </a>
+  </div>
+</form>

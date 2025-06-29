@@ -8,7 +8,48 @@
     type="button"
     title="menu"
   >
-
+    <tui-data-list size="s">
+      <button
+          iconStart="@tui.palette"
+          routerLink="/color-generator"
+          tuiOption
+          type="button"
+      >
+          Theme Generator
+      </button>
+      <button
+          iconStart="@tui.layout-dashboard"
+          routerLink="/dashboards/iot"
+          tuiOption
+          type="button"
+      >
+          Iot dashboard
+      </button>
+      <button
+          iconStart="@tui.layout-dashboard"
+          routerLink="/dashboards/crypto"
+          tuiOption
+          type="button"
+      >
+          Crypto dashboard
+      </button>
+      <button
+          iconStart="@tui.log-in"
+          routerLink="/pages/login"
+          tuiOption
+          type="button"
+      >
+          Log in
+      </button>
+      <button
+          iconStart="@tui.key-round"
+          routerLink="/pages/sign-up"
+          tuiOption
+          type="button"
+      >
+          Sign up
+      </button>
+    </tui-data-list>
 
   </button>
 
@@ -83,6 +124,17 @@
 
     <button tuiIconButton tuiHint="Languages">
       <tui-icon icon="@tui.languages"></tui-icon>
+    </button>
+    <button
+        size="s"
+        tuiIconButton
+        type="button"
+        class="tui-doc-dark-mode-switch"
+        [iconStart]="icon()"
+        [style.border-radius.%]="100"
+        (click)="darkMode.set(!darkMode())"
+    >
+        Mode
     </button>
   </div>
 </header>

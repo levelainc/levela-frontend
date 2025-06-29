@@ -1,0 +1,29 @@
+<form [formGroup]="form" tuiForm="l" (ngSubmit)="submit()" class="user-type-form" tuiCardLarge>
+  <tui-notification *ngIf="form.invalid && form.touched" appearance="error">
+    Please select at least one user type to proceed.
+  </tui-notification>
+  <tui-notification appearance="info">Choose your role</tui-notification>
+
+  <div class="role-options">
+    <label tuiLabel>
+      <input type="checkbox" formControlName="student" tuiCheckbox />
+      <span tuiTitle="m">
+        Student
+        <span tuiSubtitle>Browse, book, and buy from fellow students and service providers.</span>
+      </span>
+    </label>
+
+    <label tuiLabel class="tui-space_vertical-2">
+      <input type="checkbox" formControlName="serviceProvider" tuiCheckbox />
+      <span tuiTitle="m">
+        Service Provider
+        <span tuiSubtitle>Offer services or rent spaces tailored to students’ needs.</span>
+      </span>
+    </label>
+  </div>
+
+
+  <button tuiButton appearance="primary" type="submit" class="mt-4" [disabled]="form.invalid">
+    Continue
+  </button>
+</form>

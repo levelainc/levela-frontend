@@ -1,0 +1,77 @@
+<form [formGroup]="form" (ngSubmit)="goNext()" tuiForm="m" tuiCardLarge>
+  <header tuiHeader>
+    <h2 tuiTitle>Step 2: Profile Details</h2>
+  </header>
+
+  <!-- PHONE -->
+  <tui-textfield>
+    <label tuiLabel for="phone">Phone Number</label>
+    <input
+      tuiTextfield
+      id="phone"
+      type="tel"
+      formControlName="phone"
+      placeholder="+254712345678"
+      autocomplete="tel"
+    />
+    <tui-error *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">
+      Invalid phone number format.
+    </tui-error>
+  </tui-textfield>
+
+  <!-- BIO -->
+  <tui-textfield>
+    <label tuiLabel for="bio">Bio</label>
+    <textarea
+      tuiTextarea
+      id="bio"
+      formControlName="bio"
+      placeholder="Tell us about yourself..."
+      limit="120"
+      [max]="6"
+      [min]="3"
+    ></textarea>
+  </tui-textfield>
+
+  <!-- AVATAR UPLOAD -->
+  <section tuiSpaceTop>
+    <label *ngIf="!form.get('avatar')?.value" tuiInputFiles>
+      <input
+        accept="image/*"
+        tuiInputFiles
+        [formControl]=avatarControl
+      />
+    </label>
+
+    <tui-files class="tui-space_top-1">
+      <tui-file
+      *ngIf="(form.get('avatar')?.value ?? null) | tuiFileRejected: {accept: 'image/*'} | async as file"
+        state="error"
+        [file]="file"
+        (remove)="removeFile()"
+      />
+      <tui-file
+        *ngIf="loadedFiles$ | async as file"
+        [file]="file"
+        (remove)="removeFile()"
+      />
+      <tui-file
+        *ngIf="failedFiles$ | async as file"
+        state="error"
+        [file]="file"
+        (remove)="removeFile()"
+      />
+      <tui-file
+        *ngIf="loadingFiles$ | async as file"
+        state="loading"
+        [file]="file"
+        (remove)="removeFile()"
+      />
+    </tui-files>
+  </section>
+
+  <!-- FOOTER -->
+  <footer tuiFooter tuiActions>
+    <button tuiButton type="submit" appearance="primary">Next</button>
+  </footer>
+</form>

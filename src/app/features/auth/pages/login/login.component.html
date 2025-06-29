@@ -4,6 +4,7 @@
   tuiForm="m"
   [formGroup]="form"
   [style.max-width.rem]="32"
+  (ngSubmit)="login()"
 >
   <header tuiHeader>
     <h2 tuiTitle>
@@ -60,12 +61,14 @@
       Cancel
     </button>
 
-    <button
-      tuiButton
-      type="submit"
-    >
+    <button tuiButton type="submit">
       Login
     </button>
   </footer>
-</form>
 
+  <!-- Register Prompt -->
+  <div style="margin-top: 1rem; text-align: center; font-size: 0.875rem;">
+    Don’t have an account?
+    <a tuiLink routerLink="/auth/register" style="text-decoration: underline; color: var(--tui-link)"><strong>Register</strong></a>
+  </div>
+</form>

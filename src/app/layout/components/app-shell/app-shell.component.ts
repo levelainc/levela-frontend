@@ -8,7 +8,7 @@ import {TuiNavigation} from '@taiga-ui/layout';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { SidebarContentComponent } from '../../../shared/ui/sidebar-content/sidebar-content.component';
 import { TuiDrawer } from '@taiga-ui/kit';
-import { TuiPopup } from '@taiga-ui/core';
+import { TuiAppearance, TuiPopup } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-app-shell',
@@ -20,6 +20,7 @@ import { TuiPopup } from '@taiga-ui/core';
     FooterComponent,
     HeaderComponent,
     TuiNavigation,
+    TuiAppearance
   ],
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.less'],
