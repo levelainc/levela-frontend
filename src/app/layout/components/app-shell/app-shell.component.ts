@@ -20,7 +20,6 @@ import { TuiAppearance, TuiPopup } from '@taiga-ui/core';
     FooterComponent,
     HeaderComponent,
     TuiNavigation,
-    TuiAppearance
   ],
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.less'],

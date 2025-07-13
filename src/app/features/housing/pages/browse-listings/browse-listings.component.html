@@ -1,1 +1,71 @@
-<p>browse-listings works!</p>
+<div *ngIf="listings$ | async as listings" class="listings-grid">
+  <div *ngFor="let listing of listings">
+    <div
+      tuiCardMedium
+      tuiSurface="elevated"
+      class="listing-card"
+      [routerLink]="['/housing', listing.id]"
+    >
+      <!-- Header -->
+      <header tuiCell="s" class="card-header">
+        <tui-badge size="s" appearance="neutral">Posted on {{ listing.created_at | date }}</tui-badge>
+        <tui-icon icon="@tui.images" />
+        <button
+          tuiButton
+          appearance="grayscale"
+          iconStart="@tui.star"
+          size="xs"
+        >
+          4.5
+        </button>
+      </header>
+
+      <!-- Image -->
+      <img
+        [src]="listing.images?.length ? listing.images[0].url : 'assets/placeholder.jpg'"
+        alt="Listing thumbnail"
+        class="listing-thumb"
+      />
+
+      <!-- Main Info -->
+      <h2 tuiTitle>
+        {{ listing.title }}
+        <span tuiSubtitle>{{ listing.location }}</span>
+      </h2>
+
+      <!-- Price & Badges -->
+      <footer tuiCell="s" class="card-footer">
+        <tui-badge class="price" appearance="accent" size="s">
+          KES {{ listing.price | number }}
+        </tui-badge>
+
+        <tui-badge size="s" appearance="positive" *ngIf="listing.is_open_for_roommates">
+          <tui-icon icon="@tui.users" />
+          {{ listing.current_occupants }}/{{ listing.max_occupants }} sharing
+        </tui-badge>
+
+        <tui-badge
+          tuiDropdownHover
+          [tuiDropdown]="schools"
+          appearance="accent"
+          size="s"
+          iconStart="@tui.university"
+        >
+          Schools
+        </tui-badge>
+
+        <tui-icon icon="@tui.heart" />
+      </footer>
+
+      <!-- Dropdown Template -->
+      <ng-template #schools>
+        <tui-data-list size="m">
+          <button tuiOption>Multimedia University</button>
+          <button tuiOption>Kenyatta University</button>
+          <button tuiOption>JKUAT</button>
+          <button tuiOption>UON</button>
+        </tui-data-list>
+      </ng-template>
+    </div>
+  </div>
+</div>

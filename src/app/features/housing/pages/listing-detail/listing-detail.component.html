@@ -1,0 +1,13 @@
+<section *ngIf="listing$ | async as listing" class="detail-container">
+  <h2>{{ listing.title }}</h2>
+  <p class="location">{{ listing.location }}</p>
+  <div class="price">KES {{ listing.price | number }}</div>
+
+  <div class="images">
+    <img *ngFor="let img of listing.images" [src]="img" [alt]="listing.title" />
+  </div>
+
+  <p class="description">
+    {{ listing.description }}
+  </p>
+</section>

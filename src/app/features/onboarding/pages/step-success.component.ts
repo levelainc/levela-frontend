@@ -43,7 +43,7 @@ export class StepSuccessComponent implements OnInit, OnDestroy {
     const interval$ = timer(0, 1000).subscribe((count) => {
       this.loaderValue = (count + 1) / 10;
       if (count === 10) {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/housing/browse']);
       }
     });
 
@@ -51,7 +51,7 @@ export class StepSuccessComponent implements OnInit, OnDestroy {
   }
 
   skipWait(): void {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/housing/browse']);
   }
 
   ngOnDestroy(): void {

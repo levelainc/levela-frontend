@@ -1,0 +1,88 @@
+<form
+  tuiAppearance="floating"
+  tuiCardLarge
+  tuiForm="m"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  [style.max-width.rem]="38"
+>
+  <header tuiHeader>
+    <h2 tuiTitle>
+      New Listing
+      <span tuiSubtitle>Add your space</span>
+    </h2>
+  </header>
+
+  <!-- Title -->
+  <tui-textfield>
+    <label tuiLabel>Title</label>
+    <input
+      tuiTextfield
+      formControlName="title"
+      placeholder="e.g. Cozy Student Room in Nairobi"
+    />
+  </tui-textfield>
+  <tui-error formControlName="title" [error]="[] | tuiFieldError | async" />
+
+  <!-- Description -->
+  <tui-textfield>
+    <label tuiLabel>Description</label>
+    <textarea
+      tuiTextfield
+      formControlName="description"
+      placeholder="Describe the property"
+    ></textarea>
+  </tui-textfield>
+  <tui-error formControlName="description" [error]="[] | tuiFieldError | async" />
+
+  <!-- Price -->
+  <tui-textfield>
+    <label tuiLabel>Price (KES)</label>
+    <input
+      tuiTextfield
+      type="number"
+      formControlName="price"
+      placeholder="2500"
+    />
+  </tui-textfield>
+  <tui-error formControlName="price" [error]="[] | tuiFieldError | async" />
+
+  <!-- City -->
+  <tui-textfield>
+    <label tuiLabel>City</label>
+    <input
+      tuiTextfield
+      formControlName="city"
+      placeholder="e.g. Nairobi"
+    />
+  </tui-textfield>
+  <tui-error formControlName="city" [error]="[] | tuiFieldError | async" />
+
+  <!-- Image Upload -->
+  <app-image-upload
+    [control]="form.controls['images']"
+    accept="image/*"
+    [multiple]="true"
+    label="Upload room images"
+  />
+
+  <footer class="tui-space_top-3">
+    <button
+      appearance="secondary"
+      tuiButton
+      type="button"
+      routerLink="/housing"
+    >
+      Cancel
+    </button>
+
+    <button
+      tuiButton
+      type="submit"
+      [disabled]="form.invalid || loading"
+    >
+      {{ loading ? 'Posting...' : 'Post Listing' }}
+    </button>
+  </footer>
+</form>
+ggg

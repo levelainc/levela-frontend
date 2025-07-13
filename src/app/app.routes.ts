@@ -1,90 +1,114 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 
-import { DashboardPageComponent } from './features/dashboard/pages/dashboard-page/dashboard-page.component';
-import { BrowseListingsComponent } from './features/housing/pages/browse-listings/browse-listings.component';
-import { MyListingsComponent } from './features/housing/pages/my-listings/my-listings.component';
-import { PostListingComponent } from './features/housing/pages/post-listing/post-listing.component';
-
-import { ProductsComponent } from './features/marketplace/pages/products/products.component';
-import { OrdersComponent } from './features/marketplace/pages/orders/orders.component';
-import { SellComponent } from './features/marketplace/pages/sell/sell.component';
-import { CategoriesComponent } from './features/marketplace/pages/categories/categories.component';
-
-import { BrowseComponent } from './features/services/pages/browse/browse.component';
-import { BookingsComponent } from './features/services/pages/bookings/bookings.component';
-import { BecomeProviderComponent } from './features/services/pages/become-provider/become-provider.component';
-
-import { ViewProfileComponent } from './features/profile/pages/view-profile/view-profile.component';
-import { EditProfileComponent } from './features/profile/pages/edit-profile/edit-profile.component';
-import { PaymentsComponent } from './features/profile/pages/payments/payments.component';
-import { PreferencesComponent } from './features/profile/pages/preferences/preferences.component';
-
+// Lazy-loaded modules
 export const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  // Redirect root to housing listings
+  { path: '', redirectTo: 'housing', pathMatch: 'full' },
 
-  // Dashboard (Protected)
-  { path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard] },
+  // Dashboard
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./features/dashboard/pages/dashboard-page/dashboard-page.component').then(
+        m => m.DashboardPageComponent
+      ),
+    canActivate: [AuthGuard],
+  },
 
-  // Housing (Browse = Public, others = Protected)
-  { path: 'housing/browse', component: BrowseListingsComponent },
-  { path: 'housing/my', component: MyListingsComponent, canActivate: [AuthGuard] },
-  { path: 'housing/post', component: PostListingComponent, canActivate: [AuthGuard] },
+  // Housing (lazy-loaded routes)
+  {
+    path: 'housing',
+    loadChildren: () =>
+      import('./features/housing/housing.routes').then(m => m.HOUSING_ROUTES),
+  },
 
   // Marketplace
-  { path: 'marketplace/products', component: ProductsComponent },
-  { path: 'marketplace/orders', component: OrdersComponent, canActivate: [AuthGuard] },
-  { path: 'marketplace/sell', component: SellComponent, canActivate: [AuthGuard] },
-  { path: 'marketplace/categories', component: CategoriesComponent },
+  {
+    path: 'marketplace/products',
+    loadComponent: () =>
+      import('./features/marketplace/pages/products/products.component').then(m => m.ProductsComponent),
+  },
+  {
+    path: 'marketplace/orders',
+    loadComponent: () =>
+      import('./features/marketplace/pages/orders/orders.component').then(m => m.OrdersComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'marketplace/sell',
+    loadComponent: () =>
+      import('./features/marketplace/pages/sell/sell.component').then(m => m.SellComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'marketplace/categories',
+    loadComponent: () =>
+      import('./features/marketplace/pages/categories/categories.component').then(m => m.CategoriesComponent),
+  },
 
   // Services
-  { path: 'services/browse', component: BrowseComponent },
-  { path: 'services/bookings', component: BookingsComponent, canActivate: [AuthGuard] },
-  { path: 'services/become-provider', component: BecomeProviderComponent, canActivate: [AuthGuard] },
+  {
+    path: 'services/browse',
+    loadComponent: () =>
+      import('./features/services/pages/browse/browse.component').then(m => m.BrowseComponent),
+  },
+  {
+    path: 'services/bookings',
+    loadComponent: () =>
+      import('./features/services/pages/bookings/bookings.component').then(m => m.BookingsComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'services/become-provider',
+    loadComponent: () =>
+      import('./features/services/pages/become-provider/become-provider.component').then(m => m.BecomeProviderComponent),
+    canActivate: [AuthGuard],
+  },
 
   // Profile
-  { path: 'profile/view', component: ViewProfileComponent, canActivate: [AuthGuard] },
-  { path: 'profile/edit', component: EditProfileComponent, canActivate: [AuthGuard] },
-  { path: 'profile/payments', component: PaymentsComponent, canActivate: [AuthGuard] },
-  { path: 'profile/preferences', component: PreferencesComponent, canActivate: [AuthGuard] },
-
-  // Lazy-loaded or dynamic pages
   {
-    path: 'profile',
+    path: 'profile/view',
     loadComponent: () =>
       import('./features/profile/pages/view-profile/view-profile.component').then(m => m.ViewProfileComponent),
     canActivate: [AuthGuard],
   },
   {
-    path: 'settings',
+    path: 'profile/edit',
+    loadComponent: () =>
+      import('./features/profile/pages/edit-profile/edit-profile.component').then(m => m.EditProfileComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile/payments',
+    loadComponent: () =>
+      import('./features/profile/pages/payments/payments.component').then(m => m.PaymentsComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile/preferences',
     loadComponent: () =>
       import('./features/profile/pages/preferences/preferences.component').then(m => m.PreferencesComponent),
     canActivate: [AuthGuard],
   },
 
-  // Email Verification Page
+  // Auth & Onboarding
   {
     path: 'auth/verify-email',
     loadComponent: () =>
-      import('./features/auth/pages/email-verification.component').then(
-        (m) => m.EmailVerificationComponent
-      ),
+      import('./features/auth/pages/email-verification.component').then(m => m.EmailVerificationComponent),
   },
-
-  // Auth module (lazy-loaded)
   {
     path: 'auth',
     loadChildren: () =>
-      import('./features/auth/auth.module').then((m) => m.AuthModule),
+      import('./features/auth/auth.module').then(m => m.AuthModule),
   },
-
-  // Onboarding module (lazy)
   {
     path: 'onboarding',
     loadChildren: () =>
-      import('./features/onboarding/onboarding.module').then((m) => m.OnboardingModule),
+      import('./features/onboarding/onboarding.module').then(m => m.OnboardingModule),
   },
 
-  // Catch-all
-  { path: '**', redirectTo: '/dashboard' },
+  // Fallback
+  { path: '**', redirectTo: 'housing' },
 ];
