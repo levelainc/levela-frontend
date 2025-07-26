@@ -1,13 +1,122 @@
-<section *ngIf="listing$ | async as listing" class="detail-container">
-  <h2>{{ listing.title }}</h2>
-  <p class="location">{{ listing.location }}</p>
-  <div class="price">KES {{ listing.price | number }}</div>
+<section
+  *ngIf="listing$ | async as listing"
+  class="detail-container"
+  tuiSurface="elevation"
+>
+  <!-- Back button -->
+  <button
+    tuiButton
+    appearance="secondary"
+    size="s"
+    class="back-btn"
+    (click)="backToBrowse()"
+  >
+    ← Back to Listings
+  </button>
 
-  <div class="images">
-    <img *ngFor="let img of listing.images" [src]="img" [alt]="listing.title" />
+  <!-- Header Image -->
+  <div class="header-image" tuiSurface="flat">
+    <img
+      [src]="listing.images?.[0]?.url || 'placeholder.jpg'"
+      [alt]="listing.title"
+      class="header"
+    />
   </div>
 
-  <p class="description">
-    {{ listing.description }}
-  </p>
+  <!-- Card Wrapper -->
+  <section tuiCardLarge tuiAppearance="flat">
+    <!-- Title and Price -->
+    <div tuiCell="l" class="listing-header">
+      <div tuiTitle>
+        {{ listing.title }}
+        <span tuiSubtitle>{{ listing.location }}</span>
+      </div>
+      <tui-badge class="price-badge">
+        KES {{ listing.price | number }}/month
+      </tui-badge>
+    </div>
+
+    <!-- Tags and Actions -->
+    <div tuiCell="m" class="tag-row">
+      <tui-badge
+        *ngIf="listing.is_open_for_roommates"
+        appearance="positive"
+        iconStart="@tui.users"
+      >
+        Open for Roommates
+      </tui-badge>
+
+      <button
+        tuiButton
+        appearance="flat"
+        size="s"
+        iconLeft="@tui.map-pin"
+        class="location-button"
+      >
+        {{ listing.location }}
+      </button>
+    </div>
+
+    <!-- Primary Actions -->
+    <div class="action-row">
+      <button tuiButton appearance="outline" size="s">Apply to Join</button>
+      <button tuiButton appearance="outline" size="s">Message Lister</button>
+      <button tuiButton appearance="outline" size="s">Share Listing</button>
+    </div>
+
+    <!-- Overview -->
+    <h3>Overview</h3>
+    <div tuiCell="l" class="overview">
+      <p>{{ listing.description }}</p>
+    </div>
+
+    <!-- Addon Info -->
+    <div class="addon-badges">
+      <tui-badge appearance="positive" *ngFor="let tag of addons" size="s">
+        {{ tag }}
+      </tui-badge>
+    </div>
+
+    <!-- Occupancy Insight -->
+    <h3>Occupancy</h3>
+    <div tuiCell="l">
+      <div class="occupancy-group">
+        <div tuiCardMedium tuiGroup orientation="vertical">
+          <span>Occupied</span>
+          <strong>{{ listing.current_occupants }}</strong>
+        </div>
+        <div tuiCardMedium tuiGroup orientation="vertical">
+          <span>Available</span>
+          <strong>{{ listing.max_occupants - listing.current_occupants }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lister Info -->
+    <h3>Lister</h3>
+    <div tuiCell="l" class="lister-info">
+      <div tuiCell="m">
+        <tui-avatar src="@tui.user" appearance="primary" />
+        <div tuiTitle>
+          Tommy
+          <span tuiSubtitle>Student</span>
+        </div>
+      </div>
+      <tui-badge size="s" appearance="neutral">
+        Posted on {{ listing.created_at | date: 'mediumDate' }}
+      </tui-badge>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <div class="image-carousel" *ngIf="listing.images?.length; else noImages">
+    <img
+      *ngFor="let img of listing.images"
+      [src]="img.url"
+      [alt]="listing.title"
+    />
+  </div>
+  <ng-template #noImages>
+    <div class="no-images">No images uploaded for this listing.</div>
+  </ng-template>
 </section>

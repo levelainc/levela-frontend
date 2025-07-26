@@ -19,11 +19,11 @@ export class HousingService {
 
 
   getListingById(id: string): Observable<Listing> {
-    return this.http.get<Listing>(`${this.baseUrl}/listings/${id}`);
+    return this.http.get<Listing>(`${this.baseUrl}/api/housing/listing/${id}`);
   }
 
   createListing(formData: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/listings`, formData);
+    return this.http.post(`${this.baseUrl}/api/housing/listing`, formData);
   }
 
   updateListing(id: string, formData: FormData): Observable<any> {

@@ -1,4 +1,432 @@
-<div *ngIf="listings$ | async as listings" class="listings-grid">
+<!-- general page -->
+<div class="feature-grid">
+  <div class="large-card" tuiCardLarge>
+    <div
+        tuiCarouselButtons
+        class="wrapper"
+    >
+        <button
+            iconStart="@tui.chevron-left"
+            tuiIconButton
+            type="button"
+            (click)="carousel.prev()"
+        >
+            Previous
+        </button>
+        <button
+            iconStart="@tui.chevron-right"
+            tuiIconButton
+            type="button"
+            (click)="carousel.next()"
+        >
+            Previous
+        </button>
+    </div>
+    <tui-carousel
+    #carousel
+    [duration]="3000"
+    [itemsCount]="1"
+    [(index)]="index"
+    [draggable]="true">
+      <div *tuiItem>
+        <!-- top cell -->
+        <div tuiCell="m">
+          <div tuiTitle>
+            <tui-badge appearance="positive" tuiStatus>
+              Near You
+            </tui-badge>
+          </div>
+          <tui-icon icon="@tui.heart"></tui-icon>
+        </div>
+
+        <!-- desc -->
+        <header tuiTitle>
+          Find your lovely place for life
+          <span tuiSubtitle>
+            This is a lovely home. Hurry and rent
+          </span>
+        </header>
+
+
+        <!-- cta cell -->
+
+        <div tuiCell="m">
+          <div tuiTitle>
+            <Button tuiButton tuiAppearance="info">
+              View Listing
+            </Button>
+          </div>
+
+          <header>
+            <span><del>KES 11000/Month</del> KES 9500/Month</span>
+          </header>
+        </div>
+        <button
+            appearance="neutral"
+            icon="@tui.map-pin"
+            size="m"
+            tuiNotification
+            type="button"
+            [style.width]="'fit-content'"
+            size="s"
+          >
+          Rongai, Kenya
+        </button>
+        <button
+            appearance="neutral"
+            icon="@tui.map-pin"
+            size="m"
+            tuiNotification
+            type="button"
+            [style.width]="'fit-content'"
+            size="s"
+          >
+          1 Bedroom
+        </button>
+        <div style="display: flex;">
+          <tui-badge
+            appearance="info"
+            iconStart="@tui.toilet"
+            size="l"
+            class="badge tui-space_top-3"
+            style="margin-right: 2px;"
+        >
+            1
+        </tui-badge>
+        <tui-badge
+            appearance="info"
+            iconStart="@tui.bed-single"
+            size="l"
+            class="badge tui-space_top-3"
+        >
+            2
+        </tui-badge>
+        </div>
+      </div>
+
+      <!-- item 2 -->
+      <div *tuiItem tuiCardLarge style="background: url('placeholder.jpg')" class="image">
+        <!-- top cell -->
+        <div tuiCell="m">
+          <div tuiTitle>
+            <tui-badge appearance="positive" tuiStatus>
+              Near You
+            </tui-badge>
+          </div>
+          <tui-icon icon="@tui.heart"></tui-icon>
+        </div>
+
+        <!-- desc -->
+        <header tuiTitle>
+          Find your lovely place for life
+          <span tuiSubtitle>
+            This is a lovely home. Hurry and rent
+          </span>
+        </header>
+
+
+        <!-- cta cell -->
+
+        <div tuiCell="m">
+          <div tuiTitle>
+            <Button tuiButton tuiAppearance="info">
+              View Listing
+            </Button>
+          </div>
+
+          <header>
+            <span><del>KES 11000/Month</del> KES 9500/Month</span>
+          </header>
+        </div>
+        <button
+            appearance="neutral"
+            icon="@tui.map-pin"
+            size="m"
+            tuiNotification
+            type="button"
+            [style.width]="'fit-content'"
+            size="s"
+          >
+          Rongai, Kenya
+        </button>
+        <button
+            appearance="neutral"
+            icon="@tui.map-pin"
+            size="m"
+            tuiNotification
+            type="button"
+            [style.width]="'fit-content'"
+            size="s"
+          >
+          1 Bedroom
+        </button>
+        <div style="display: flex;">
+          <tui-badge
+            appearance="info"
+            iconStart="@tui.toilet"
+            size="l"
+            class="badge tui-space_top-3"
+            style="margin-right: 2px;"
+        >
+            1
+        </tui-badge>
+        <tui-badge
+            appearance="info"
+            iconStart="@tui.bed-single"
+            size="l"
+            class="badge tui-space_top-3"
+        >
+            2
+        </tui-badge>
+        </div>
+      </div>
+
+      <!-- item 3 -->
+      <div *tuiItem>
+        <!-- top cell -->
+        <div tuiCell="m">
+          <div tuiTitle>
+            <tui-badge appearance="positive" tuiStatus>
+              Near You
+            </tui-badge>
+          </div>
+          <tui-icon icon="@tui.heart"></tui-icon>
+        </div>
+
+        <!-- desc -->
+        <header tuiTitle>
+          Find your lovely place for life
+          <span tuiSubtitle>
+            This is a lovely home. Hurry and rent
+          </span>
+        </header>
+
+
+        <!-- cta cell -->
+
+        <div tuiCell="m">
+          <div tuiTitle>
+            <Button tuiButton tuiAppearance="info">
+              View Listing
+            </Button>
+          </div>
+
+          <header>
+            <span><del>KES 11000/Month</del> KES 9500/Month</span>
+          </header>
+        </div>
+        <button
+            appearance="neutral"
+            icon="@tui.map-pin"
+            size="m"
+            tuiNotification
+            type="button"
+            [style.width]="'fit-content'"
+            size="s"
+          >
+          Rongai, Kenya
+        </button>
+        <button
+            appearance="neutral"
+            icon="@tui.map-pin"
+            size="m"
+            tuiNotification
+            type="button"
+            [style.width]="'fit-content'"
+            size="s"
+          >
+          1 Bedroom
+        </button>
+        <div style="display: flex;">
+          <tui-badge
+            appearance="info"
+            iconStart="@tui.toilet"
+            size="l"
+            class="badge tui-space_top-3"
+            style="margin-right: 2px;"
+        >
+            1
+        </tui-badge>
+        <tui-badge
+            appearance="info"
+            iconStart="@tui.bed-single"
+            size="l"
+            class="badge tui-space_top-3"
+        >
+            2
+        </tui-badge>
+        </div>
+      </div>
+
+      <!-- end of items -->
+
+    </tui-carousel>
+    <tui-badge appearance="positive">
+      <tui-pagination
+        size="s"
+        class="pagination"
+        [length]="count"
+        [(index)]="index"
+      />
+    </tui-badge>
+  </div>
+
+  <div class="small-cards">
+    <div class="small-card top" tuiCardMedium>
+      <h3>Secondary Item 1</h3>
+    </div>
+    <div class="small-card bottom" tuiCardMedium>
+      <h3>Secondary Item 2</h3>
+    </div>
+  </div>
+</div>
+
+<!-- search section -->
+ <div>
+  <div tuiTitle="l">
+    Select Your House
+    <span tuiSubtitle>
+      Over 50,000+ house collection
+    </span>
+  </div>
+
+  <search tuiSearch>
+    <form>
+
+      <fieldset tuiTextfieldSize="s">
+        <tui-textfield iconStart="@tui.map-pin">
+          <input
+              formControlName="search"
+              placeholder="Location"
+              tuiTextfield
+          />
+        </tui-textfield>
+
+        <tui-textfield iconStart="@tui.house">
+          <input
+              formControlName="search"
+              placeholder="Room Type"
+              tuiTextfield
+          />
+        </tui-textfield>
+
+        <tui-textfield
+            iconStart="@tui.euro"
+            tuiTextfieldSize="s"
+        >
+          <input
+              formControlName="price"
+              placeholder="Price"
+              tuiTextfield
+          />
+        </tui-textfield>
+
+
+        <tui-textfield iconStart="@tui.shield">
+          <input
+              formControlName="search"
+              placeholder="Verification Status"
+              tuiTextfield
+          />
+        </tui-textfield>
+
+
+         <button
+                size="s"
+                tuiButton
+                type="button"
+            >
+                Search
+          </button>
+
+        </fieldset>
+      <fieldset>
+        <tui-segmented size="s">
+          <label *ngFor="let segment of filters">
+            <input
+                formControlName="segmented"
+                type="radio"
+                [value]="segment"
+            />
+            {{ segment || 'All' }}
+        </label>
+        </tui-segmented>
+        <tui-filter
+            formControlName="filter"
+            size="s"
+            [items]="filters"
+        />
+        Results: 999
+
+        <label tuiLabel>
+            <input
+                formControlName="switch"
+                tuiSwitch
+                type="checkbox"
+            />
+            Assigned to me
+        </label>
+
+        <button
+          iconStart="@tui.rotate-ccw"
+          size="s"
+          tuiIconButton
+          type="button"
+          [style.border-radius.%]="100"
+      >
+      </button>
+      </fieldset>
+    </form>
+  </search>
+ </div>
+
+
+ <div tuiCell="l">
+  <div tuiTitle>
+    Top Listing
+  </div>
+
+  <tui-tabs [(activeItemIndex)]="activeItemIndex">
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+    >
+        All Listings
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+    >
+        Bed Sitters
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+    >
+        1 Bedrooma
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+    >
+        1 KM from School
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+    >
+        2 Bedroom
+    </button>
+  </tui-tabs>
+ </div>
+
+ <!-- listings -->
+ <div *ngIf="listings$ | async as listings" class="listings-grid">
   <div *ngFor="let listing of listings">
     <div
       tuiCardMedium
@@ -6,7 +434,6 @@
       class="listing-card"
       [routerLink]="['/housing', listing.id]"
     >
-      <!-- Header -->
       <header tuiCell="s" class="card-header">
         <tui-badge size="s" appearance="neutral">Posted on {{ listing.created_at | date }}</tui-badge>
         <tui-icon icon="@tui.images" />
@@ -20,20 +447,20 @@
         </button>
       </header>
 
-      <!-- Image -->
+
       <img
         [src]="listing.images?.length ? listing.images[0].url : 'assets/placeholder.jpg'"
         alt="Listing thumbnail"
         class="listing-thumb"
       />
 
-      <!-- Main Info -->
+
       <h2 tuiTitle>
         {{ listing.title }}
         <span tuiSubtitle>{{ listing.location }}</span>
       </h2>
 
-      <!-- Price & Badges -->
+
       <footer tuiCell="s" class="card-footer">
         <tui-badge class="price" appearance="accent" size="s">
           KES {{ listing.price | number }}
@@ -57,7 +484,7 @@
         <tui-icon icon="@tui.heart" />
       </footer>
 
-      <!-- Dropdown Template -->
+
       <ng-template #schools>
         <tui-data-list size="m">
           <button tuiOption>Multimedia University</button>
@@ -69,3 +496,5 @@
     </div>
   </div>
 </div>
+
+

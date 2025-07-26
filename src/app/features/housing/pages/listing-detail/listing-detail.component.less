@@ -1,37 +1,123 @@
 .detail-container {
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem 1.25rem;
+  max-width: 1200px;
+  margin: auto;
+}
 
-  h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+.back-btn {
+  align-self: start;
+  margin-bottom: 1rem;
+}
+
+.header-image {
+  width: 100%;
+  border-radius: var(--tui-radius-m);
+  overflow: hidden;
+
+  img.header {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 280px;
+    border-radius: var(--tui-radius-m);
+  }
+}
+
+.listing-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .location {
-    color: var(--tui-text-03);
-    font-size: 0.9rem;
+  .price-badge {
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: var(--tui-background-accent-2);
+    color: var(--tui-text-primary);
   }
+}
 
-  .price {
-    margin-top: 1rem;
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: var(--tui-support-04);
-  }
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 
-  .images {
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.overview {
+  padding-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--tui-text-secondary);
+}
+
+.addon-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.occupancy-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.lister-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+
+  > div {
     display: flex;
+    align-items: center;
     gap: 1rem;
-    margin-top: 1rem;
-
-    img {
-      max-width: 300px;
-      border-radius: 1rem;
-      object-fit: cover;
-    }
   }
+}
 
-  .description {
-    margin-top: 2rem;
-    line-height: 1.6;
+.image-carousel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+
+  img {
+    width: 100%;
+    border-radius: var(--tui-radius-s);
+    object-fit: cover;
+    height: 120px;
   }
+}
+
+.no-images {
+  text-align: center;
+  color: var(--tui-text-secondary);
+  font-size: 0.9rem;
+  padding: 1rem 0;
+}
+
+/* Typography headers */
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
+  color: var(--tui-text-primary);
 }

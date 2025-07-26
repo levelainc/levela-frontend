@@ -5,15 +5,17 @@ import {
   OnInit,
 } from '@angular/core';
 import { CommonModule, AsyncPipe, NgIf, NgForOf } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { HousingService } from '../../services/housing.service';
 import { Listing } from '../../models/housing.model';
-import { TuiBadge, TuiChevron, TuiRating, TuiTab } from '@taiga-ui/kit';
+import { TuiBadge, TuiCarousel, TuiChevron, TuiFilter, TuiPager, TuiPagination, TuiRange, TuiRating, TuiSegmented, TuiStatus, TuiSwitch, TuiTab, TuiTabs } from '@taiga-ui/kit';
 import {
   TuiCardLarge,
   TuiCardMedium,
   TuiCell,
-  TuiHeader
+  TuiForm,
+  TuiHeader,
+  TuiSearch
 } from '@taiga-ui/layout';
 import {
   TuiButton,
@@ -25,7 +27,12 @@ import {
   TuiDataList,
   TuiDropdownOpen,
   TuiIcon,
+  TuiTextfield,
+  TuiLabel,
+  TuiNotification,
 } from '@taiga-ui/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TuiRepeatTimes } from '@taiga-ui/cdk';
 @Component({
   standalone: true,
   selector: 'app-browse-listings',
@@ -41,7 +48,6 @@ import {
   TuiAppearance,
   TuiBadge,
   TuiButton,
-  TuiCardLarge,
   TuiCardMedium,
   TuiHeader,
   TuiSurface,
@@ -54,9 +60,28 @@ import {
   TuiTab,
   TuiIcon,
   TuiButton,
+  TuiSearch,
+  TuiTextfield,
+  TuiSegmented,
+  TuiFilter,
+  TuiForm,
+  ReactiveFormsModule,
+  TuiSwitch,
+  TuiLabel,
+  TuiSwitch,
+  TuiCardLarge,
   TuiCell,
-  TuiRating,
-  
+  TuiTabs,
+  RouterLink,
+  TuiTab,
+  RouterLinkActive,
+  TuiBadge,
+  TuiStatus,
+  TuiNotification,
+  TuiCarousel,
+  TuiRepeatTimes,
+  TuiPagination
+
   ],
 })
 export class BrowseListingsComponent implements OnInit {
@@ -68,5 +93,21 @@ export class BrowseListingsComponent implements OnInit {
   getImageUrl(listing: Listing): string {
     return listing.images?.[0]?.url || 'placeholder.jpg';
   }
+
+  readonly form = new FormGroup({
+    location: new FormControl(''),
+    roomType: new FormControl(''),
+    priceRange: new FormControl([0, 100]),
+    verified: new FormControl(false),
+    segmented: new FormControl(null),
+    filter: new FormControl([]),
+    assignedToMe: new FormControl(false),
+  });
+
+  readonly items = ['Apartment', 'Hostel', 'Bedsitter'];
+  readonly filters = ['Balcony', 'Pet-friendly', 'Self-contained'];
+  activeItemIndex=0;
+  protected count = 3;
+  protected index = 0;
 
 }

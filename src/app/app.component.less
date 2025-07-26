@@ -1,23 +1,71 @@
-// :host {
-//   --tui-font-text: 'Comic Sans MS', cursive;
-//   --tui-font-text-m: bold 1rem/1.5rem var(--tui-font-text);
-//   --tui-font-text-s: normal 0.5rem/1.25rem var(--tui-font-text);
-//   --tui-background-accent-1: #c86dd7;
-//   --tui-background-accent-1-hover: #a456b1;
-//   --tui-background-accent-1-pressed: #7f3b8a;
-//   --tui-text-primary-on-accent-1: #fff;
-//   --tui-radius-s: 0;
-//   --tui-radius-m: 0.25rem;
-//   --tui-height-l: 4.375rem;
-//   --tui-theme-color: black;
-// }
+:root {
+  /* Brand Color */
+  --tui-theme-color: #5c6bc0;
 
+  /* Radius */
+  --tui-radius-s: 0.375rem;
+  --tui-radius-m: 0.5rem;
 
-.drawer {
-  // Unnecessary when TuiThemeColorService is instead
-  background: rgb(135, 206, 235);
-  color: var(--tui-text-primary);
+  /* Fonts – Korean-friendly */
+  --tui-font-text: 'SUIT', 'Pretendard', 'Noto Sans KR', sans-serif;
+  --tui-font-text-s: 400 0.875rem/1.375rem var(--tui-font-text);
+  --tui-font-text-m: 500 1rem/1.5rem var(--tui-font-text);
+
+  /* Backgrounds */
+  --tui-background-base: #fdfbfa;
+  --tui-background-base-alt: #f4f1ef;
+  --tui-background-elevation-1: #ffffff;
+  --tui-background-elevation-2: #f2efec;
+
+  /* Accent Colors */
+  --tui-background-accent-1: #5c6bc0;
+  --tui-background-accent-1-hover: #7a87d3;
+  --tui-background-accent-1-pressed: #3c4ba4;
+
+  --tui-background-accent-2: #ffc6c6;
+  --tui-background-accent-2-hover: #ffb0b0;
+  --tui-background-accent-2-pressed: #f78d8d;
+
+  --tui-background-accent-opposite: #222;
+  --tui-background-accent-opposite-hover: #444;
+  --tui-background-accent-opposite-pressed: #888;
+
+  /* Text Colors */
+  --tui-text-primary: rgba(32, 35, 48, 1);
+  --tui-text-secondary: rgba(32, 35, 48, 0.65);
+  --tui-text-tertiary: rgba(32, 35, 48, 0.4);
+
+  --tui-text-action: #5c6bc0;
+  --tui-text-action-hover: #7a87d3;
+  --tui-text-positive: #2fb58c;
+  --tui-text-negative: #e05b5b;
+
+  /* Borders & Shadow */
+  --tui-border-normal: rgba(0, 0, 0, 0.06);
+  --tui-border-hover: rgba(0, 0, 0, 0.1);
+  --tui-border-focus: rgba(60, 60, 60, 0.5);
+  --tui-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+
+  /* Status Colors */
+  --tui-status-positive: rgba(47, 181, 140, 1);
+  --tui-status-negative: rgba(224, 91, 91, 1);
+  --tui-status-warning: rgba(255, 204, 102, 1);
+  --tui-status-info: rgba(112, 177, 243, 1);
+
+  /* Autofill */
+  --tui-service-autofill-background: #fff7cc;
+
+  /* Navigation + Sidebar */
+  --tui-navigation-background: var(--tui-background-accent-1);
+  --tui-navigation-border-bottom: none;
+
+  --tui-sidebar-background: #ffffff;
+  --tui-sidebar-text: rgba(32, 35, 48, 0.84);
+  --tui-sidebar-icon: var(--tui-theme-color);
+  --tui-sidebar-hover-background: #f3f5ff;
 }
+
+
 
 aside::before {
   display: none;
