@@ -290,9 +290,8 @@
     </span>
   </div>
 
-  <search tuiSearch>
-    <form>
-
+  <!-- <search tuiSearch>
+    <form [formGroup]="form">
       <fieldset tuiTextfieldSize="s">
         <tui-textfield iconStart="@tui.map-pin">
           <input
@@ -377,7 +376,7 @@
       </button>
       </fieldset>
     </form>
-  </search>
+  </search> -->
  </div>
 
 
@@ -497,4 +496,94 @@
   </div>
 </div>
 
+<!-- trending searches -->
+<section class="trending-section">
+  <div class="columns">
+
+    <aside class="left-column">
+      <div tuiCardLarge class="left-card">
+        Left Card 1 Content
+      </div>
+      <div tuiCardLarge class="left-card">
+        Left Card 2 Content
+      </div>
+    </aside>
+
+
+    <div class="right-column">
+      <h4>Trending searches</h4>
+      <div class="listings-grid" *ngIf="listings$ | async as listings">
+        <div class="grid-card" *ngFor="let trend of listings">
+          <div tuiCardLarge>
+            <h4>{{ trend.title }}</h4>
+            <p>{{ trend.id }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Featured Categories -->
+
+<h4 class="section-heading">Explore Housing</h4>
+<section class="housing-explore">
+  <div class="housing-columns">
+
+
+    <div class="column">
+      <h3>Featured Categories</h3>
+      <div class="card-grid" *ngIf="listings$ | async as listings">
+        <div class="custom-tiny-card" *ngFor="let type of listings">
+          <tui-avatar [src]="'placeholder.jpg'" size="s"></tui-avatar>
+          <span>{{ type.title }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Hosts -->
+    <div class="column">
+      <h3>Top Hosts</h3>
+      <div class="card-grid">
+        <div class="custom-tiny-card" *ngFor="let host of topHosts">
+          <tui-avatar [src]="host.avatar" size="s"></tui-avatar>
+          <div class="font-bold">{{ host.name }}</div>
+          <div class="text-sm text-muted">{{ host.listings }} listings</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- deals of the week -->
+ <!-- Deals of the Week -->
+<section class="deals-of-week">
+  <div class="deals-columns">
+
+    <!-- Left: Wide horizontal card -->
+    <aside class="deals-left" tuiCardLarge>
+      <div class="highlight-card">
+        <h4>Deal of the Week</h4>
+        <p>Get 50% off student housing in Gangnam!</p>
+      </div>
+    </aside>
+
+    <!-- Right: Grid of deals -->
+    <div class="deals-right">
+      <h4>More Great Deals</h4>
+      <div class="deals-grid" *ngIf="weeklyDeals$ | async as weeklyDeals" >
+        <div class="grid-card" *ngFor="let deal of weeklyDeals">
+          <div class="deal-card">
+            <tui-avatar [src]="deal.image" size="m" class="mb-1"></tui-avatar>
+            <div class="font-bold">{{ deal.title }}</div>
+            <div class="text-sm text-muted">{{ deal.price }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
