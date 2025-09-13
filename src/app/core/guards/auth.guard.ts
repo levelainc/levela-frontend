@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  CanActivate,
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -8,41 +14,41 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean | UrlTree {
     const url = state.url;
 
-    // Skip auth guard for these paths
-    const bypassPaths = [
-      '/auth/login',
-      '/auth/verify-email',
-    ];
-
-    // Bypass onboarding check for onboarding routes
+    // Paths where we skip verification/onboarding checks
+    const bypassPaths = ['/auth/login', '/auth/verify-email'];
     const isOnboarding = url.startsWith('/onboarding');
 
+    // be logged in
     if (!this.auth.isAuthenticated()) {
-      this.router.navigate(['/auth/login']);
-      return false;
+      return this.router.parseUrl('/auth/login');
     }
 
+    // user from localStorage
     const userRaw = localStorage.getItem('user');
     const user = userRaw ? JSON.parse(userRaw) : null;
 
     if (!user) {
       this.auth.logout();
-      return false;
+      return this.router.parseUrl('/auth/login');
     }
 
+    //Email verification check
     if (!user.is_verified && !bypassPaths.includes(url)) {
-      this.router.navigate(['/auth/verify-email']);
-      return false;
+      return this.router.parseUrl('/auth/verify-email');
     }
 
+    //Onboarding check
     if (!user.is_onboarded && !isOnboarding && !bypassPaths.includes(url)) {
-      this.router.navigate(['/onboarding/type']);
-      return false;
+      return this.router.parseUrl('/onboarding/type');
     }
 
+    //Everything OK — allow access
     return true;
   }
 }

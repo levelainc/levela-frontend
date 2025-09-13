@@ -90,7 +90,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         this.alerts
-            .open(err?.error?.message || 'Registration failed.',{
+            .open('Registration failed.',{
           label:'Error',
           appearance: 'negative',
           autoClose: 5000,})

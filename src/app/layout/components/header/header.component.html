@@ -1,81 +1,29 @@
 <header tuiNavigationHeader>
-  <!-- Left Section: Logo + Drawer (mobile only) -->
-  <!-- Drawer Toggle Button -->
-  <button
-    tuiIconButton
-    tuiNavigationDrawer
-    [(open)]="openDrawer"
-    type="button"
-    title="menu"
-  >
+  <!-- Left: Drawer + Logo -->
+  <button tuiIconButton tuiNavigationDrawer [(open)]="openDrawer" type="button" title="menu">
     <tui-data-list size="s">
-      <button
-          iconStart="@tui.palette"
-          routerLink="/color-generator"
-          tuiOption
-          type="button"
-      >
-          Theme Generator
-      </button>
-      <button
-          iconStart="@tui.layout-dashboard"
-          routerLink="/dashboards/iot"
-          tuiOption
-          type="button"
-      >
-          Iot dashboard
-      </button>
-      <button
-          iconStart="@tui.layout-dashboard"
-          routerLink="/dashboards/crypto"
-          tuiOption
-          type="button"
-      >
-          Crypto dashboard
-      </button>
-      <button
-          iconStart="@tui.log-in"
-          routerLink="/pages/login"
-          tuiOption
-          type="button"
-      >
-          Log in
-      </button>
-      <button
-          iconStart="@tui.key-round"
-          routerLink="/pages/sign-up"
-          tuiOption
-          type="button"
-      >
-          Sign up
-      </button>
+      <button iconStart="@tui.palette" routerLink="/color-generator" tuiOption type="button">Theme Generator</button>
+      <button iconStart="@tui.layout-dashboard" routerLink="/dashboards/iot" tuiOption type="button">IoT Dashboard</button>
+      <button iconStart="@tui.layout-dashboard" routerLink="/dashboards/crypto" tuiOption type="button">Crypto Dashboard</button>
+      <button iconStart="@tui.log-in" routerLink="/pages/login" tuiOption type="button">Log in</button>
+      <button iconStart="@tui.key-round" routerLink="/pages/sign-up" tuiOption type="button">Sign up</button>
     </tui-data-list>
-
   </button>
 
-  <!-- App Logo -->
   <span tuiNavigationLogo class="logo">Levela</span>
 
-  <hr />
-  <!-- Center Section: Search -->
+  <!-- Center: Search -->
+   <hr />
   <div>
     <tui-textfield (pointerdown.capture.stop)="(0)">
-      <input
-        tuiSearchHotkey
-        [formControl]="control"
-        [tuiInputSearch]="search"
-        [(tuiInputSearchOpen)]="open"
-      />
+      <input tuiSearchHotkey [formControl]="control" [tuiInputSearch]="search" [(tuiInputSearchOpen)]="open" />
       <ng-template #search>
         <tui-search-results [results]="results$ | async">
-          <tui-search-history [popular]="popular" />
+          <tui-search-history [popular]="popular"></tui-search-history>
           <ng-template let-item>
             <a tuiCell [href]="item.href">
-              <tui-avatar [src]="item.icon || '@tui.file'" />
-              <span tuiTitle>
-                {{ item.title }}
-                <span tuiSubtitle>{{ item.subtitle }}</span>
-              </span>
+              <tui-avatar [src]="item.icon || '@tui.file'"></tui-avatar>
+              <span tuiTitle>{{ item.title }}<span tuiSubtitle>{{ item.subtitle }}</span></span>
             </a>
           </ng-template>
         </tui-search-results>
@@ -83,58 +31,45 @@
     </tui-textfield>
   </div>
   <hr />
-  <!-- Right Section: Icons + Profile -->
+  <!-- Right: User Info -->
+  <div *ngIf="user$ | async as user; else loggedOut" class="header-right">
+    <span tuiFade="horizontal">{{ user.full_name }}</span>
+
+    <button tuiButton tuiChevron tuiDropdownOpen [tuiDropdown]="profileDropdown">
+      Profile
+    </button>
+
+    <ng-template #profileDropdown>
+      <tui-data-list size="s">
+        <a tuiOption [routerLink]="'/profile'">Profile</a>
+        <a tuiOption [routerLink]="'/settings'">Settings</a>
+        <button tuiOption (click)="logout()">Logout</button>
+      </tui-data-list>
+    </ng-template>
+  </div>
+
+  <ng-template #loggedOut>
+    <a tuiButton [routerLink]="'/auth/login'">
+      Login
+      <tui-icon icon="@tui.lock-open" [style.font-size.em]="1" [style.margin-left.rem]="0.5"></tui-icon>
+    </a>
+  </ng-template>
+
+  <!-- Icons + Dark Mode -->
   <div class="header-right">
-    <button tuiIconButton tuiHint="Notifications">
-      <tui-icon icon="@tui.bell"></tui-icon>
-    </button>
-
-    <button tuiIconButton tuiHint="Messages">
-      <tui-icon icon="@tui.mail"></tui-icon>
-    </button>
-
+    <button tuiIconButton tuiHint="Notifications"><tui-icon icon="@tui.bell"></tui-icon></button>
+    <button tuiIconButton tuiHint="Messages"><tui-icon icon="@tui.mail"></tui-icon></button>
+    <button tuiIconButton tuiHint="Languages"><tui-icon icon="@tui.languages"></tui-icon></button>
     <button
-      tuiButton
-      tuiChevron
-      tuiDropdownOpen
+      size="s"
+      tuiIconButton
       type="button"
-      [tuiDropdown]="profile"
+      class="tui-doc-dark-mode-switch"
+      [iconStart]="icon()"
+      [style.border-radius.%]="100"
+      (click)="darkMode.set(!darkMode())"
     >
-      <span class="profile-label">
-        <!-- {{ username }} -->Profile
-      </span>
-      <ng-template #profile>
-        <tui-data-list size="s">
-          <a tuiOption [routerLink]="'/profile'">
-            Profile
-            <tui-icon icon="@tui.user" [style.font-size.em]="1" [style.margin-left.rem]="0.5"></tui-icon>
-          </a>
-          <a tuiOption [routerLink]="'/settings'">
-            Settings
-            <tui-icon icon="@tui.settings" [style.font-size.em]="1" [style.margin-left.rem]="0.5"></tui-icon>
-          </a>
-          <button tuiOption (click)="logout()">
-            Logout
-            <tui-icon icon="@tui.log-out" [style.font-size.em]="1" [style.margin-left.rem]="0.5"></tui-icon>
-          </button>
-        </tui-data-list>
-      </ng-template>
-
-    </button>
-
-    <button tuiIconButton tuiHint="Languages">
-      <tui-icon icon="@tui.languages"></tui-icon>
-    </button>
-    <button
-        size="s"
-        tuiIconButton
-        type="button"
-        class="tui-doc-dark-mode-switch"
-        [iconStart]="icon()"
-        [style.border-radius.%]="100"
-        (click)="darkMode.set(!darkMode())"
-    >
-        Mode
+      Mode
     </button>
   </div>
 </header>
