@@ -16,73 +16,38 @@
   <!-- Title -->
   <tui-textfield>
     <label tuiLabel>Title</label>
-    <input
-      tuiTextfield
-      formControlName="title"
-      placeholder="e.g. Cozy Student Room in Nairobi"
-    />
+    <input tuiTextfield formControlName="title" placeholder="e.g. Cozy Student Room in Nairobi" />
   </tui-textfield>
-  <tui-error formControlName="title" [error]="[] | tuiFieldError | async" />
+  <tui-error [formControl]="form.controls['title']" [error]="['required','maxlength'] | tuiFieldError | async" />
 
   <!-- Description -->
   <tui-textfield>
     <label tuiLabel>Description</label>
-    <textarea
-      tuiTextfield
-      formControlName="description"
-      placeholder="Describe the property"
-    ></textarea>
+    <textarea tuiTextarea formControlName="description" placeholder="Describe the property" [max]=4 [min]=4></textarea>
   </tui-textfield>
-  <tui-error formControlName="description" [error]="[] | tuiFieldError | async" />
+  <tui-error [formControl]="form.controls['description']" [error]="['required','maxlength'] | tuiFieldError | async" />
 
   <!-- Price -->
   <tui-textfield>
     <label tuiLabel>Price (KES)</label>
-    <input
-      tuiTextfield
-      type="number"
-      formControlName="price"
-      placeholder="2500"
-    />
+    <input tuiTextfield type="number" formControlName="price" placeholder="2500" />
   </tui-textfield>
-  <tui-error formControlName="price" [error]="[] | tuiFieldError | async" />
+  <tui-error [formControl]="form.controls['price']" [error]="['required','min'] | tuiFieldError | async" />
 
   <!-- City -->
   <tui-textfield>
     <label tuiLabel>City</label>
-    <input
-      tuiTextfield
-      formControlName="city"
-      placeholder="e.g. Nairobi"
-    />
+    <input tuiTextfield formControlName="city" placeholder="e.g. Nairobi" />
   </tui-textfield>
-  <tui-error formControlName="city" [error]="[] | tuiFieldError | async" />
+  <tui-error [formControl]="form.controls['city']" [error]="['required'] | tuiFieldError | async" />
 
   <!-- Image Upload -->
-  <app-image-upload
-    [control]="form.controls['images']"
-    accept="image/*"
-    [multiple]="true"
-    label="Upload room images"
-  />
+  <app-image-upload [control]="form.controls['images']" accept="image/*"  label="Upload room images"></app-image-upload>
 
   <footer class="tui-space_top-3">
-    <button
-      appearance="secondary"
-      tuiButton
-      type="button"
-      routerLink="/housing"
-    >
-      Cancel
-    </button>
-
-    <button
-      tuiButton
-      type="submit"
-      [disabled]="form.invalid || loading"
-    >
+    <button appearance="secondary" tuiButton type="button" routerLink="/housing">Cancel</button>
+    <button tuiButton type="submit" [disabled]="form.invalid || loading">
       {{ loading ? 'Posting...' : 'Post Listing' }}
     </button>
   </footer>
 </form>
-hii

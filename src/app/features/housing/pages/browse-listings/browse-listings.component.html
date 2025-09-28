@@ -1,285 +1,4 @@
-<!-- general page -->
-<div class="feature-grid">
-  <div class="large-card" tuiCardLarge>
-    <div
-        tuiCarouselButtons
-        class="wrapper"
-    >
-        <button
-            iconStart="@tui.chevron-left"
-            tuiIconButton
-            type="button"
-            (click)="carousel.prev()"
-        >
-            Previous
-        </button>
-        <button
-            iconStart="@tui.chevron-right"
-            tuiIconButton
-            type="button"
-            (click)="carousel.next()"
-        >
-            Previous
-        </button>
-    </div>
-    <tui-carousel
-    #carousel
-    [duration]="3000"
-    [itemsCount]="1"
-    [(index)]="index"
-    [draggable]="true">
-      <div *tuiItem>
-        <!-- top cell -->
-        <div tuiCell="m">
-          <div tuiTitle>
-            <tui-badge appearance="positive" tuiStatus>
-              Near You
-            </tui-badge>
-          </div>
-          <tui-icon icon="@tui.heart"></tui-icon>
-        </div>
 
-        <!-- desc -->
-        <header tuiTitle>
-          Find your lovely place for life
-          <span tuiSubtitle>
-            This is a lovely home. Hurry and rent
-          </span>
-        </header>
-
-
-        <!-- cta cell -->
-
-        <div tuiCell="m">
-          <div tuiTitle>
-            <Button tuiButton tuiAppearance="info">
-              View Listing
-            </Button>
-          </div>
-
-          <header>
-            <span><del>KES 11000/Month</del> KES 9500/Month</span>
-          </header>
-        </div>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          Rongai, Kenya
-        </button>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          1 Bedroom
-        </button>
-        <div style="display: flex;">
-          <tui-badge
-            appearance="info"
-            iconStart="@tui.toilet"
-            size="l"
-            class="badge tui-space_top-3"
-            style="margin-right: 2px;"
-        >
-            1
-        </tui-badge>
-        <tui-badge
-            appearance="info"
-            iconStart="@tui.bed-single"
-            size="l"
-            class="badge tui-space_top-3"
-        >
-            2
-        </tui-badge>
-        </div>
-      </div>
-
-      <!-- item 2 -->
-      <div *tuiItem tuiCardLarge style="background: url('placeholder.jpg')" class="image">
-        <!-- top cell -->
-        <div tuiCell="m">
-          <div tuiTitle>
-            <tui-badge appearance="positive" tuiStatus>
-              Near You
-            </tui-badge>
-          </div>
-          <tui-icon icon="@tui.heart"></tui-icon>
-        </div>
-
-        <!-- desc -->
-        <header tuiTitle>
-          Find your lovely place for life
-          <span tuiSubtitle>
-            This is a lovely home. Hurry and rent
-          </span>
-        </header>
-
-
-        <!-- cta cell -->
-
-        <div tuiCell="m">
-          <div tuiTitle>
-            <Button tuiButton tuiAppearance="info">
-              View Listing
-            </Button>
-          </div>
-
-          <header>
-            <span><del>KES 11000/Month</del> KES 9500/Month</span>
-          </header>
-        </div>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          Rongai, Kenya
-        </button>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          1 Bedroom
-        </button>
-        <div style="display: flex;">
-          <tui-badge
-            appearance="info"
-            iconStart="@tui.toilet"
-            size="l"
-            class="badge tui-space_top-3"
-            style="margin-right: 2px;"
-        >
-            1
-        </tui-badge>
-        <tui-badge
-            appearance="info"
-            iconStart="@tui.bed-single"
-            size="l"
-            class="badge tui-space_top-3"
-        >
-            2
-        </tui-badge>
-        </div>
-      </div>
-
-      <!-- item 3 -->
-      <div *tuiItem>
-        <!-- top cell -->
-        <div tuiCell="m">
-          <div tuiTitle>
-            <tui-badge appearance="positive" tuiStatus>
-              Near You
-            </tui-badge>
-          </div>
-          <tui-icon icon="@tui.heart"></tui-icon>
-        </div>
-
-        <!-- desc -->
-        <header tuiTitle>
-          Find your lovely place for life
-          <span tuiSubtitle>
-            This is a lovely home. Hurry and rent
-          </span>
-        </header>
-
-
-        <!-- cta cell -->
-
-        <div tuiCell="m">
-          <div tuiTitle>
-            <Button tuiButton tuiAppearance="info">
-              View Listing
-            </Button>
-          </div>
-
-          <header>
-            <span><del>KES 11000/Month</del> KES 9500/Month</span>
-          </header>
-        </div>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          Rongai, Kenya
-        </button>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          1 Bedroom
-        </button>
-        <div style="display: flex;">
-          <tui-badge
-            appearance="info"
-            iconStart="@tui.toilet"
-            size="l"
-            class="badge tui-space_top-3"
-            style="margin-right: 2px;"
-        >
-            1
-        </tui-badge>
-        <tui-badge
-            appearance="info"
-            iconStart="@tui.bed-single"
-            size="l"
-            class="badge tui-space_top-3"
-        >
-            2
-        </tui-badge>
-        </div>
-      </div>
-
-      <!-- end of items -->
-
-    </tui-carousel>
-    <tui-badge appearance="positive">
-      <tui-pagination
-        size="s"
-        class="pagination"
-        [length]="count"
-        [(index)]="index"
-      />
-    </tui-badge>
-  </div>
-
-  <div class="small-cards">
-    <div class="small-card top" tuiCardMedium>
-      <h3>Secondary Item 1</h3>
-    </div>
-    <div class="small-card bottom" tuiCardMedium>
-      <h3>Secondary Item 2</h3>
-    </div>
-  </div>
-</div>
 
 <!-- search section -->
  <div>
@@ -290,7 +9,7 @@
     </span>
   </div>
 
-  <search tuiSearch>
+  <!-- <search tuiSearch>
     <form [formGroup]="form">
       <fieldset tuiTextfieldSize="s">
         <tui-textfield iconStart="@tui.map-pin">
@@ -376,7 +95,7 @@
       </button>
       </fieldset>
     </form>
-  </search>
+  </search> -->
  </div>
 
 
@@ -385,11 +104,12 @@
     Top Listing
   </div>
 
-  <tui-tabs [(activeItemIndex)]="activeItemIndex">
+  <tui-tabs-with-more [(activeItemIndex)]="activeItemIndex" [itemsLimit]="5">
     <button
         iconStart="@tui.credit-card"
         tuiTab
         type="button"
+        *tuiItem
     >
         All Listings
     </button>
@@ -397,6 +117,7 @@
         iconStart="@tui.credit-card"
         tuiTab
         type="button"
+        *tuiItem
     >
         Bed Sitters
     </button>
@@ -404,6 +125,8 @@
         iconStart="@tui.credit-card"
         tuiTab
         type="button"
+        *tuiItem
+
     >
         1 Bedrooma
     </button>
@@ -411,6 +134,8 @@
         iconStart="@tui.credit-card"
         tuiTab
         type="button"
+        *tuiItem
+
     >
         1 KM from School
     </button>
@@ -418,10 +143,93 @@
         iconStart="@tui.credit-card"
         tuiTab
         type="button"
+        *tuiItem
+
     >
         2 Bedroom
     </button>
-  </tui-tabs>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+        *tuiItem
+
+    >
+        2 Sharing
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+        *tuiItem
+
+    >
+        Wifi
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+        *tuiItem
+
+    >
+        2 Bedroom
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+        *tuiItem
+
+    >
+        2 Bedroom
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+        *tuiItem
+
+    >
+        2 Bedroom
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+        *tuiItem
+
+    >
+        2 Bedroom
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+        *tuiItem
+
+    >
+        2 Bedroom
+    </button>
+    <button
+        iconStart="@tui.credit-card"
+        tuiTab
+        type="button"
+        *tuiItem
+
+    >
+        2 Bedroom
+    </button>
+    <button
+      iconStart="@tui.credit-card"
+      tuiTab
+      type="button"
+      *tuiItem
+
+    >
+        2 Bedroom
+    </button>
+  </tui-tabs-with-more>
  </div>
 
  <!-- listings -->

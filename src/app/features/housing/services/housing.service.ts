@@ -22,9 +22,21 @@ export class HousingService {
     return this.http.get<Listing>(`${this.baseUrl}/api/housing/listing/${id}`);
   }
 
-  createListing(formData: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/housing/listing`, formData);
+  createListing(payload: {
+    title: string;
+    description: string;
+    price: number;
+    location: string;
+  }): Observable<any> {
+    const token = localStorage.getItem('token');
+    console.log(token)
+    return this.http.post(`${this.baseUrl}/api/housing/listing`, payload,{
+      headers: {
+        Authorization: `Bearer ${token}`}
+      });
+
   }
+
 
   updateListing(id: string, formData: FormData): Observable<any> {
     return this.http.put(`${this.baseUrl}/listings/${id}`, formData);

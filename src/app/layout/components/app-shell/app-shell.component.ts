@@ -4,11 +4,9 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { FooterComponent } from '../footer/footer.component';
-import {TuiNavigation, TuiSubheaderCompactComponent, TuiSubheaderComponent} from '@taiga-ui/layout';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { SidebarContentComponent } from '../../../shared/ui/sidebar-content/sidebar-content.component';
-import { TuiDrawer } from '@taiga-ui/kit';
-import { TuiAppearance, TuiPopup } from '@taiga-ui/core';
+import {TuiNavigation} from '@taiga-ui/layout';
+
+import { InfosectionComponent } from '../../../shared/ui/infosection/infosection.component';
 
 @Component({
   selector: 'app-app-shell',
@@ -20,12 +18,11 @@ import { TuiAppearance, TuiPopup } from '@taiga-ui/core';
     FooterComponent,
     HeaderComponent,
     TuiNavigation,
-    TuiSubheaderCompactComponent,
-    TuiSubheaderComponent
+    InfosectionComponent
   ],
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.less'],
 })
 export class AppShellComponent {
-
+  protected current='basic'
 }

@@ -5,30 +5,10 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import {
-  TuiFile,
-  TuiFiles,
-  TuiFileLike,
-  tuiFilesRejected,
-} from '@taiga-ui/kit';
-import {
-  AsyncPipe,
-  NgIf,
-  NgForOf,
-  CommonModule,
-} from '@angular/common';
-import {
-  Subject,
-  of,
-  timer,
-  forkJoin,
-  Observable,
-} from 'rxjs';
-import {
-  finalize,
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { TuiFile, TuiFiles, TuiFileLike } from '@taiga-ui/kit';
+import { CommonModule, NgIf, NgForOf, AsyncPipe } from '@angular/common';
+import { Subject, Observable, of, forkJoin, timer } from 'rxjs';
+import { switchMap, map, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-image-upload',
@@ -47,49 +27,55 @@ import {
   ],
 })
 export class ImageUploadComponent implements OnInit {
-  @Input({ required: true }) control!: FormControl<TuiFileLike[] | null>;
+  @Input() control!: FormControl<TuiFileLike[] | null>;
   @Input() accept: string = 'image/*';
   @Input() multiple: boolean = true;
   @Input() label: string = 'Upload files';
 
-  readonly failedFiles$ = new Subject<TuiFileLike[]>();
-  readonly loadingFiles$ = new Subject<TuiFileLike[]>();
-  readonly loadedFiles$: Observable<TuiFileLike[]> = this.control.valueChanges.pipe(
-    switchMap((files) => this.processFiles(files))
-  );
+  readonly failedFiles$ = new Subject<TuiFileLike[] | null>();
+  readonly loadingFiles$ = new Subject<TuiFileLike[] | null>();
+  readonly loadedFiles$: Observable<TuiFileLike[]> = this.control?.valueChanges.pipe(
+    switchMap(files => this.processFiles(files))
+  ) ?? of([]);
 
   ngOnInit(): void {
     if (!this.control) {
       throw new Error('FormControl is required for app-image-upload');
     }
+    // Initialize Subjects with empty array to avoid template async errors
+    this.failedFiles$.next([]);
+    this.loadingFiles$.next([]);
   }
 
   get rejectedFiles(): TuiFileLike[] {
-    const acceptedTypes = this.accept.split(',').map(type => type.trim());
-
-    return (this.control.value || []).filter(file => {
-      if (!file || typeof file === 'string') return true; // skip invalids
-      return !acceptedTypes.some(type =>
-        file.type?.includes(type.replace('*', ''))
-      );
+    const acceptedTypes = this.accept.split(',').map(t => t.trim());
+    return (this.control.value ?? []).filter(file => {
+      if (!file || typeof file === 'string') return true;
+      return !acceptedTypes.some(type => file.type?.includes(type.replace('*', '')));
     });
   }
 
-
-  removeFile(): void {
-    this.control.setValue(null);
+  removeFile(file?: TuiFileLike): void {
+    if (!file) {
+      this.control.setValue([]);
+    } else {
+      const updated = (this.control.value ?? []).filter(f => f !== file);
+      this.control.setValue(updated);
+    }
   }
 
   private processFiles(files: TuiFileLike[] | null): Observable<TuiFileLike[]> {
-    this.failedFiles$.next([]);
-
     if (!files?.length) return of([]);
 
-    const tasks = files.map((file) =>
-      timer(500).pipe(
+    this.failedFiles$.next([]);
+    this.loadingFiles$.next(files);
+
+    const tasks = files.map(file =>
+      timer(300).pipe(
         map(() => {
-          const passed = Math.random() > 0.2;
-          if (!passed) {
+          // Simulate validation success (can be replaced with real logic)
+          const success = Math.random() > 0.1;
+          if (!success) {
             this.failedFiles$.next([file]);
             return null;
           }
@@ -98,10 +84,8 @@ export class ImageUploadComponent implements OnInit {
       )
     );
 
-    this.loadingFiles$.next(files);
-
     return forkJoin(tasks).pipe(
-      map((results) => results.filter((f): f is TuiFileLike => f !== null)),
+      map(results => results.filter((f): f is TuiFileLike => f !== null)),
       finalize(() => this.loadingFiles$.next([]))
     );
   }

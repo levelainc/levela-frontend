@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
     const bypassPaths = ['/auth/login', '/auth/verify-email'];
     const isOnboarding = url.startsWith('/onboarding');
 
-    // be logged in
+    // be logged in 
     if (!this.auth.isAuthenticated()) {
       return this.router.parseUrl('/auth/login');
     }

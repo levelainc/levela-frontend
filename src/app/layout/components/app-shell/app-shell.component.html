@@ -6,10 +6,15 @@
 
   <!-- Main Content Area -->
   <main class="content" tuiNavigationMain>
+    <div>
+    </div>
+    <app-infosection></app-infosection>
     <nav
-    compact
-    tuiSubheader
-    [style.position]="'sticky'"></nav>
+      tuiNavigationNav
+      [style.position]="'sticky'">
+        <button tuiButton>ABC</button>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia possimus praesentium, magnam maxime, ipsum beatae earum consequatur amet debitis vel sequi quos vitae perspiciatis itaque odio ut eveniet officia. Nesciunt!</p>
+    </nav>
     <router-outlet></router-outlet>
   </main>
 </div>
