@@ -8,7 +8,7 @@ import { CommonModule, AsyncPipe, NgIf, NgForOf } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { HousingService } from '../../services/housing.service';
 import { Listing } from '../../models/housing.model';
-import { TuiAvatar, TuiBadge, TuiCarousel, TuiChevron, TuiFilter, TuiPager, TuiPagination, TuiRange, TuiRating, TuiSegmented, TuiStatus, TuiSwitch, TuiTab, TuiTabs, TuiTabsWithMore } from '@taiga-ui/kit';
+import { TuiAvatar, TuiBadge, TuiCarousel, TuiChevron, TuiFilter, TuiPager, TuiPagination, TuiRange, TuiRating, TuiSegmented, TuiStatus, TuiSwitch, TuiTab, TuiTabs } from '@taiga-ui/kit';
 import {
   TuiCardLarge,
   TuiCardMedium,
@@ -66,7 +66,6 @@ import { of,Observable } from 'rxjs';
   TuiSegmented,
   TuiFilter,
   TuiForm,
-  ReactiveFormsModule,
   TuiSwitch,
   TuiLabel,
   TuiSwitch,
@@ -83,7 +82,6 @@ import { of,Observable } from 'rxjs';
   TuiRepeatTimes,
   TuiPagination,
   TuiAvatar,
-  TuiTabsWithMore
 
   ],
 })

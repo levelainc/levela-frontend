@@ -9,8 +9,9 @@ import {TUI_DARK_MODE, TUI_DARK_MODE_KEY, TuiButton} from '@taiga-ui/core';
   imports: [
     TuiRoot,
     AppShellComponent,
-    TuiAppearance
-  ],
+    TuiAppearance,
+      TuiRoot
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.less'
 })
