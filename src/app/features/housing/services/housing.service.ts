@@ -7,7 +7,7 @@ import { Listing } from '../models/housing.model';
   providedIn: 'root',
 })
 export class HousingService {
-  private readonly baseUrl = 'https://housing-production-16a7.up.railway.app';
+  private readonly baseUrl = 'http://localhost:5001';
 
   constructor(private http: HttpClient) {}
 

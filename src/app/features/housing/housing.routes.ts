@@ -11,6 +11,7 @@ export const HOUSING_ROUTES: Routes = [
     component: BrowseListingsComponent,
     title: 'Browse Listings',
   },
+
   {
     path: 'create',
     component: CreateListingComponent,
@@ -27,5 +28,10 @@ export const HOUSING_ROUTES: Routes = [
     path: ':id',
     component: ListingDetailComponent,
     title: 'Listing Details',
+  },
+    {
+    path: '**',
+    redirectTo:"",
+    pathMatch:"full",
   },
 ];

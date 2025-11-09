@@ -98,8 +98,8 @@
   </search> -->
  </div>
 
-
- <div tuiCell="l">
+<!-- preserve this for mobile -->
+ <!-- <div tuiCell="l">
   <div tuiTitle>
     Top Listing
   </div>
@@ -177,7 +177,7 @@
     </button>
 
   </tui-tabs-with-more>
- </div>
+ </div> -->
 
  <!-- listings -->
  <div *ngIf="listings$ | async as listings" class="listings-grid">
@@ -301,11 +301,11 @@
     <div class="column">
       <h3>Top Hosts</h3>
       <div class="card-grid">
-        <div class="custom-tiny-card" *ngFor="let host of topHosts">
+        <!-- <div class="custom-tiny-card" *ngFor="let host of topHosts">
           <tui-avatar [src]="host.avatar" size="s"></tui-avatar>
           <div class="font-bold">{{ host.name }}</div>
           <div class="text-sm text-muted">{{ host.listings }} listings</div>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -328,7 +328,7 @@
     <!-- Right: Grid of deals -->
     <div class="deals-right">
       <h4>More Great Deals</h4>
-      <div class="deals-grid" *ngIf="weeklyDeals$ | async as weeklyDeals" >
+      <!-- <div class="deals-grid" *ngIf="weeklyDeals$ | async as weeklyDeals" >
         <div class="grid-card" *ngFor="let deal of weeklyDeals">
           <div class="deal-card">
             <tui-avatar [src]="deal.image" size="m" class="mb-1"></tui-avatar>
@@ -336,7 +336,7 @@
             <div class="text-sm text-muted">{{ deal.price }}</div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
   </div>

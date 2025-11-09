@@ -8,15 +8,100 @@
   <main class="content" tuiNavigationMain>
     <div>
     </div>
-    <app-infosection></app-infosection>
-    <nav
+    <ng-container *ngIf="showHousingNav">
+      <div *ngIf="!showInfoSection">
+        <app-infosection></app-infosection>
+      </div>
+
+      <nav
       tuiNavigationNav
       [style.position]="'sticky'">
-        <button tuiButton>ABC</button>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia possimus praesentium, magnam maxime, ipsum beatae earum consequatur amet debitis vel sequi quos vitae perspiciatis itaque odio ut eveniet officia. Nesciunt!</p>
+        <button tuiButton routerLink="/housing/create">Create Listing</button>
+        <button tuiButton routerLink="/housing/mine">My Listing</button>
+        <div tuiCell="l">
+          <div tuiTitle>
+            Top Listing
+          </div>
+        </div>
+        <tui-tabs-with-more [(activeItemIndex)]="activeItemIndex" [size]="'m'" underline="red" class="tabs">
+          <button
+              iconStart="@tui.credit-card"
+              tuiTab
+              type="button"
+              *tuiItem
+          >
+              All Listings
+          </button>
+          <button
+              iconStart="@tui.credit-card"
+              tuiTab
+              type="button"
+              *tuiItem
+          >
+              Bed Sitters
+          </button>
+          <button
+              iconStart="@tui.credit-card"
+              tuiTab
+              type="button"
+              *tuiItem
+
+          >
+              1 Bedrooma
+          </button>
+          <button
+              iconStart="@tui.credit-card"
+              tuiTab
+              type="button"
+              *tuiItem
+
+          >
+              1 KM from School
+          </button>
+          <button
+              iconStart="@tui.credit-card"
+              tuiTab
+              type="button"
+              *tuiItem
+
+          >
+              2 Bedroom
+          </button>
+          <button
+              iconStart="@tui.credit-card"
+              tuiTab
+              type="button"
+              *tuiItem
+
+          >
+              2 Sharing
+          </button>
+          <button
+              iconStart="@tui.credit-card"
+              tuiTab
+              type="button"
+              *tuiItem
+
+          >
+              Wifi
+          </button>
+          <button
+              iconStart="@tui.credit-card"
+              tuiTab
+              type="button"
+              *tuiItem
+
+          >
+              2 Bedroom
+          </button>
+
+        </tui-tabs-with-more>
     </nav>
+    </ng-container>
+
     <router-outlet></router-outlet>
   </main>
 </div>
 
 <app-footer></app-footer>
+

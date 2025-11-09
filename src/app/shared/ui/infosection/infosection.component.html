@@ -1,6 +1,6 @@
 <!-- general page -->
 <div class="feature-grid">
-  <div class="large-card" tuiCardLarge>
+  <div class="large-card" >
     <div
         tuiCarouselButtons
         class="wrapper"
@@ -10,6 +10,7 @@
             tuiIconButton
             type="button"
             (click)="carousel.prev()"
+            size="xs"
         >
             Previous
         </button>
@@ -17,258 +18,51 @@
             iconStart="@tui.chevron-right"
             tuiIconButton
             type="button"
+            size="xs"
             (click)="carousel.next()"
         >
             Previous
         </button>
+        <!-- <tui-badge appearance="glass" size="s">
+          <tui-pagination
+            size="s"
+            class="pagination"
+            [length]="count"
+            [(index)]="index"
+          />
+        </tui-badge> -->
     </div>
     <tui-carousel
     #carousel
-    [duration]="3000"
+    [duration]="10000"
     [itemsCount]="1"
     [(index)]="index"
     [draggable]="true">
-      <div *tuiItem>
-        <!-- top cell -->
-        <div tuiCell="m">
-          <div tuiTitle>
-            <tui-badge appearance="positive" tuiStatus>
-              Near You
-            </tui-badge>
-          </div>
-          <tui-icon icon="@tui.heart"></tui-icon>
+      <div *tuiItem class="cards">
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium fugit, maxime obcaecati corporis a nostrum explicabo sunt doloremque nisi aspernatur cum saepe repudiandae consequatur tempore natus quis animi ad dolorem!
         </div>
-
-        <!-- desc -->
-        <header tuiTitle>
-          Find your lovely place for life
-          <span tuiSubtitle>
-            This is a lovely home. Hurry and rent
-          </span>
-        </header>
-
-
-        <!-- cta cell -->
-
-        <div tuiCell="m">
-          <div tuiTitle>
-            <Button tuiButton tuiAppearance="info">
-              View Listing
-            </Button>
-          </div>
-
-          <header>
-            <span><del>KES 11000/Month</del> KES 9500/Month</span>
-          </header>
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium fugit, maxime obcaecati corporis a nostrum explicabo sunt doloremque nisi aspernatur cum saepe repudiandae consequatur tempore natus quis animi ad dolorem!
         </div>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          Rongai, Kenya
-        </button>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          1 Bedroom
-        </button>
-        <div style="display: flex;">
-          <tui-badge
-            appearance="info"
-            iconStart="@tui.toilet"
-            size="l"
-            class="badge tui-space_top-3"
-            style="margin-right: 2px;"
-        >
-            1
-        </tui-badge>
-        <tui-badge
-            appearance="info"
-            iconStart="@tui.bed-single"
-            size="l"
-            class="badge tui-space_top-3"
-        >
-            2
-        </tui-badge>
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium fugit, maxime obcaecati corporis a nostrum explicabo sunt doloremque nisi aspernatur cum saepe repudiandae consequatur tempore natus quis animi ad dolorem!
         </div>
       </div>
 
       <!-- item 2 -->
-      <div *tuiItem tuiCardLarge style="background: url('placeholder.jpg')" class="image">
-        <!-- top cell -->
-        <div tuiCell="m">
-          <div tuiTitle>
-            <tui-badge appearance="positive" tuiStatus>
-              Near You
-            </tui-badge>
-          </div>
-          <tui-icon icon="@tui.heart"></tui-icon>
-        </div>
-
-        <!-- desc -->
-        <header tuiTitle>
-          Find your lovely place for life
-          <span tuiSubtitle>
-            This is a lovely home. Hurry and rent
-          </span>
-        </header>
-
-
-        <!-- cta cell -->
-
-        <div tuiCell="m">
-          <div tuiTitle>
-            <Button tuiButton tuiAppearance="info">
-              View Listing
-            </Button>
-          </div>
-
-          <header>
-            <span><del>KES 11000/Month</del> KES 9500/Month</span>
-          </header>
-        </div>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          Rongai, Kenya
-        </button>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          1 Bedroom
-        </button>
-        <div style="display: flex;">
-          <tui-badge
-            appearance="info"
-            iconStart="@tui.toilet"
-            size="l"
-            class="badge tui-space_top-3"
-            style="margin-right: 2px;"
-        >
-            1
-        </tui-badge>
-        <tui-badge
-            appearance="info"
-            iconStart="@tui.bed-single"
-            size="l"
-            class="badge tui-space_top-3"
-        >
-            2
-        </tui-badge>
-        </div>
+      <div *tuiItem>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit aliquam, ratione omnis inventore expedita aperiam ipsam adipisci officia provident sint? Quidem pariatur ut, animi repellat necessitatibus quo sed unde cum?
       </div>
 
-      <!-- item 3 -->
       <div *tuiItem>
-        <!-- top cell -->
-        <div tuiCell="m">
-          <div tuiTitle>
-            <tui-badge appearance="positive" tuiStatus>
-              Near You
-            </tui-badge>
-          </div>
-          <tui-icon icon="@tui.heart"></tui-icon>
-        </div>
-
-        <!-- desc -->
-        <header tuiTitle>
-          Find your lovely place for life
-          <span tuiSubtitle>
-            This is a lovely home. Hurry and rent
-          </span>
-        </header>
-
-
-        <!-- cta cell -->
-
-        <div tuiCell="m">
-          <div tuiTitle>
-            <Button tuiButton tuiAppearance="info">
-              View Listing
-            </Button>
-          </div>
-
-          <header>
-            <span><del>KES 11000/Month</del> KES 9500/Month</span>
-          </header>
-        </div>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          Rongai, Kenya
-        </button>
-        <button
-            appearance="neutral"
-            icon="@tui.map-pin"
-            size="m"
-            tuiNotification
-            type="button"
-            [style.width]="'fit-content'"
-            size="s"
-          >
-          1 Bedroom
-        </button>
-        <div style="display: flex;">
-          <tui-badge
-            appearance="info"
-            iconStart="@tui.toilet"
-            size="l"
-            class="badge tui-space_top-3"
-            style="margin-right: 2px;"
-        >
-            1
-        </tui-badge>
-        <tui-badge
-            appearance="info"
-            iconStart="@tui.bed-single"
-            size="l"
-            class="badge tui-space_top-3"
-        >
-            2
-        </tui-badge>
-        </div>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit aliquam, ratione omnis inventore expedita aperiam ipsam adipisci officia provident sint? Quidem pariatur ut, animi repellat necessitatibus quo sed unde cum?
       </div>
 
       <!-- end of items -->
 
     </tui-carousel>
-    <tui-badge appearance="positive">
-      <tui-pagination
-        size="s"
-        class="pagination"
-        [length]="count"
-        [(index)]="index"
-      />
-    </tui-badge>
+
   </div>
 
   <div class="small-cards">

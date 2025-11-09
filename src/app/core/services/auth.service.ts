@@ -21,7 +21,7 @@ interface LoginResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly apiUrl = 'https://usersservice-production.up.railway.app/api/auth';
+  private readonly apiUrl = 'http://localhost:5000/api/auth';
 
   /** Reactive state for the current user */
   private userSubject = new BehaviorSubject<User | null>(this.loadUserFromStorage());
