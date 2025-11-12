@@ -15,12 +15,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
 
-  // Housing (lazy-loaded)
-  {
-    path: 'housing',
-    loadChildren: () =>
-      import('./features/housing/housing.routes').then(m => m.HOUSING_ROUTES),
-  },
+
 
   // Marketplace
   {
@@ -131,7 +126,13 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/onboarding/onboarding.module').then(m => m.OnboardingModule),
   },
+  // Housing (lazy-loaded)
+  {
+    path: 'housing',
+    loadChildren: () =>
+      import('./features/housing/housing.routes').then(m => m.HOUSING_ROUTES),
+  },
 
   // Fallback
-  { path: '**', redirectTo: 'housing' },
+  { path: '**', redirectTo: 'dashboard' },
 ];

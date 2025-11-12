@@ -31,7 +31,7 @@ export const HOUSING_ROUTES: Routes = [
   },
     {
     path: '**',
-    redirectTo:"",
+    redirectTo:'',
     pathMatch:"full",
   },
 ];

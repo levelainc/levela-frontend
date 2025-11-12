@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { Listing } from '../models/housing.model';
 
 @Injectable({
@@ -22,6 +22,15 @@ export class HousingService {
     return this.http.get<Listing>(`${this.baseUrl}/api/housing/listing/${id}`);
   }
 
+  getMyListing():Observable<Listing[]>{
+    return this.http
+    .get<{listings:Listing[]}>(`${this.baseUrl}/api/housing/my-listings`)
+    .pipe(
+      map(response=> response.listings)
+    )
+
+  }
+
   createListing(payload: {
     title: string;
     description: string;
@@ -29,11 +38,8 @@ export class HousingService {
     location: string;
   }): Observable<any> {
     const token = localStorage.getItem('token');
-    console.log(token)
-    return this.http.post(`${this.baseUrl}/api/housing/listing`, payload,{
-      headers: {
-        Authorization: `Bearer ${token}`}
-      });
+    // console.log(token)
+    return this.http.post(`${this.baseUrl}/api/housing/listing`, payload);
 
   }
 
@@ -43,6 +49,8 @@ export class HousingService {
   }
 
   deleteListing(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/listings/${id}`);
+    const token=localStorage.getItem('token')
+
+    return this.http.delete(`${this.baseUrl}/api/housing/listing/${id}`);
   }
 }

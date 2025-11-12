@@ -49,7 +49,7 @@ export class AuthGuard implements CanActivate {
       return this.router.parseUrl('/onboarding/type');
     }
 
-    //Everything OK — allow access
+    //Everything OK:allow access
     return true;
   }
 }

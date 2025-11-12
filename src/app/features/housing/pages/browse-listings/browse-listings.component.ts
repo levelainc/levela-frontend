@@ -27,6 +27,7 @@ import {
   TuiTextfield,
 } from '@taiga-ui/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { BehaviorSubject, switchMap } from 'rxjs';
 @Component({
   standalone: true,
   selector: 'app-browse-listings',
@@ -64,9 +65,16 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class BrowseListingsComponent implements OnInit {
   private readonly housingService = inject(HousingService);
-  listings$ = this.housingService.getAllListings();
+
+  private refresh$=new BehaviorSubject<void>(undefined)
+  // listings$ = this.housingService.getAllListings();
+  listings$=this.refresh$.pipe(
+    switchMap(()=>this.housingService.getAllListings())
+  )
   protected open=false
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   getImageUrl(listing: Listing): string {
     return listing.images?.[0]?.url || 'placeholder.jpg';

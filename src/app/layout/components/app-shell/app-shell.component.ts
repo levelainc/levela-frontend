@@ -8,7 +8,7 @@ import {TuiCell, TuiNavigation} from '@taiga-ui/layout';
 
 import { InfosectionComponent } from '../../../shared/ui/infosection/infosection.component';
 import { filter } from 'rxjs';
-import {TuiTitle } from "@taiga-ui/core";
+import {TuiButton, TuiHint, TuiIcon, TuiTitle } from "@taiga-ui/core";
 import {  TuiTab, TuiTabsWithMore } from '@taiga-ui/kit';
 import { TuiItem } from '@taiga-ui/cdk';
 
@@ -29,6 +29,9 @@ import { TuiItem } from '@taiga-ui/cdk';
     TuiTab,
     TuiCell,
     TuiTitle,
+    TuiIcon,
+    TuiButton,
+    TuiHint
 ],
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.less'],

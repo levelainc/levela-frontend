@@ -22,7 +22,7 @@
 
   <!-- Description -->
   <tui-textfield>
-    <label tuiLabel>Description</label>
+    <label tuiLabel>House Description</label>
     <textarea tuiTextarea formControlName="description" placeholder="Describe the property" [max]=4 [min]=4></textarea>
   </tui-textfield>
   <tui-error [formControl]="form.controls['description']" [error]="['required','maxlength'] | tuiFieldError | async" />

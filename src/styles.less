@@ -1,14 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-.mobile-only {
-  display: none;
-}
-@import '@taiga-ui/core/styles/taiga-ui-local.less';
 
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
 // other styles
 .desktop-only {
   display: block;
 }
-
+.mobile-only {
+  display: none;
+}
 @media (max-width: 768px) {
   .mobile-only {
     display: inline-flex;
@@ -50,9 +49,9 @@
   --tui-background-accent-1-hover: #7986cb;
   --tui-background-accent-1-pressed: #3949ab;
 
-  --tui-background-accent-2: #ffe5ec;
-  --tui-background-accent-2-hover: #ffcad4;
-  --tui-background-accent-2-pressed: #fbb8c3;
+  --tui-background-accent-2: #cf6e88;
+  --tui-background-accent-2-hover: #e28cc8;
+  --tui-background-accent-2-pressed: #cf6174;
 
   --tui-background-accent-opposite: #000000;
   --tui-background-accent-opposite-hover: #333333;
@@ -89,6 +88,7 @@
   --tui-status-info: rgba(148, 191, 233, 1);
   --tui-status-info-pale: rgba(148, 191, 233, 0.12);
   --tui-status-info-pale-hover: rgba(148, 191, 233, 0.24);
+  --tui-status-accent: #e28cc8;
 
   /*  SIDEBAR / HEADER THEME */
   --tui-navigation-background: var(--tui-background-accent-1);
@@ -99,4 +99,6 @@
   --tui-sidebar-icon: #5c6bc0;
   --tui-sidebar-hover-background: #f1f3ff;
 }
+
+
 

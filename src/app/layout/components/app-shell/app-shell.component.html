@@ -16,11 +16,24 @@
       <nav
       tuiNavigationNav
       [style.position]="'sticky'">
-        <button tuiButton routerLink="/housing/create">Create Listing</button>
-        <button tuiButton routerLink="/housing/mine">My Listing</button>
+        <button tuiButton size="xs" routerLink="/housing" tuiTooltip="Home" tuiHint="Home">
+          <tui-icon icon="@tui.house"/>
+        </button>
+        <button tuiButton routerLink="/housing/create" size="xs">
+          <tui-icon icon="@tui.circle-plus"/>
+          Create Listing
+        </button>
+        <button tuiButton routerLink="/housing/mine" size="xs">
+          <tui-icon icon="@tui.layout-list"/>
+          My Listing
+        </button>
+        <button tuiButton routerLink="/housing/mine" size="xs">
+          <tui-icon icon="@tui.house-plus"/>
+          Requests
+        </button>
         <div tuiCell="l">
           <div tuiTitle>
-            Top Listing
+            Top Listings
           </div>
         </div>
         <tui-tabs-with-more [(activeItemIndex)]="activeItemIndex" [size]="'m'" underline="red" class="tabs">
