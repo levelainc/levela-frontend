@@ -4,7 +4,7 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { CommonModule, AsyncPipe, NgIf, NgForOf } from '@angular/common';
+import { CommonModule, AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HousingService } from '../../services/housing.service';
 import { Listing } from '../../models/housing.model';
@@ -35,33 +35,30 @@ import { BehaviorSubject, switchMap } from 'rxjs';
   styleUrls: ['./browse-listings.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-  CommonModule,
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-  RouterLink,
-  TuiAppearance,
-  TuiBadge,
-  TuiButton,
-  TuiCardMedium,
-  TuiSurface,
-  TuiTitle,
-  TuiDropdown,
-  TuiDropdownHover,
-  TuiDataList,
-  TuiIcon,
-  TuiButton,
-  TuiSearch,
-  TuiTextfield,
-  TuiCardLarge,
-  TuiCell,
-  TuiTabs,
-  RouterLink,
-  TuiBadge,
-  TuiCarousel,
-  TuiAvatar,
-
-  ],
+    CommonModule,
+    AsyncPipe,
+    RouterLink,
+    TuiAppearance,
+    TuiBadge,
+    TuiButton,
+    TuiCardMedium,
+    TuiSurface,
+    TuiTitle,
+    TuiDropdown,
+    TuiDropdownHover,
+    TuiDataList,
+    TuiIcon,
+    TuiButton,
+    TuiSearch,
+    TuiTextfield,
+    TuiCardLarge,
+    TuiCell,
+    TuiTabs,
+    RouterLink,
+    TuiBadge,
+    TuiCarousel,
+    TuiAvatar
+],
 })
 export class BrowseListingsComponent implements OnInit {
   private readonly housingService = inject(HousingService);

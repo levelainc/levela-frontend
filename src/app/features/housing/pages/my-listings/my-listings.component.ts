@@ -1,20 +1,20 @@
 import { Component, inject, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { HousingService } from '../../services/housing.service';
-import { AsyncPipe, CommonModule, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { TuiCardLarge, TuiCardMedium, TuiCell, TuiHeader } from '@taiga-ui/layout';
 
 import { TuiIcon, TuiSurface, TuiButton, TuiDialogService, TuiAlertService, TuiAppearance } from '@taiga-ui/core';
 import { TUI_CONFIRM,type TuiConfirmData, TuiBadge, TuiTooltip, TuiLike } from '@taiga-ui/kit';
-import { RouterLink } from '@angular/router';import { of, switchMap } from 'rxjs';
+
+import { of, switchMap } from 'rxjs';
 import {TuiResponsiveDialogService} from '@taiga-ui/addon-mobile';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-my-listings',
   imports: [
     CommonModule,
     TuiCardLarge,
     AsyncPipe,
-    NgIf,
-    NgFor,
     TuiCell,
     TuiIcon,
     TuiBadge,

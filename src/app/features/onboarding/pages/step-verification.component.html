@@ -3,7 +3,7 @@
   (ngSubmit)="goNext()"
   tuiForm="m"
   tuiCardLarge
->
+  >
   <header tuiHeader>
     <h2 tuiTitle>Step 3: Institution Verification</h2>
   </header>
@@ -11,52 +11,60 @@
   <tui-textfield>
     <label tuiLabel for="email">Institution Email</label>
     <input tuiTextfield id="email" formControlName="email" placeholder="student@university.edu" type="email" />
-    <tui-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-      Invalid email format.
-    </tui-error>
+    @if (form.get('email')?.invalid && form.get('email')?.touched) {
+      <tui-error>
+        Invalid email format.
+      </tui-error>
+    }
   </tui-textfield>
 
   <label tuiLabel>Upload Student ID</label>
-    <!-- FILE INPUT -->
-    <label tuiInputFiles *ngIf="fileControl">
+  <!-- FILE INPUT -->
+  @if (fileControl) {
+    <label tuiInputFiles>
       <input
         tuiInputFiles
         accept="image/*"
         [formControl]="fileControl"
-      />
-    </label>
+        />
+      </label>
+    }
 
-<tui-files class="tui-space_top-1">
-  <tui-file
-    *ngIf="fileControl.value | tuiFileRejected: {accept: 'image/*'} | async as file"
-    state="error"
-    [file]="file"
-    (remove)="removeFile()"
-  ></tui-file>
+    <tui-files class="tui-space_top-1">
+      @if (fileControl.value | tuiFileRejected: {accept: 'image/*'} | async; as file) {
+        <tui-file
+          state="error"
+          [file]="file"
+          (remove)="removeFile()"
+        ></tui-file>
+      }
 
-  <tui-file
-    *ngIf="loadedFiles$ | async as file"
-    [file]="file"
-    (remove)="removeFile()"
-  ></tui-file>
+      @if (loadedFiles$ | async; as file) {
+        <tui-file
+          [file]="file"
+          (remove)="removeFile()"
+        ></tui-file>
+      }
 
-  <tui-file
-    *ngIf="failedFiles$ | async as file"
-    state="error"
-    [file]="file"
-    (remove)="removeFile()"
-  ></tui-file>
+      @if (failedFiles$ | async; as file) {
+        <tui-file
+          state="error"
+          [file]="file"
+          (remove)="removeFile()"
+        ></tui-file>
+      }
 
-  <tui-file
-    *ngIf="loadingFiles$ | async as file"
-    state="loading"
-    [file]="file"
-    (remove)="removeFile()"
-  ></tui-file>
-</tui-files>
+      @if (loadingFiles$ | async; as file) {
+        <tui-file
+          state="loading"
+          [file]="file"
+          (remove)="removeFile()"
+        ></tui-file>
+      }
+    </tui-files>
 
 
-  <footer tuiFooter tuiActions>
-    <button tuiButton type="submit" appearance="primary">Next</button>
-  </footer>
-</form>
+    <footer tuiFooter tuiActions>
+      <button tuiButton type="submit" appearance="primary">Next</button>
+    </footer>
+  </form>

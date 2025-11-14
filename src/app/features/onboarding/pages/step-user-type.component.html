@@ -1,7 +1,9 @@
 <form [formGroup]="form" tuiForm="l" (ngSubmit)="submit()" class="user-type-form" tuiCardLarge>
-  <tui-notification *ngIf="form.invalid && form.touched" appearance="error">
-    Please select at least one user type to proceed.
-  </tui-notification>
+  @if (form.invalid && form.touched) {
+    <tui-notification appearance="error">
+      Please select at least one user type to proceed.
+    </tui-notification>
+  }
   <tui-notification appearance="info">Choose your role</tui-notification>
 
   <div class="role-options">

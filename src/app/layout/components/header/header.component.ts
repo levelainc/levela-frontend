@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TUI_DEFAULT_MATCHER } from '@taiga-ui/cdk';
 import { TuiAvatar, TuiChevron, TuiFade } from '@taiga-ui/kit';
@@ -65,9 +65,8 @@ const DATA: Record<string, readonly Result[]> = {
     TuiSearchResults,
     TuiSearchHistory,
     RouterLink,
-    NgIf,
     TuiFade
-  ],
+],
   templateUrl: './header.component.html',
   styleUrl: './header.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush

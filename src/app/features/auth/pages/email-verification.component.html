@@ -1,21 +1,29 @@
 <!-- Loader with overlay while verifying -->
-<tui-loader [showLoader]="loading" size="l" [overlay]="true" *ngIf="loading">
-  Verifying your email...
-</tui-loader>
+@if (loading) {
+  <tui-loader [showLoader]="loading" size="l" [overlay]="true">
+    Verifying your email...
+  </tui-loader>
+}
 
 <!-- Success notification -->
-<tui-notification *ngIf="!loading && success" appearance="success" class="message-box">
-  Your email has been verified successfully!
-  <br /><br />
-  <button tuiButton appearance="primary" size="m" (click)="goToLogin()">Go to Login</button>
-</tui-notification>
+@if (!loading && success) {
+  <tui-notification appearance="success" class="message-box">
+    Your email has been verified successfully!
+    <br /><br />
+    <button tuiButton appearance="primary" size="m" (click)="goToLogin()">Go to Login</button>
+  </tui-notification>
+}
 
 <!-- Informational notification (no token, just redirected) -->
-<tui-notification *ngIf="!loading && !success && !error" appearance="info" class="message-box">
-  Registration successful. Please check your email and click the verification link we sent you.
-</tui-notification>
+@if (!loading && !success && !error) {
+  <tui-notification appearance="info" class="message-box">
+    Registration successful. Please check your email and click the verification link we sent you.
+  </tui-notification>
+}
 
 <!-- Error notification -->
-<tui-notification *ngIf="!loading && error" appearance="error" class="message-box">
-  {{ error }}
-</tui-notification>
+@if (!loading && error) {
+  <tui-notification appearance="error" class="message-box">
+    {{ error }}
+  </tui-notification>
+}

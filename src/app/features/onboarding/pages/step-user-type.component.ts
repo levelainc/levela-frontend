@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+
 import {
   TuiNotification,
   TuiAlertService,
@@ -17,12 +17,11 @@ import { OnboardingService } from '../services/onboarding.service';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgIf,
     TuiNotification,
-    TuiButton, 
+    TuiButton,
     TuiTitle,
-    TuiCheckbox,
-  ],
+    TuiCheckbox
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './step-user-type.component.html',
   styleUrls: ['./step-user-type.component.less'],

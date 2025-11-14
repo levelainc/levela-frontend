@@ -58,17 +58,19 @@
     </button>
   </tui-aside-group>
 
-  <tui-aside-group *ngIf="isAdmin">
-    <button tuiAsideItem iconStart="@tui.shield-user" tuiChevron>
-      Admin Panel
-      <ng-template>
-        <button tuiAsideItem>Users</button>
-        <button tuiAsideItem>Moderation</button>
-        <button tuiAsideItem>Reports</button>
-        <button tuiAsideItem>Settings</button>
-      </ng-template>
-    </button>
-  </tui-aside-group>
+  @if (isAdmin) {
+    <tui-aside-group>
+      <button tuiAsideItem iconStart="@tui.shield-user" tuiChevron>
+        Admin Panel
+        <ng-template>
+          <button tuiAsideItem>Users</button>
+          <button tuiAsideItem>Moderation</button>
+          <button tuiAsideItem>Reports</button>
+          <button tuiAsideItem>Settings</button>
+        </ng-template>
+      </button>
+    </tui-aside-group>
+  }
 
   <hr />
 
@@ -80,7 +82,7 @@
       tuiIconButton
       [iconStart]="expanded() ? '@tui.chevron-left' : '@tui.chevron-right'"
       (click)="toggle.emit()"
-    >
+      >
       {{ expanded() ? 'Collapse' : 'Expand' }}
     </button>
   </footer>

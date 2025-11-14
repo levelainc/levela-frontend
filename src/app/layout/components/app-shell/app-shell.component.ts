@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, } from '@angular/common';
+
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
@@ -16,7 +16,6 @@ import { TuiItem } from '@taiga-ui/cdk';
   selector: 'app-app-shell',
   standalone: true,
   imports: [
-    CommonModule,
     RouterOutlet,
     SidebarComponent,
     FooterComponent,

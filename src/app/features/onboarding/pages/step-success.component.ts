@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { TuiButton, TuiNotification, TuiTitle } from '@taiga-ui/core';
 import { Subscription, timer } from 'rxjs';
 import { TuiProgress } from '@taiga-ui/kit';
@@ -10,12 +10,11 @@ import { OnboardingService } from '../services/onboarding.service';
   selector: 'app-step-success',
   standalone: true,
   imports: [
-    CommonModule,
     TuiButton,
     TuiProgress,
     TuiNotification,
-    TuiTitle,
-  ],
+    TuiTitle
+],
   templateUrl: './step-success.component.html',
   styleUrls: ['./step-success.component.less'],
 })

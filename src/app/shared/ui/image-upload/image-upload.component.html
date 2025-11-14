@@ -4,40 +4,44 @@
     [accept]="accept"
     [multiple]="multiple"
     tuiInputFiles
-  />
-  {{ label }}
-</label>
+    />
+    {{ label }}
+  </label>
 
   <tui-files class="tui-space_top-1">
     <!-- Rejected -->
-    <tui-file
-    *ngFor="let file of rejectedFiles"
-    state="error"
-    [file]="file"
-    (remove)="removeFile()"
-  />
+    @for (file of rejectedFiles; track file) {
+      <tui-file
+        state="error"
+        [file]="file"
+        (remove)="removeFile()"
+        />
+    }
 
 
-  <!-- Loading -->
-  <tui-file
-    *ngFor="let file of loadingFiles$ | async"
-    state="loading"
-    [file]="file"
-    (remove)="removeFile()"
-  />
+    <!-- Loading -->
+    @for (file of loadingFiles$ | async; track file) {
+      <tui-file
+        state="loading"
+        [file]="file"
+        (remove)="removeFile()"
+        />
+    }
 
-  <!-- Failed -->
-  <tui-file
-    *ngFor="let file of failedFiles$ | async"
-    state="error"
-    [file]="file"
-    (remove)="removeFile()"
-  />
+    <!-- Failed -->
+    @for (file of failedFiles$ | async; track file) {
+      <tui-file
+        state="error"
+        [file]="file"
+        (remove)="removeFile()"
+        />
+    }
 
-  <!-- Loaded -->
-  <tui-file
-    *ngFor="let file of loadedFiles$ | async"
-    [file]="file"
-    (remove)="removeFile()"
-  />
-</tui-files>
+    <!-- Loaded -->
+    @for (file of loadedFiles$ | async; track file) {
+      <tui-file
+        [file]="file"
+        (remove)="removeFile()"
+        />
+    }
+  </tui-files>

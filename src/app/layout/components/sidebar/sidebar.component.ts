@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TuiAppearance, TuiDataList, TuiDropdown, TuiIcon } from '@taiga-ui/core';
@@ -10,13 +10,12 @@ import { SidebarContentComponent } from '../../../shared/ui/sidebar-content/side
   standalone: true,
   imports: [
     TuiNavigation,
-    CommonModule,
     RouterLink,
     TuiDropdown,
     TuiDataList,
     TuiChevron,
     TuiAppearance
-  ],
+],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.less'
 })

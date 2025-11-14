@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, AsyncPipe, NgIf, DatePipe } from '@angular/common';
+import { CommonModule, AsyncPipe, DatePipe } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HousingService } from '../../services/housing.service';
@@ -29,7 +29,6 @@ import { TuiCardLarge, TuiCardMedium, TuiCell } from '@taiga-ui/layout';
   imports: [
     CommonModule,
     AsyncPipe,
-    NgIf,
     DatePipe,
     TuiBadge,
     TuiSurface,
@@ -42,7 +41,7 @@ import { TuiCardLarge, TuiCardMedium, TuiCell } from '@taiga-ui/layout';
     TuiAppearance,
     TuiGroup,
     TuiAvatar
-  ],
+],
 })
 export class ListingDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
