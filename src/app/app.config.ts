@@ -8,5 +8,5 @@ import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { AuthInterceptor } from "./core/interceptors/auth.interceptor";
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideAnimations(), provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideEventPlugins(), provideHttpClient(withInterceptors([AuthInterceptor])), provideEventPlugins()]
+  providers: [provideAnimations(), provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideEventPlugins(), provideHttpClient(withInterceptors([AuthInterceptor])), provideEventPlugins(), provideEventPlugins()]
 };
