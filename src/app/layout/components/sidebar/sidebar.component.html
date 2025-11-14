@@ -1,14 +1,14 @@
 <aside [tuiNavigationAside]="expanded()" class="aside-bar">
   <header>
-    <a iconStart="@tui.layout-dashboard" tuiAsideItem routerLink="/dashboard">Dashboard</a>
+    <a iconStart="@tui.layout-dashboard" tuiAsideItem routerLink="/housing">Dashboard</a>
   </header>
 
   <tui-aside-group>
     <button tuiAsideItem iconStart="@tui.house" tuiChevron>
       Housing
       <ng-template>
-        <a tuiAsideItem routerLink="/housing/browse">Browse Listings</a>
-        <a tuiAsideItem routerLink="/housing/my">My Listings</a>
+        <a tuiAsideItem routerLink="/housing">Browse Listings</a>
+        <a tuiAsideItem routerLink="/housing/mine">My Listings</a>
         <a tuiAsideItem routerLink="/housing/post">Post New Listing</a>
       </ng-template>
     </button>
