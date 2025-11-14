@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, NgZone } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 import { TuiTextfield, TuiNotification, TuiAlertService, TuiButton, TuiError, TuiTitle } from '@taiga-ui/core';
 import { TuiFieldErrorPipe, TuiFileLike, TuiFile, TuiFiles, TuiTextarea } from '@taiga-ui/kit';
@@ -21,7 +21,6 @@ import { ImageUploadComponent } from '../../../../shared/ui/image-upload/image-u
   styleUrl: './create-listing.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    NgIf,
     AsyncPipe,
     ReactiveFormsModule,
     RouterLink,
@@ -38,7 +37,7 @@ import { ImageUploadComponent } from '../../../../shared/ui/image-upload/image-u
     TuiHeader,
     ImageUploadComponent,
     TuiTextarea
-  ],
+],
 })
 export class CreateListingComponent {
   private readonly alerts = inject(TuiAlertService);

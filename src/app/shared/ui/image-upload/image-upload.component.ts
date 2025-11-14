@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TuiFile, TuiFiles, TuiFileLike } from '@taiga-ui/kit';
-import { CommonModule, NgIf, NgForOf, AsyncPipe } from '@angular/common';
+import { CommonModule, AsyncPipe } from '@angular/common';
 import { Subject, Observable, of, forkJoin, timer } from 'rxjs';
 import { switchMap, map, finalize } from 'rxjs/operators';
 
@@ -19,12 +19,10 @@ import { switchMap, map, finalize } from 'rxjs/operators';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgIf,
-    NgForOf,
     AsyncPipe,
     TuiFiles,
-    TuiFile,
-  ],
+    TuiFile
+],
 })
 export class ImageUploadComponent implements OnInit {
   @Input() control!: FormControl<TuiFileLike[] | null>;

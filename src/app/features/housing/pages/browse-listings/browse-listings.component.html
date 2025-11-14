@@ -1,7 +1,7 @@
 
 
 <!-- search section -->
- <div>
+<div>
   <div tuiTitle="l">
     Select Your House
     <span tuiSubtitle>
@@ -10,335 +10,338 @@
   </div>
 
   <!-- <search tuiSearch>
-    <form [formGroup]="form">
-      <fieldset tuiTextfieldSize="s">
-        <tui-textfield iconStart="@tui.map-pin">
-          <input
-              formControlName="search"
-              placeholder="Location"
-              tuiTextfield
+  <form [formGroup]="form">
+    <fieldset tuiTextfieldSize="s">
+      <tui-textfield iconStart="@tui.map-pin">
+        <input
+          formControlName="search"
+          placeholder="Location"
+          tuiTextfield
           />
         </tui-textfield>
 
         <tui-textfield iconStart="@tui.house">
           <input
-              formControlName="search"
-              placeholder="Room Type"
-              tuiTextfield
-          />
-        </tui-textfield>
+            formControlName="search"
+            placeholder="Room Type"
+            tuiTextfield
+            />
+          </tui-textfield>
 
-        <tui-textfield
+          <tui-textfield
             iconStart="@tui.euro"
             tuiTextfieldSize="s"
-        >
-          <input
+            >
+            <input
               formControlName="price"
               placeholder="Price"
               tuiTextfield
-          />
-        </tui-textfield>
+              />
+            </tui-textfield>
 
 
-        <tui-textfield iconStart="@tui.shield">
-          <input
-              formControlName="search"
-              placeholder="Verification Status"
-              tuiTextfield
-          />
-        </tui-textfield>
+            <tui-textfield iconStart="@tui.shield">
+              <input
+                formControlName="search"
+                placeholder="Verification Status"
+                tuiTextfield
+                />
+              </tui-textfield>
 
 
-         <button
+              <button
                 size="s"
                 tuiButton
                 type="button"
-            >
+                >
                 Search
-          </button>
+              </button>
 
-        </fieldset>
-      <fieldset>
-        <tui-segmented size="s">
-          <label *ngFor="let segment of filters">
-            <input
-                formControlName="segmented"
-                type="radio"
-                [value]="segment"
-            />
-            {{ segment || 'All' }}
-        </label>
-        </tui-segmented>
-        <tui-filter
-            formControlName="filter"
-            size="s"
-            [items]="filters"
-        />
-        Results: 999
+            </fieldset>
+            <fieldset>
+              <tui-segmented size="s">
+                <label *ngFor="let segment of filters">
+                  <input
+                    formControlName="segmented"
+                    type="radio"
+                    [value]="segment"
+                    />
+                    {{ segment || 'All' }}
+                  </label>
+                </tui-segmented>
+                <tui-filter
+                  formControlName="filter"
+                  size="s"
+                  [items]="filters"
+                  />
+                  Results: 999
 
-        <label tuiLabel>
-            <input
-                formControlName="switch"
-                tuiSwitch
-                type="checkbox"
-            />
-            Assigned to me
-        </label>
+                  <label tuiLabel>
+                    <input
+                      formControlName="switch"
+                      tuiSwitch
+                      type="checkbox"
+                      />
+                      Assigned to me
+                    </label>
 
-        <button
-          iconStart="@tui.rotate-ccw"
-          size="s"
-          tuiIconButton
-          type="button"
-          [style.border-radius.%]="100"
-      >
-      </button>
-      </fieldset>
-    </form>
-  </search> -->
- </div>
+                    <button
+                      iconStart="@tui.rotate-ccw"
+                      size="s"
+                      tuiIconButton
+                      type="button"
+                      [style.border-radius.%]="100"
+                      >
+                    </button>
+                  </fieldset>
+                </form>
+              </search> -->
+            </div>
 
-<!-- preserve this for mobile -->
- <!-- <div tuiCell="l">
-  <div tuiTitle>
-    Top Listing
-  </div>
+            <!-- preserve this for mobile -->
+            <!-- <div tuiCell="l">
+            <div tuiTitle>
+              Top Listing
+            </div>
 
-  <tui-tabs-with-more [(activeItemIndex)]="activeItemIndex" [size]="'l'" underline="pink" class="tabs">
-    <button
-        iconStart="@tui.credit-card"
-        tuiTab
-        type="button"
-        *tuiItem
-    >
-        All Listings
-    </button>
-    <button
-        iconStart="@tui.credit-card"
-        tuiTab
-        type="button"
-        *tuiItem
-    >
-        Bed Sitters
-    </button>
-    <button
-        iconStart="@tui.credit-card"
-        tuiTab
-        type="button"
-        *tuiItem
+            <tui-tabs-with-more [(activeItemIndex)]="activeItemIndex" [size]="'l'" underline="pink" class="tabs">
+              <button
+                iconStart="@tui.credit-card"
+                tuiTab
+                type="button"
+                *tuiItem
+                >
+                All Listings
+              </button>
+              <button
+                iconStart="@tui.credit-card"
+                tuiTab
+                type="button"
+                *tuiItem
+                >
+                Bed Sitters
+              </button>
+              <button
+                iconStart="@tui.credit-card"
+                tuiTab
+                type="button"
+                *tuiItem
 
-    >
-        1 Bedrooma
-    </button>
-    <button
-        iconStart="@tui.credit-card"
-        tuiTab
-        type="button"
-        *tuiItem
+                >
+                1 Bedrooma
+              </button>
+              <button
+                iconStart="@tui.credit-card"
+                tuiTab
+                type="button"
+                *tuiItem
 
-    >
-        1 KM from School
-    </button>
-    <button
-        iconStart="@tui.credit-card"
-        tuiTab
-        type="button"
-        *tuiItem
+                >
+                1 KM from School
+              </button>
+              <button
+                iconStart="@tui.credit-card"
+                tuiTab
+                type="button"
+                *tuiItem
 
-    >
-        2 Bedroom
-    </button>
-    <button
-        iconStart="@tui.credit-card"
-        tuiTab
-        type="button"
-        *tuiItem
+                >
+                2 Bedroom
+              </button>
+              <button
+                iconStart="@tui.credit-card"
+                tuiTab
+                type="button"
+                *tuiItem
 
-    >
-        2 Sharing
-    </button>
-    <button
-        iconStart="@tui.credit-card"
-        tuiTab
-        type="button"
-        *tuiItem
+                >
+                2 Sharing
+              </button>
+              <button
+                iconStart="@tui.credit-card"
+                tuiTab
+                type="button"
+                *tuiItem
 
-    >
-        Wifi
-    </button>
-    <button
-        iconStart="@tui.credit-card"
-        tuiTab
-        type="button"
-        *tuiItem
+                >
+                Wifi
+              </button>
+              <button
+                iconStart="@tui.credit-card"
+                tuiTab
+                type="button"
+                *tuiItem
 
-    >
-        2 Bedroom
-    </button>
+                >
+                2 Bedroom
+              </button>
 
-  </tui-tabs-with-more>
- </div> -->
+            </tui-tabs-with-more>
+          </div> -->
 
- <!-- listings -->
- <div *ngIf="listings$ | async as listings" class="listings-grid">
-  <div *ngFor="let listing of listings">
-    <div
-      tuiCardMedium
-      tuiSurface="elevated"
-      class="listing-card"
-      [routerLink]="['/housing', listing.id]"
-    >
-      <header tuiCell="s" class="card-header">
-        <tui-badge size="s" appearance="neutral">Posted on {{ listing.created_at | date }}</tui-badge>
-        <tui-icon icon="@tui.images" />
-        <button
-          tuiButton
-          appearance="grayscale"
-          iconStart="@tui.star"
-          size="xs"
-        >
-          4.5
-        </button>
-      </header>
+          <!-- listings -->
+          @if (listings$ | async; as listings) {
+            <div class="listings-grid">
+              @for (listing of listings; track listing) {
+                <div>
+                  <div
+                    tuiCardMedium
+                    tuiSurface="elevated"
+                    class="listing-card"
+                    [routerLink]="['/housing', listing.id]"
+                    >
+                    <header tuiCell="s" class="card-header">
+                      <tui-badge size="s" appearance="neutral">Posted on {{ listing.created_at | date }}</tui-badge>
+                      <tui-icon icon="@tui.images" />
+                      <button
+                        tuiButton
+                        appearance="grayscale"
+                        iconStart="@tui.star"
+                        size="xs"
+                        >
+                        4.5
+                      </button>
+                    </header>
+                    <img
+                      [src]="listing.images?.length ? listing.images[0].url : 'assets/placeholder.jpg'"
+                      alt="Listing thumbnail"
+                      class="listing-thumb"
+                      />
+                      <h2 tuiTitle>
+                        {{ listing.title }}
+                        <span tuiSubtitle>{{ listing.location }}</span>
+                      </h2>
+                      <footer tuiCell="s" class="card-footer">
+                        <tui-badge class="price" appearance="accent" size="s">
+                          KES {{ listing.price | number }}
+                        </tui-badge>
+                        @if (listing.is_open_for_roommates) {
+                          <tui-badge size="s" appearance="positive">
+                            <tui-icon icon="@tui.users" />
+                            {{ listing.current_occupants }}/{{ listing.max_occupants }} sharing
+                          </tui-badge>
+                        }
+                        <tui-badge
+                          tuiDropdownHover
+                          [tuiDropdown]="schools"
+                          appearance="accent"
+                          size="s"
+                          iconStart="@tui.university"
+                          >
+                          Schools
+                        </tui-badge>
+                        <tui-icon icon="@tui.heart" />
+                      </footer>
+                      <ng-template #schools>
+                        <tui-data-list size="m">
+                          <button tuiOption>Multimedia University</button>
+                          <button tuiOption>Kenyatta University</button>
+                          <button tuiOption>JKUAT</button>
+                          <button tuiOption>UON</button>
+                        </tui-data-list>
+                      </ng-template>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
 
+            <!-- trending searches -->
+            <section class="trending-section">
+              <div class="columns">
 
-      <img
-        [src]="listing.images?.length ? listing.images[0].url : 'assets/placeholder.jpg'"
-        alt="Listing thumbnail"
-        class="listing-thumb"
-      />
-
-
-      <h2 tuiTitle>
-        {{ listing.title }}
-        <span tuiSubtitle>{{ listing.location }}</span>
-      </h2>
-
-
-      <footer tuiCell="s" class="card-footer">
-        <tui-badge class="price" appearance="accent" size="s">
-          KES {{ listing.price | number }}
-        </tui-badge>
-
-        <tui-badge size="s" appearance="positive" *ngIf="listing.is_open_for_roommates">
-          <tui-icon icon="@tui.users" />
-          {{ listing.current_occupants }}/{{ listing.max_occupants }} sharing
-        </tui-badge>
-
-        <tui-badge
-          tuiDropdownHover
-          [tuiDropdown]="schools"
-          appearance="accent"
-          size="s"
-          iconStart="@tui.university"
-        >
-          Schools
-        </tui-badge>
-
-        <tui-icon icon="@tui.heart" />
-      </footer>
-
-
-      <ng-template #schools>
-        <tui-data-list size="m">
-          <button tuiOption>Multimedia University</button>
-          <button tuiOption>Kenyatta University</button>
-          <button tuiOption>JKUAT</button>
-          <button tuiOption>UON</button>
-        </tui-data-list>
-      </ng-template>
-    </div>
-  </div>
-</div>
-
-<!-- trending searches -->
-<section class="trending-section">
-  <div class="columns">
-
-    <aside class="left-column">
-      <div tuiCardLarge class="left-card">
-        Left Card 1 Content
-      </div>
-      <div tuiCardLarge class="left-card">
-        Left Card 2 Content
-      </div>
-    </aside>
+                <aside class="left-column">
+                  <div tuiCardLarge class="left-card">
+                    Left Card 1 Content
+                  </div>
+                  <div tuiCardLarge class="left-card">
+                    Left Card 2 Content
+                  </div>
+                </aside>
 
 
-    <div class="right-column">
-      <h4>Trending searches</h4>
-      <div class="listings-grid" *ngIf="listings$ | async as listings">
-        <div class="grid-card" *ngFor="let trend of listings">
-          <div tuiCardLarge>
-            <h4>{{ trend.title }}</h4>
-            <p>{{ trend.id }}</p>
+                <div class="right-column">
+                  <h4>Trending searches</h4>
+                  @if (listings$ | async; as listings) {
+                    <div class="listings-grid">
+                      @for (trend of listings; track trend) {
+                        <div class="grid-card">
+                          <div tuiCardLarge>
+                            <h4>{{ trend.title }}</h4>
+                            <p>{{ trend.id }}</p>
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </section>
+
+
+            <!-- Featured Categories -->
+
+            <h4 class="section-heading">Explore Housing</h4>
+            <section class="housing-explore">
+              <div class="housing-columns">
+
+
+                <div class="column">
+                  <h3>Featured Categories</h3>
+                  @if (listings$ | async; as listings) {
+                    <div class="card-grid">
+                      @for (type of listings; track type) {
+                        <div class="custom-tiny-card">
+                          <tui-avatar [src]="'placeholder.jpg'" size="s"></tui-avatar>
+                          <span>{{ type.title }}</span>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <!-- Top Hosts -->
+                <div class="column">
+                  <h3>Top Hosts</h3>
+                  <div class="card-grid">
+                    <!-- <div class="custom-tiny-card" *ngFor="let host of topHosts">
+                    <tui-avatar [src]="host.avatar" size="s"></tui-avatar>
+                    <div class="font-bold">{{ host.name }}</div>
+                    <div class="text-sm text-muted">{{ host.listings }} listings</div>
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- deals of the week -->
+          <!-- Deals of the Week -->
+          <section class="deals-of-week">
+            <div class="deals-columns">
+
+              <!-- Left: Wide horizontal card -->
+              <aside class="deals-left" tuiCardLarge>
+                <div class="highlight-card">
+                  <h4>Deal of the Week</h4>
+                  <p>Get 50% off student housing in Gangnam!</p>
+                </div>
+              </aside>
+
+              <!-- Right: Grid of deals -->
+              <div class="deals-right">
+                <h4>More Great Deals</h4>
+                <!-- <div class="deals-grid" *ngIf="weeklyDeals$ | async as weeklyDeals" >
+                <div class="grid-card" *ngFor="let deal of weeklyDeals">
+                  <div class="deal-card">
+                    <tui-avatar [src]="deal.image" size="m" class="mb-1"></tui-avatar>
+                    <div class="font-bold">{{ deal.title }}</div>
+                    <div class="text-sm text-muted">{{ deal.price }}</div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Featured Categories -->
-
-<h4 class="section-heading">Explore Housing</h4>
-<section class="housing-explore">
-  <div class="housing-columns">
-
-
-    <div class="column">
-      <h3>Featured Categories</h3>
-      <div class="card-grid" *ngIf="listings$ | async as listings">
-        <div class="custom-tiny-card" *ngFor="let type of listings">
-          <tui-avatar [src]="'placeholder.jpg'" size="s"></tui-avatar>
-          <span>{{ type.title }}</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Top Hosts -->
-    <div class="column">
-      <h3>Top Hosts</h3>
-      <div class="card-grid">
-        <!-- <div class="custom-tiny-card" *ngFor="let host of topHosts">
-          <tui-avatar [src]="host.avatar" size="s"></tui-avatar>
-          <div class="font-bold">{{ host.name }}</div>
-          <div class="text-sm text-muted">{{ host.listings }} listings</div>
-        </div> -->
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- deals of the week -->
- <!-- Deals of the Week -->
-<section class="deals-of-week">
-  <div class="deals-columns">
-
-    <!-- Left: Wide horizontal card -->
-    <aside class="deals-left" tuiCardLarge>
-      <div class="highlight-card">
-        <h4>Deal of the Week</h4>
-        <p>Get 50% off student housing in Gangnam!</p>
-      </div>
-    </aside>
-
-    <!-- Right: Grid of deals -->
-    <div class="deals-right">
-      <h4>More Great Deals</h4>
-      <!-- <div class="deals-grid" *ngIf="weeklyDeals$ | async as weeklyDeals" >
-        <div class="grid-card" *ngFor="let deal of weeklyDeals">
-          <div class="deal-card">
-            <tui-avatar [src]="deal.image" size="m" class="mb-1"></tui-avatar>
-            <div class="font-bold">{{ deal.title }}</div>
-            <div class="text-sm text-muted">{{ deal.price }}</div>
-          </div>
-        </div>
-      </div> -->
-    </div>
-
-  </div>
-</section>
+        </section>
 

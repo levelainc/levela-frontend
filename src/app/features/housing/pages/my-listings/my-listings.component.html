@@ -1,78 +1,72 @@
 <p>listings that a user has posted or shown interest in eg likes</p>
-<div *ngIf="myListings$ |async as Listings" class="listings-grid">
-  <div *ngFor="let list of Listings">
-
-    <div
-        tuiCardMedium
-        tuiSurface="flat-grayscale"
-        class="listing-card"
-      >
-        <header tuiCell="s" class="card-header">
-          <button
-          tuiIconButton
-          appearance="primary"
-          iconStart="@tui.external-link"
-          size="xs"
-          [routerLink]="['/housing', list.id]"
-          ></button>
-          <tui-badge size="s" appearance="primary">Posted on {{ list.created_at | date }}</tui-badge>
-          <button
-            tuiIconButton
-            appearance="negative"
-            iconStart="@tui.trash-2"
-            (click)="deleteListing(list.id)"
+@if (myListings$ |async; as Listings) {
+  <div class="listings-grid">
+    @for (list of Listings; track list) {
+      <div>
+        <div
+          tuiCardMedium
+          tuiSurface="flat-grayscale"
+          class="listing-card"
+          >
+          <header tuiCell="s" class="card-header">
+            <button
+              tuiIconButton
+              appearance="primary"
+              iconStart="@tui.external-link"
+              size="xs"
+              [routerLink]="['/housing', list.id]"
+            ></button>
+            <tui-badge size="s" appearance="primary">Posted on {{ list.created_at | date }}</tui-badge>
+            <button
+              tuiIconButton
+              appearance="negative"
+              iconStart="@tui.trash-2"
+              (click)="deleteListing(list.id)"
             size="xs"></button>
           </header>
-
-
-        <!-- <img
+          <!-- <img
           [src]="list.images?.length ? list.images[0].url : '/placeholder.jpg'"
           alt="Listing thumbnail"
           class="listing-thumb"
-        /> -->
-
-
-        <h2 tuiTitle>
-          {{ list.title }}
-          <span tuiSubtitle>{{ list.location }}</span>
-        </h2>
-
-
-        <footer tuiCell="s" class="card-footer">
-          <tui-badge  appearance="primary" size="s">
-            KES {{ list.price | number }}
-          </tui-badge>
-
-          <tui-badge size="s" appearance="positive" *ngIf="list.is_open_for_roommates">
-            <tui-icon icon="@tui.users" />
-            {{ list.current_occupants }}/{{ list.max_occupants }} sharing
-          </tui-badge>
-
-          <!-- <tui-badge
+          /> -->
+          <h2 tuiTitle>
+            {{ list.title }}
+            <span tuiSubtitle>{{ list.location }}</span>
+          </h2>
+          <footer tuiCell="s" class="card-footer">
+            <tui-badge  appearance="primary" size="s">
+              KES {{ list.price | number }}
+            </tui-badge>
+            @if (list.is_open_for_roommates) {
+              <tui-badge size="s" appearance="positive">
+                <tui-icon icon="@tui.users" />
+                {{ list.current_occupants }}/{{ list.max_occupants }} sharing
+              </tui-badge>
+            }
+            <!-- <tui-badge
             tuiDropdownHover
-
             appearance="accent"
             size="s"
             iconStart="@tui.university"
-          >
+            >
             Schools
           </tui-badge> -->
           <input type="checkbox" tuiLike="var(--tui-status-accent)" size="s" checkedIcon="@tui.heart-filled" uncheckedIcon="@tui.heart" appearance="flat">
           <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.repeat-2" uncheckedIcon="@tui.repeat-2" appearance="flat">
         </footer>
-
-
         <ng-template #schools>
           <!-- <tui-data-list size="m">
-            <button tuiOption>Multimedia University</button>
-            <button tuiOption>Kenyatta University</button>
-            <button tuiOption>JKUAT</button>
-            <button tuiOption>UON</button>
-          </tui-data-list> -->
-        </ng-template>
-      </div>
+          <button tuiOption>Multimedia University</button>
+          <button tuiOption>Kenyatta University</button>
+          <button tuiOption>JKUAT</button>
+          <button tuiOption>UON</button>
+        </tui-data-list> -->
+      </ng-template>
+    </div>
   </div>
+}
 </div>
+}
 
 
 

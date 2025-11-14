@@ -5,7 +5,7 @@ import { OnboardingService } from '../services/onboarding.service';
 import { TuiAvatar, TuiTextarea, TuiTextareaLimit, TuiFileLike, TuiFiles, TuiFile } from '@taiga-ui/kit';
 import { TuiButton, TuiError, TuiLabel, TuiTextfield } from '@taiga-ui/core';
 import { TuiCardLarge, TuiForm, TuiHeader } from '@taiga-ui/layout';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnboardingUser } from '../services/onboarding.service';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AsyncPipe,
-    NgIf,
     TuiError,
     TuiForm,
     TuiCardLarge,
@@ -28,8 +27,8 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     TuiTextarea,
     TuiFiles,
-    TuiFile,
-  ]
+    TuiFile
+]
 })
 export class StepProfileDetailsComponent implements OnInit, OnDestroy {
   readonly form = new FormGroup({

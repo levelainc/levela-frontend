@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { HousingService } from '../../services/housing.service';
-import { AsyncPipe, CommonModule, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { TuiCardLarge, TuiCardMedium, TuiCell, TuiHeader } from '@taiga-ui/layout';
 
 import { TuiIcon, TuiSurface, TuiButton, TuiDialogService, TuiAlertService, TuiAppearance } from '@taiga-ui/core';
@@ -13,8 +13,6 @@ import {TuiResponsiveDialogService} from '@taiga-ui/addon-mobile';
     CommonModule,
     TuiCardLarge,
     AsyncPipe,
-    NgIf,
-    NgFor,
     TuiCell,
     TuiIcon,
     TuiBadge,

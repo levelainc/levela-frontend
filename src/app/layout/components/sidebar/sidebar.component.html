@@ -62,17 +62,19 @@
   </tui-aside-group>
 
   <!-- Admin Panel -->
-  <tui-aside-group *ngIf="isAdmin">
-    <button tuiAsideItem iconStart="@tui.shield-user" tuiChevron>
-      Admin Panel
-      <ng-template>
-        <a tuiAsideItem routerLink="/admin/users">Users</a>
-        <a tuiAsideItem routerLink="/admin/moderation">Moderation</a>
-        <a tuiAsideItem routerLink="/admin/reports">Reports</a>
-        <a tuiAsideItem routerLink="/admin/settings">Settings</a>
-      </ng-template>
-    </button>
-  </tui-aside-group>
+  @if (isAdmin) {
+    <tui-aside-group>
+      <button tuiAsideItem iconStart="@tui.shield-user" tuiChevron>
+        Admin Panel
+        <ng-template>
+          <a tuiAsideItem routerLink="/admin/users">Users</a>
+          <a tuiAsideItem routerLink="/admin/moderation">Moderation</a>
+          <a tuiAsideItem routerLink="/admin/reports">Reports</a>
+          <a tuiAsideItem routerLink="/admin/settings">Settings</a>
+        </ng-template>
+      </button>
+    </tui-aside-group>
+  }
 
   <hr />
 
@@ -83,7 +85,7 @@
       type="button"
       [iconStart]="expanded() ? '@tui.chevron-left' : '@tui.chevron-right'"
       (click)="handleToggle()"
-    >
+      >
       {{ expanded() ? 'Collapse' : 'Expand' }}
     </button>
   </footer>

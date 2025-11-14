@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { TuiNotification ,TuiLoader, TuiButton, TuiIcon} from '@taiga-ui/core';
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -9,7 +9,7 @@ import { AuthService } from '../../../core/services/auth.service';
   selector: 'app-email-verification',
   templateUrl: './email-verification.component.html',
   styleUrls: ['./email-verification.component.less'],
-  imports: [CommonModule, TuiNotification, TuiLoader]
+  imports: [TuiNotification, TuiLoader]
 })
 export class EmailVerificationComponent implements OnInit {
   loading = true;

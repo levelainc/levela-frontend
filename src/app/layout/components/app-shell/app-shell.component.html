@@ -8,14 +8,15 @@
   <main class="content" tuiNavigationMain>
     <div>
     </div>
-    <ng-container *ngIf="showHousingNav">
-      <div *ngIf="!showInfoSection">
-        <app-infosection></app-infosection>
-      </div>
-
+    @if (showHousingNav) {
+      @if (!showInfoSection) {
+        <div>
+          <app-infosection></app-infosection>
+        </div>
+      }
       <nav
-      tuiNavigationNav
-      [style.position]="'sticky'">
+        tuiNavigationNav
+        [style.position]="'sticky'">
         <button tuiButton size="xs" routerLink="/housing" tuiTooltip="Home" tuiHint="Home">
           <tui-icon icon="@tui.house"/>
         </button>
@@ -38,79 +39,72 @@
         </div>
         <tui-tabs-with-more [(activeItemIndex)]="activeItemIndex" [size]="'m'" underline="red" class="tabs">
           <button
-              iconStart="@tui.credit-card"
-              tuiTab
-              type="button"
-              *tuiItem
-          >
-              All Listings
+            iconStart="@tui.credit-card"
+            tuiTab
+            type="button"
+            *tuiItem
+            >
+            All Listings
           </button>
           <button
-              iconStart="@tui.credit-card"
-              tuiTab
-              type="button"
-              *tuiItem
-          >
-              Bed Sitters
+            iconStart="@tui.credit-card"
+            tuiTab
+            type="button"
+            *tuiItem
+            >
+            Bed Sitters
           </button>
           <button
-              iconStart="@tui.credit-card"
-              tuiTab
-              type="button"
-              *tuiItem
-
-          >
-              1 Bedrooma
+            iconStart="@tui.credit-card"
+            tuiTab
+            type="button"
+            *tuiItem
+            >
+            1 Bedrooma
           </button>
           <button
-              iconStart="@tui.credit-card"
-              tuiTab
-              type="button"
-              *tuiItem
-
-          >
-              1 KM from School
+            iconStart="@tui.credit-card"
+            tuiTab
+            type="button"
+            *tuiItem
+            >
+            1 KM from School
           </button>
           <button
-              iconStart="@tui.credit-card"
-              tuiTab
-              type="button"
-              *tuiItem
-
-          >
-              2 Bedroom
+            iconStart="@tui.credit-card"
+            tuiTab
+            type="button"
+            *tuiItem
+            >
+            2 Bedroom
           </button>
           <button
-              iconStart="@tui.credit-card"
-              tuiTab
-              type="button"
-              *tuiItem
-
-          >
-              2 Sharing
+            iconStart="@tui.credit-card"
+            tuiTab
+            type="button"
+            *tuiItem
+            >
+            2 Sharing
           </button>
           <button
-              iconStart="@tui.credit-card"
-              tuiTab
-              type="button"
-              *tuiItem
-
-          >
-              Wifi
+            iconStart="@tui.credit-card"
+            tuiTab
+            type="button"
+            *tuiItem
+            >
+            Wifi
           </button>
           <button
-              iconStart="@tui.credit-card"
-              tuiTab
-              type="button"
-              *tuiItem
-
-          >
-              2 Bedroom
+            iconStart="@tui.credit-card"
+            tuiTab
+            type="button"
+            *tuiItem
+            >
+            2 Bedroom
           </button>
-
         </tui-tabs-with-more>
-    </nav>
-    </ng-container>
+      </nav>
+    }
 
     <router-outlet></router-outlet>
   </main>

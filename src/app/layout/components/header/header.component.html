@@ -13,7 +13,7 @@
   <span tuiNavigationLogo class="logo">Levela</span>
 
   <!-- Center: Search -->
-   <hr />
+  <hr />
   <div>
     <tui-textfield (pointerdown.capture.stop)="(0)">
       <input tuiSearchHotkey [formControl]="control" [tuiInputSearch]="search" [(tuiInputSearchOpen)]="open" />
@@ -32,28 +32,27 @@
   </div>
   <hr />
   <!-- Right: User Info -->
-  <div *ngIf="user$ | async as user; else loggedOut" class="header-right">
-    <span tuiFade="horizontal">{{ user.full_name }}</span>
-
-    <button tuiButton tuiChevron tuiDropdownOpen [tuiDropdown]="profileDropdown">
-      Profile
-    </button>
-
-    <ng-template #profileDropdown>
-      <tui-data-list size="s">
-        <a tuiOption [routerLink]="'/profile'">Profile</a>
-        <a tuiOption [routerLink]="'/settings'">Settings</a>
-        <button tuiOption (click)="logout()">Logout</button>
-      </tui-data-list>
-    </ng-template>
-  </div>
-
-  <ng-template #loggedOut>
+  @if (user$ | async; as user) {
+    <div class="header-right">
+      <span tuiFade="horizontal">{{ user.full_name }}</span>
+      <button tuiButton tuiChevron tuiDropdownOpen [tuiDropdown]="profileDropdown">
+        Profile
+      </button>
+      <ng-template #profileDropdown>
+        <tui-data-list size="s">
+          <a tuiOption [routerLink]="'/profile'">Profile</a>
+          <a tuiOption [routerLink]="'/settings'">Settings</a>
+          <button tuiOption (click)="logout()">Logout</button>
+        </tui-data-list>
+      </ng-template>
+    </div>
+  } @else {
     <a tuiButton [routerLink]="'/auth/login'">
       Login
       <tui-icon icon="@tui.lock-open" [style.font-size.em]="1" [style.margin-left.rem]="0.5"></tui-icon>
     </a>
-  </ng-template>
+  }
+
 
   <!-- Icons + Dark Mode -->
   <div class="header-right">
@@ -68,7 +67,7 @@
       [iconStart]="icon()"
       [style.border-radius.%]="100"
       (click)="darkMode.set(!darkMode())"
-    >
+      >
       Mode
     </button>
   </div>
