@@ -8,13 +8,11 @@ import { TuiFieldErrorPipe, TuiFileLike, TuiFile, TuiFiles, TuiTextarea, TuiStep
 import { TuiCardLarge, TuiForm, TuiHeader, TuiItemGroup } from '@taiga-ui/layout';
 
 import { HousingService } from '../../services/housing.service';
-
 import { forkJoin, Observable, of, Subject, timer } from 'rxjs';
 import { map, switchMap, finalize } from 'rxjs/operators';
 import { ImageUploadComponent } from '../../../../shared/ui/image-upload/image-upload.component';
 import { ɵɵDir } from "@angular/cdk/scrolling";
 import { TuiAutoFocus, tuiMarkControlAsTouchedAndValidate, TuiActiveZone, TuiItem,  } from '@taiga-ui/cdk';
-
 @Component({
   standalone: true,
   selector: 'app-create-listing',
@@ -56,7 +54,9 @@ import { TuiAutoFocus, tuiMarkControlAsTouchedAndValidate, TuiActiveZone, TuiIte
     TuiChip,
     TuiItemsWithMore,
     TuiItem,
-    TuiAutoColorPipe
+    TuiAutoColorPipe,
+    
+
 
 ],
 })
@@ -84,6 +84,13 @@ export class CreateListingComponent implements OnInit{
     '5 Bedrooms',
     '6+ Bedrooms',
     'Other'
+  ]
+
+  readonly block=[
+    'Student',
+    'Caretaker',
+    'Landlord',
+    'House Agent'
   ]
 
   protected lastIndex = Infinity;
@@ -154,20 +161,16 @@ export class CreateListingComponent implements OnInit{
     return (control: AbstractControl): ValidationErrors | null => {
       const houseType = this.form.controls.houseType.value;
       if (houseType === this.chips[this.chips.length - 1] && !this.form.controls.customHouseType.value) {
-        this.alerts
-          .open('Add a house type', {
-            label: 'Error',
-            appearance: 'negative',
-            autoClose: 3000,
-          })
-          .subscribe();
         return { required: true }; // marks error
-      }else
-
-      if (houseType != this.chips[this.chips.length - 1]) {
-        return { required: false }
       }
 
+      // reset customHouseType when a user switches back to chips
+      this.form.controls.houseType.valueChanges.subscribe((value)=>{
+        if(value!==this.chips[this.chips.length-1]){
+          // clear customHouseType and its errors
+          this.form.controls.customHouseType.reset()
+        }
+      })
       return null; // valid
     };
   }

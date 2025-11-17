@@ -1,7 +1,7 @@
 <form
   tuiAppearance="floating"
   tuiCardLarge
-  tuiForm="m"
+  tuiForm="l"
   [formGroup]="form"
   (ngSubmit)="submit()"
   [style.max-width.rem]="38"
@@ -13,7 +13,7 @@
       <span tuiSubtitle>Add your space</span>
     </h2>
   </header>
-
+{{this.form.controls.userType.value}}
   <!-- group -->
   <label tuiLabel>Who are You?</label>
   <div
@@ -21,38 +21,48 @@
 
     <label tuiBlock>
       <span tuiTitle>
-        Student
+        {{this.block[0]}}
         <span tuiSubtitle>
           Post snd repost listings to find a roommate
         </span>
-        <input type="radio" value="student" tuiRadio formControlName="userType"/>
+        <input type="radio" [value]='block[0]' tuiRadio formControlName="userType"/>
       </span>
     </label>
 
     <label tuiBlock>
       <span tuiTitle>
-        Caretaker
+        {{this.block[1]}}
         <span tuiSubtitle>
           Post snd repost listings to find a roommate
         </span>
-        <input type="radio" value="caretaker" tuiRadio formControlName="userType"/>
+        <input type="radio" [value]='block[1]' tuiRadio formControlName="userType"/>
       </span>
     </label>
 
-    <label tuiBlock >
+    <label tuiBlock>
       <span tuiTitle>
-        House Agent
+        {{this.block[2]}}
         <span tuiSubtitle>
           Post snd repost listings to find a roommate
         </span>
-        <input type="radio" value="House manager" tuiRadio formControlName="userType"/>
+        <input type="radio" [value]='block[2]' tuiRadio formControlName="userType"/>
+      </span>
+    </label>
+
+    <label tuiBlock appearance="warning">
+      <span tuiTitle>
+        {{this.block[3]}}
+        <span tuiSubtitle>
+          Post snd repost listings to find a roommate
+        </span>
+        <input type="radio" [value]='block[3]' tuiRadio formControlName="userType"/>
         <tui-error [formControl]="form.controls['userType']" [error]="['required','maxlength'] | tuiFieldError | async" />
       </span>
     </label>
   </div>
 
   <!-- house type -->
-   {{form.value.houseType}}
+   <label tuiLabel>House Type</label>
   <div tuiItemGroup>
     <tui-items-with-more
     class="container"
@@ -64,6 +74,7 @@
         <ng-container>
           <label
           tuiChip
+          size="xs"
           *tuiItem
           [appearance]="chip? 'info':'negative'"
           [class.item_visible]="i <= lastIndex"
@@ -74,6 +85,7 @@
             type="radio"
             [value]="chip"
             formControlName="houseType"
+            size="xs"
             appearance="info"
             name="houseType"
             tuiChip>
@@ -96,7 +108,7 @@
       }
     </tui-items-with-more>
   </div>
-
+  <!-- house type alt -->
   @if(form.value.houseType===chips[chips.length-1]){
     <tui-textfield>
       <label tuiLabel>House Type</label>
@@ -106,19 +118,15 @@
   }
 
 
-  <!-- <tui-textfield>
-    <label tuiLabel>House Type</label>
-    <input tuiTextfield formControlName="houseType" placeholder="e.g. Single room,Bedsitter, Studio apartment" />
-  </tui-textfield>
-  <tui-error [formControl]="form.controls['houseType']" [error]="['required','maxlength'] | tuiFieldError | async" /> -->
-
 
   <!-- title -->
   <tui-textfield>
-    <label tuiLabel>Title</label>
+    <label tuiLabel>Listing Title</label>
     <input tuiTextfield formControlName="title" placeholder="e.g. Cozy Student Room in Nairobi" />
   </tui-textfield>
   <tui-error [formControl]="form.controls['title']" [error]="['required','maxlength'] | tuiFieldError | async" />
+
+  <!-- descr -->
 
   <tui-textfield>
     <label tuiLabel>House Description</label>
@@ -126,9 +134,10 @@
   </tui-textfield>
   <tui-error [formControl]="form.controls['description']" [error]="['required','maxlength'] | tuiFieldError | async" />
 
+  <!-- price -->
   <tui-textfield>
-    <label tuiLabel>Price (KES)</label>
-    <input tuiTextfield type="number" formControlName="price" placeholder="2500" />
+    <label tuiLabel>Price ({{+(254|tuiCurrency)}})</label>
+    <input  tuiTextfield type="number" formControlName="price" placeholder="2500" />
   </tui-textfield>
   <tui-error [formControl]="form.controls['price']" [error]="['required','min'] | tuiFieldError | async" />
 
