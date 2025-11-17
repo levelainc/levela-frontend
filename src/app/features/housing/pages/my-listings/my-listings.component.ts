@@ -39,7 +39,7 @@ export class MyListingsComponent{
 
     deleteListing(id:number): void {
         const data: TuiConfirmData = {
-            content: 'Are you sure you want to delete this listing?',
+            content: this.warningHeader,
             // appearance:'negative',
             yes: 'Yes, delete it',
             no: 'Cancel',
@@ -48,7 +48,7 @@ export class MyListingsComponent{
 
         this.dialogs
             .open<boolean>(TUI_CONFIRM, {
-                label: this.warningHeader,
+                label: 'Delete Warning !',
                 size: 'auto',
                 closeable:true,
                 appearance:'warning',
@@ -66,7 +66,8 @@ export class MyListingsComponent{
                           this.alerts.open('Listing deleted successfully!',{
                           label:'Deleted',
                           icon:'@tui.circle-check',
-                          appearance:'positive',
+                          appearance:'action',
+                          autoClose:500
                         }).subscribe()}
                         ,
                         error: () =>

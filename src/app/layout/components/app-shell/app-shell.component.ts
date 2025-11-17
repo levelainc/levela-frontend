@@ -44,12 +44,14 @@ export class AppShellComponent {
   showInfoSection=false;
 
   showHousingNav=false;
+  showCreateListingNav=false
   constructor(private router:Router){
     this.router.events
     .pipe(filter(event=>event instanceof NavigationEnd))
     .subscribe((e: NavigationEnd)=>{
       this.showHousingNav=e.urlAfterRedirects.startsWith('/housing')
       this.showInfoSection=e.urlAfterRedirects.startsWith('/housing/')
+      this.showCreateListingNav=e.urlAfterRedirects.startsWith('/housing/create')
     })
   }
 }

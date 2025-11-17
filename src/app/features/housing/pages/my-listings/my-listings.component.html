@@ -53,6 +53,7 @@
           </tui-badge> -->
           <input type="checkbox" tuiLike="var(--tui-status-accent)" size="s" checkedIcon="@tui.heart-filled" uncheckedIcon="@tui.heart" appearance="flat">
           <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.repeat-2" uncheckedIcon="@tui.repeat-2" appearance="flat">
+          <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.share" uncheckedIcon="@tui.share" appearance="flat">
         </footer>
         <ng-template #schools>
           <!-- <tui-data-list size="m">
@@ -71,7 +72,7 @@
 
 
 <ng-template #warningHeader>
-  <div>
-    Warning! Permanent Action
+  <div [style.color]="'red'">
+    <p>Are you sure you want to delete this listing?</p>
   </div>
 </ng-template>

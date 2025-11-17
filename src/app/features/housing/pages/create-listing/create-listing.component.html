@@ -5,6 +5,7 @@
   [formGroup]="form"
   (ngSubmit)="submit()"
   [style.max-width.rem]="38"
+  tuiAnimated
 >
   <header tuiHeader>
     <h2 tuiTitle>
@@ -13,35 +14,130 @@
     </h2>
   </header>
 
-  <!-- Title -->
+  <!-- group -->
+  <label tuiLabel>Who are You?</label>
+  <div
+  tuiGroup>
+
+    <label tuiBlock>
+      <span tuiTitle>
+        Student
+        <span tuiSubtitle>
+          Post snd repost listings to find a roommate
+        </span>
+        <input type="radio" value="student" tuiRadio formControlName="userType"/>
+      </span>
+    </label>
+
+    <label tuiBlock>
+      <span tuiTitle>
+        Caretaker
+        <span tuiSubtitle>
+          Post snd repost listings to find a roommate
+        </span>
+        <input type="radio" value="caretaker" tuiRadio formControlName="userType"/>
+      </span>
+    </label>
+
+    <label tuiBlock >
+      <span tuiTitle>
+        House Agent
+        <span tuiSubtitle>
+          Post snd repost listings to find a roommate
+        </span>
+        <input type="radio" value="House manager" tuiRadio formControlName="userType"/>
+        <tui-error [formControl]="form.controls['userType']" [error]="['required','maxlength'] | tuiFieldError | async" />
+      </span>
+    </label>
+  </div>
+
+  <!-- house type -->
+   {{form.value.houseType}}
+  <div tuiItemGroup>
+    <tui-items-with-more
+    class="container"
+    [class.container_expanded]="linesLimit === 100"
+    [linesLimit]="linesLimit"
+    (lastIndexChange)="lastIndex = $event"
+     >
+      @for(chip of chips;let i=$index;track i ){
+        <ng-container>
+          <label
+          tuiChip
+          *tuiItem
+          [appearance]="chip? 'info':'negative'"
+          [class.item_visible]="i <= lastIndex"
+
+          >
+            {{chip}}
+            <input
+            type="radio"
+            [value]="chip"
+            formControlName="houseType"
+            appearance="info"
+            name="houseType"
+            tuiChip>
+          </label>
+          <tui-error [formControl]="form.controls['houseType']" [error]="['required','maxlength'] | tuiFieldError | async" />
+        </ng-container>
+
+          <ng-template
+          let-index
+          tuiMore>
+          <button
+          type="button"
+          tuiChip
+          iconEnd="@tui.chevron-down"
+          appearance="icon"
+          (click)="linesLimit=10">
+            + {{getRemaining(index)}}
+          </button>
+          </ng-template>
+      }
+    </tui-items-with-more>
+  </div>
+
+  @if(form.value.houseType===chips[chips.length-1]){
+    <tui-textfield>
+      <label tuiLabel>House Type</label>
+      <input tuiTextfield formControlName="customHouseType" placeholder="e.g. Custom house type" />
+    </tui-textfield>
+    <tui-error [formControl]="form.controls['customHouseType']" [error]="['required','maxlength'] | tuiFieldError | async" />
+  }
+
+
+  <!-- <tui-textfield>
+    <label tuiLabel>House Type</label>
+    <input tuiTextfield formControlName="houseType" placeholder="e.g. Single room,Bedsitter, Studio apartment" />
+  </tui-textfield>
+  <tui-error [formControl]="form.controls['houseType']" [error]="['required','maxlength'] | tuiFieldError | async" /> -->
+
+
+  <!-- title -->
   <tui-textfield>
     <label tuiLabel>Title</label>
     <input tuiTextfield formControlName="title" placeholder="e.g. Cozy Student Room in Nairobi" />
   </tui-textfield>
   <tui-error [formControl]="form.controls['title']" [error]="['required','maxlength'] | tuiFieldError | async" />
 
-  <!-- Description -->
   <tui-textfield>
     <label tuiLabel>House Description</label>
     <textarea tuiTextarea formControlName="description" placeholder="Describe the property" [max]=4 [min]=4></textarea>
   </tui-textfield>
   <tui-error [formControl]="form.controls['description']" [error]="['required','maxlength'] | tuiFieldError | async" />
 
-  <!-- Price -->
   <tui-textfield>
     <label tuiLabel>Price (KES)</label>
     <input tuiTextfield type="number" formControlName="price" placeholder="2500" />
   </tui-textfield>
   <tui-error [formControl]="form.controls['price']" [error]="['required','min'] | tuiFieldError | async" />
 
-  <!-- City -->
   <tui-textfield>
     <label tuiLabel>City</label>
     <input tuiTextfield formControlName="city" placeholder="e.g. Nairobi" />
   </tui-textfield>
   <tui-error [formControl]="form.controls['city']" [error]="['required'] | tuiFieldError | async" />
 
-  <!-- Image Upload -->
   <app-image-upload [control]="form.controls['images']" accept="image/*"  label="Upload room images"></app-image-upload>
 
   <footer class="tui-space_top-3">
@@ -51,3 +147,66 @@
     </button>
   </footer>
 </form>
+
+
+<!-- <tui-stepper [activeItemIndex]="index" (activeItemIndexChange)="onStep($event)">
+  <button tuiStep [icon]="'@tui.house'">House Details</button>
+  <button tuiStep [icon]="'@tui.map-pin'">Location Details</button>
+  <button tuiStep [icon]="'@tui.house-plus'">Sharing?</button>
+  <button tuiStep [icon]="'@tui.plus'">Addons</button>
+</tui-stepper>
+<footer>
+  <button
+  [disabled]="!index"
+  appearance="secondary"
+  tuiButton
+  (click)="index=index-1"
+  >
+    Back
+  </button>
+  <button
+  appearance="secondary"
+  tuiButton
+  type="submit"
+  (click)="onSubmit()"
+  >
+    Next
+  </button>
+
+</footer>
+<section [tuiSlides]="direction">
+  @for(myForm of forms;let i =$index;track i){
+    @if(i===index){
+      <form
+      tuiAppearance="floating"
+      tuiCardLarge
+      [formGroup]="myForm"
+      [id]="'myForm_'+i"
+      (ngSubmit)="onSubmit()">
+
+        <header tuiHeader>
+          <div tuiTitle>
+            Create Listing
+            <span tuiSubtitle>
+              Complete the steps below to create a listing
+            </span>
+          </div>
+        </header>
+
+        @for(control of myForm.controls | keyvalue;track control.key){
+          <tui-textfield>
+            <label tuiLabel>{{control.key}}</label>
+            <input
+            tuiTextfield
+            [tuiAutoFocus]="!!index && !i"
+            [formControlName]="control.key"  />
+          </tui-textfield>
+
+        }
+
+      </form>
+    }
+  }
+</section> -->
+
+
