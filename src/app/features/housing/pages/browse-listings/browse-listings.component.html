@@ -8,7 +8,6 @@
       Over 50,000+ house collection
     </span>
   </div>
-
   <!-- <search tuiSearch>
   <form [formGroup]="form">
     <fieldset tuiTextfieldSize="s">
@@ -96,10 +95,10 @@
                   </fieldset>
                 </form>
               </search> -->
-            </div>
+</div>
 
-            <!-- preserve this for mobile -->
-            <!-- <div tuiCell="l">
+<!-- preserve this for mobile -->
+<!-- <div tuiCell="l">
             <div tuiTitle>
               Top Listing
             </div>
@@ -191,13 +190,14 @@
                     [routerLink]="['/housing', listing.id]"
                     >
                     <header tuiCell="s" class="card-header">
-                      <tui-badge size="s" appearance="neutral">Posted on {{ listing.created_at | date }}</tui-badge>
-                      <tui-icon icon="@tui.images" />
+                      <tui-badge  size="s" appearance="neutral">Posted on {{ listing.created_at | date }}</tui-badge>
+                      <tui-icon  icon="@tui.images" />
                       <button
                         tuiButton
                         appearance="grayscale"
                         iconStart="@tui.star"
                         size="xs"
+
                         >
                         4.5
                       </button>
@@ -243,6 +243,69 @@
                     </div>
                   </div>
                 }
+              </div>
+            }@else{
+              <tui-loader/>
+              <div *tuiRepeatTimes="let index of 30">
+                <p>
+                  <tui-avatar
+                      src="AI"
+                      [tuiSkeleton]="true"
+                  />
+                  <tui-avatar
+                      src="https://avatars.githubusercontent.com/u/11832552"
+                      [tuiSkeleton]="true"
+                  />
+                  <tui-avatar
+                      src="❤️"
+                      [tuiSkeleton]="true"
+                  />
+                  <tui-avatar
+                      appearance="primary"
+                      src="$"
+                      [tuiSkeleton]="true"
+                  />
+              </p>
+              <section
+                  tuiAppearance="neutral"
+                  tuiCardLarge
+                  [tuiSkeleton]="true"
+              >
+                  <h2 tuiHeader>
+                      <span tuiTitle>
+                          Card
+                          <span tuiSubtitle>Subtitle</span>
+                      </span>
+                  </h2>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+                  aliqua.
+              </section>
+              <p>
+                  <tui-progress-circle
+                      [tuiSkeleton]="true"
+                      [value]=" 0.33 "
+                  />
+                  <tui-avatar-stack>
+                      <tui-avatar
+                          src="AI"
+                          [tuiSkeleton]="true"
+                      />
+                      <tui-avatar
+                          src="https://avatars.githubusercontent.com/u/11832552"
+                          [tuiSkeleton]="true"
+                      />
+                      <tui-avatar
+                          src="❤️"
+                          [tuiSkeleton]="true"
+                      />
+                      <tui-avatar
+                          appearance="primary"
+                          src="$"
+                          [tuiSkeleton]="true"
+                      />
+                  </tui-avatar-stack>
+              </p>
+              <p>
               </div>
             }
 

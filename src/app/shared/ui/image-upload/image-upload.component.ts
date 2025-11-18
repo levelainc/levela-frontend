@@ -72,7 +72,7 @@ export class ImageUploadComponent implements OnInit {
       timer(300).pipe(
         map(() => {
           // Simulate validation success (can be replaced with real logic)
-          const success = Math.random() > 0.1;
+          const success = Math.random() < 0.1;
           if (!success) {
             this.failedFiles$.next([file]);
             return null;

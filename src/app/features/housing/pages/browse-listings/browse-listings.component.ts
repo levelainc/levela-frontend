@@ -8,7 +8,7 @@ import { CommonModule, AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HousingService } from '../../services/housing.service';
 import { Listing } from '../../models/housing.model';
-import { TuiAvatar, TuiBadge, TuiCarousel, TuiTabs } from '@taiga-ui/kit';
+import { TuiAvatar, TuiAvatarStack, TuiBadge, TuiCarousel, TuiProgressCircle, TuiSkeleton, TuiTabs } from '@taiga-ui/kit';
 import {
   TuiCardLarge,
   TuiCardMedium,
@@ -25,9 +25,12 @@ import {
   TuiDataList,
   TuiIcon,
   TuiTextfield,
+  TuiLoader,
+  tuiLoaderOptionsProvider,
 } from '@taiga-ui/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, switchMap } from 'rxjs';
+import { TuiRepeatTimes } from '@taiga-ui/cdk';
 @Component({
   standalone: true,
   selector: 'app-browse-listings',
@@ -57,11 +60,26 @@ import { BehaviorSubject, switchMap } from 'rxjs';
     RouterLink,
     TuiBadge,
     TuiCarousel,
-    TuiAvatar
+    TuiAvatar,
+    TuiSkeleton,
+    TuiLoader,
+    TuiRepeatTimes,
+    TuiProgressCircle,
+    TuiAvatarStack,
+
+
+],
+providers: [
+  tuiLoaderOptionsProvider({
+      size: 'xl',
+      inheritColor: false,
+      overlay: true,
+  }),
 ],
 })
 export class BrowseListingsComponent implements OnInit {
   private readonly housingService = inject(HousingService);
+  protected readonly skeleton=false
 
   private refresh$=new BehaviorSubject<void>(undefined)
   // listings$ = this.housingService.getAllListings();
@@ -70,7 +88,7 @@ export class BrowseListingsComponent implements OnInit {
   )
   protected open=false
   ngOnInit(): void {
-    
+
   }
 
   getImageUrl(listing: Listing): string {

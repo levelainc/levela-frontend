@@ -3,16 +3,17 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule, V
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AsyncPipe, CommonModule, KeyValuePipe, NgFor } from '@angular/common';
 
-import { TuiTextfield, TuiNotification, TuiAlertService, TuiButton, TuiError, TuiTitle, TuiAppearance, TuiLoader, TuiGroup, TuiAutoColorPipe } from '@taiga-ui/core';
-import { TuiFieldErrorPipe, TuiFileLike, TuiFile, TuiFiles, TuiTextarea, TuiStepper, TuiSlides, TuiBlock, TuiRadio, TuiChip, TuiItemsWithMore } from '@taiga-ui/kit';
+import { TuiTextfield, TuiNotification, TuiAlertService, TuiButton, TuiError, TuiTitle, TuiAppearance, TuiLoader, TuiGroup, TuiAutoColorPipe, TuiHint, TuiIcon, tuiAppearanceMode, tuiAppearanceFocus, tuiAppearanceState } from '@taiga-ui/core';
+import { TuiFieldErrorPipe, TuiFileLike, TuiFile, TuiFiles, TuiTextarea, TuiStepper, TuiSlides, TuiBlock, TuiRadio, TuiChip, TuiItemsWithMore, TuiInputNumber, TUI_COUNTRIES, TuiInputChip, TuiToastService, TuiTextareaLimit } from '@taiga-ui/kit';
 import { TuiCardLarge, TuiForm, TuiHeader, TuiItemGroup } from '@taiga-ui/layout';
-
+import {type TuiCountryIsoCode} from '@taiga-ui/i18n';
 import { HousingService } from '../../services/housing.service';
 import { forkJoin, Observable, of, Subject, timer } from 'rxjs';
 import { map, switchMap, finalize } from 'rxjs/operators';
 import { ImageUploadComponent } from '../../../../shared/ui/image-upload/image-upload.component';
 import { ɵɵDir } from "@angular/cdk/scrolling";
-import { TuiAutoFocus, tuiMarkControlAsTouchedAndValidate, TuiActiveZone, TuiItem,  } from '@taiga-ui/cdk';
+import { TuiAutoFocus, TuiActiveZone, TuiItem,  } from '@taiga-ui/cdk';
+import {TuiAmountPipe, TuiCurrencyPipe} from '@taiga-ui/addon-commerce';
 @Component({
   standalone: true,
   selector: 'app-create-listing',
@@ -55,7 +56,17 @@ import { TuiAutoFocus, tuiMarkControlAsTouchedAndValidate, TuiActiveZone, TuiIte
     TuiItemsWithMore,
     TuiItem,
     TuiAutoColorPipe,
+    TuiCurrencyPipe,
+    TuiInputNumber,
+    TuiAmountPipe,
+    TuiInputChip,
+    TuiTextfield,
+    TuiHint,
+    TuiIcon,
+    TuiTextareaLimit,
     
+
+
 
 
 ],
@@ -65,6 +76,8 @@ export class CreateListingComponent implements OnInit{
   private readonly housingService = inject(HousingService);
   private readonly router = inject(Router);
   private readonly zone = inject(NgZone);
+  protected readonly countryCode:TuiCountryIsoCode='KE'
+  private readonly toast=inject(TuiToastService)
 
   loading = false;
   errorMsg = '';
@@ -93,6 +106,12 @@ export class CreateListingComponent implements OnInit{
     'House Agent'
   ]
 
+  amenityList=[
+    'Running water',
+    'Electricity',
+    '24/7 Security'
+  ]
+
   protected lastIndex = Infinity;
   protected getRemaining(index: number): number {
       const offset = index + 1;
@@ -104,8 +123,13 @@ export class CreateListingComponent implements OnInit{
     userType: new FormControl('',Validators.required),
     customHouseType:new FormControl(''),
     houseType: new FormControl('',Validators.required),
+    amenities:new FormControl<string[]>(this.amenityList,[Validators.required]),
+    nearbySchools:new FormControl<string[]>([]),
+    nearbyHospitals:new FormControl<string[]>([]),
+    nearbyPoliceStations:new FormControl<string[]>([]),
     title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
     description: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
+    additionalNote: new FormControl('', [Validators.maxLength(100)]),
     price: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     city: new FormControl('', Validators.required),
     images: new FormControl<TuiFileLike[]>([]), // keep for UI
@@ -150,11 +174,31 @@ export class CreateListingComponent implements OnInit{
     );
   }
 
-
   // custom validation
   ngOnInit(): void {
     this.form.controls.customHouseType.setValidators(this.customHouseTypeValidator());
     this.form.controls.customHouseType.updateValueAndValidity();
+    // validating chip length
+    this.form.controls.amenities.setValidators(this.chipLengthValidator())
+    this.form.controls.amenities.updateValueAndValidity()
+  }
+
+  // chip length validator
+  chipLengthValidator():ValidatorFn{
+    return (control: AbstractControl): ValidationErrors | null => {
+      const amenityListLenth:any= this.form.controls.amenities.value?.length;
+      if (amenityListLenth>8) {
+        return { error: 'Entries cannot exeed 8' }; // marks error
+      }
+      const chipsList:string[]=this.form.controls.amenities.value as string[]
+      for(const chip of chipsList){
+        if(chip.length>15){
+          return{error:'Values cannot exeed 15 characters'}
+        }
+      }
+
+      return null; // valid
+    };
   }
 
   customHouseTypeValidator():ValidatorFn {
@@ -221,46 +265,5 @@ export class CreateListingComponent implements OnInit{
 
 
 
-//   protected readonly forms = [
-//     new FormGroup({
-//       title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-//       description: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
-//       price: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-//       city: new FormControl('', Validators.required),
-//       images: new FormControl<TuiFileLike[]>([]),
-//     }),
-
-//     new FormGroup({
-//         Name: new FormControl('', Validators.required),
-//         Surname: new FormControl('', Validators.required),
-//     }),
-//     new FormGroup({
-//         Country: new FormControl('', Validators.required),
-//         City: new FormControl('', Validators.required),
-//         Address: new FormControl('', Validators.required),
-//     }),
-//     new FormGroup({
-//         Card: new FormControl('', Validators.required),
-//         Value: new FormControl('', Validators.required),
-//     }),
-// ];
-
-// protected onStep(step: number): void {
-//   this.direction = step - this.index;
-//   this.index = step;
-// }
-
-// protected onSubmit(): void {
-//   tuiMarkControlAsTouchedAndValidate(this.forms[this.index]!);
-
-//   if (this.forms[this.index]?.invalid) {
-//       return;
-//   }
-
-//   this.direction = 1;
-//   this.index = Math.min(this.index + 1, this.forms.length - 1);
-// }
-
-value=0
 
 }

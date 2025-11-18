@@ -49,7 +49,7 @@
       </span>
     </label>
 
-    <label tuiBlock appearance="warning">
+    <label tuiBlock appearance="warning"  [tuiAppearanceState]="'active'">
       <span tuiTitle>
         {{this.block[3]}}
         <span tuiSubtitle>
@@ -127,26 +127,71 @@
   <tui-error [formControl]="form.controls['title']" [error]="['required','maxlength'] | tuiFieldError | async" />
 
   <!-- descr -->
-
   <tui-textfield>
     <label tuiLabel>House Description</label>
-    <textarea tuiTextarea formControlName="description" placeholder="Describe the property" [max]=4 [min]=4></textarea>
+    <textarea [limit]="1000" tuiTextarea formControlName="description" placeholder="Describe the property" [max]=4 [min]=4></textarea>
   </tui-textfield>
-  <tui-error [formControl]="form.controls['description']" [error]="['required','maxlength'] | tuiFieldError | async" />
+  <tui-error [formControl]="form.controls['additionalNote']" [error]="['maxlength'] | tuiFieldError | async" />
 
   <!-- price -->
   <tui-textfield>
-    <label tuiLabel>Price ({{+(254|tuiCurrency)}})</label>
-    <input  tuiTextfield type="number" formControlName="price" placeholder="2500" />
+    <label tuiLabel>Price</label>
+    <input [prefix]="'Ksh'+' '|tuiCurrency"  tuiInputNumber formControlName="price" placeholder="25000" />
   </tui-textfield>
   <tui-error [formControl]="form.controls['price']" [error]="['required','min'] | tuiFieldError | async" />
 
-  <tui-textfield>
-    <label tuiLabel>City</label>
+  <!-- location -->
+  <tui-textfield iconStart="@tui.map-pin">
+    <label tuiLabel>Location</label>
     <input tuiTextfield formControlName="city" placeholder="e.g. Nairobi" />
   </tui-textfield>
   <tui-error [formControl]="form.controls['city']" [error]="['required'] | tuiFieldError | async" />
 
+  <!-- Amenities -->
+  <tui-textfield multi [rows]="4">
+    <label tuiLabel>Amenities</label>
+    <input tuiInputChip  formControlName="amenities" [unique]="true" />
+    <tui-input-chip
+    *tuiItem="let context"
+    [tuiHint]="context.item.length > 15 ? 'Please Keep it Short':''"
+    [appearance]="context.item.length > 15 ? 'negative':'primary'"
+    />
+  </tui-textfield>
+  <tui-error [formControl]="form.controls['amenities']" [error]="['required','error'] | tuiFieldError | async" />
+
+  <!-- nearby schools -->
+  <tui-textfield multi [rows]="4">
+    <label tuiLabel>Nearby Schools</label>
+    <input tuiInputChip  formControlName="nearbySchools" [unique]="true" />
+    <tui-input-chip
+    *tuiItem="let context"
+    [tuiHint]="context.item.length > 30 ? 'Please Keep it Short':''"
+    [appearance]="context.item.length > 30 ? 'negative':'primary'"
+    />
+  </tui-textfield>
+  <tui-error [formControl]="form.controls['nearbySchools']" [error]="['error'] | tuiFieldError | async" />
+
+  <!-- nearby hospitals -->
+  <tui-textfield multi [rows]="4">
+    <label tuiLabel>Nearby Hospitals</label>
+    <input tuiInputChip  formControlName="nearbyHospitals" [unique]="true" />
+    <tui-input-chip
+    *tuiItem="let context"
+    [tuiHint]="context.item.length > 15 ? 'Please Keep it Short':''"
+    [appearance]="context.item.length > 15 ? 'negative':'primary'"
+    />
+  </tui-textfield>
+  <tui-error [formControl]="form.controls['nearbyHospitals']" [error]="['error'] | tuiFieldError | async" />
+
+  <!-- additional note -->
+  <tui-textfield>
+    <label tuiLabel>Additional Note</label>
+    <textarea tuiTextarea formControlName="additionalNote" [limit]="100" placeholder="Any Additional note" [max]=4 [min]=4></textarea>
+  </tui-textfield>
+  <tui-error [formControl]="form.controls['additionalNote']" [error]="['maxlength'] | tuiFieldError | async" />
+
+  <!-- upload images -->
+   
   <app-image-upload [control]="form.controls['images']" accept="image/*"  label="Upload room images"></app-image-upload>
 
   <footer class="tui-space_top-3">
@@ -217,5 +262,6 @@
     }
   }
 </section> -->
+
 
 
