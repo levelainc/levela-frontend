@@ -31,26 +31,9 @@ export class HousingService {
 
   }
 
-  createListing(payload: {
-    title:string,
-    description: string,
-    price: number,
-    location: string,
-    user_type:string,
-    custom_house_type:string,
-    house_type:string,
-    nearby_hospitals:string[],
-    nearby_police_stations:string[],
-    nearby_schools:string [],
-    current_occupants:number,
-    max_occupants:number,
-    amenities:string[],
-    additional_note:string
-  }): Observable<any> {
-    const token = localStorage.getItem('token');
-    // console.log(token)
-    return this.http.post(`${this.baseUrl}/api/housing/listing`, payload);
-
+  createListing(formData: FormData): Observable<any> {
+    // Interceptor will attach Bearer token automatically
+    return this.http.post(`${this.baseUrl}/api/housing/listing`, formData);
   }
 
 

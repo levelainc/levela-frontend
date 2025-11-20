@@ -121,6 +121,7 @@ export class CreateListingComponent implements OnInit{
       return this.chips.length - offset;
   }
 
+
   readonly form = new FormGroup({
     userType: new FormControl('',Validators.required),
     customHouseType:new FormControl(''),
@@ -136,8 +137,12 @@ export class CreateListingComponent implements OnInit{
     additionalNote: new FormControl('', [Validators.maxLength(100)]),
     price: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     city: new FormControl('', Validators.required),
-    images: new FormControl<TuiFileLike[]>([]), // keep for UI
+    images: new FormControl<File[]>([], Validators.required),
   });
+
+  get imagesControl(): FormControl<File[]> {
+    return this.form.controls['images'] as FormControl<File[]>;
+  }
 
   // Reactive streams for image upload
   readonly failedFiles$ = new Subject<TuiFileLike[]>();
@@ -287,27 +292,56 @@ export class CreateListingComponent implements OnInit{
     this.loading = true;
     this.errorMsg = '';
 
-    const { userType,customHouseType,houseType,nearbySchools,currentOccupants,maxOccupants,nearbyHospitals,nearbyPoliceStations,additionalNote,title, description, price, city,amenities } = this.form.value;
+    const f = this.form.value;
+    const fd = new FormData();
 
-    // payload as JSON object
-    const payload = {
-      title: title ?? '',
-      description: description ?? '',
-      price: price ?? 0,
-      location: city ?? '',
-      user_type:userType?? '',
-      custom_house_type:customHouseType?? '',
-      house_type:houseType?? '',
-      nearby_hospitals:nearbyHospitals?? [],
-      nearby_police_stations:nearbyPoliceStations?? [],
-      nearby_schools:nearbySchools?? [],
-      current_occupants:currentOccupants?? 0,
-      max_occupants:maxOccupants?? 0,
-      amenities:amenities??[],
-      additional_note:additionalNote??''
-    };
+    // required fields
+    fd.append('title', f.title ?? '');
+    fd.append('description', f.description ?? '');
+    fd.append('price', (f.price ?? 0).toString());
+    fd.append('location', f.city ?? '');
+    fd.append('user_type', f.userType ?? '');
+    fd.append('house_type', f.houseType ?? '');
+    fd.append('custom_house_type', f.customHouseType ?? '');
+    fd.append('amenities', (f.amenities ?? []).join(','));
 
-    this.housingService.createListing(payload).subscribe({
+    // numeric/optional fields
+    fd.append('current_occupants', (f.currentOccupants ?? 0).toString());
+    fd.append('max_occupants', (f.maxOccupants ?? 0).toString());
+    fd.append('nearby_schools', (f.nearbySchools ?? []).join(','));
+    fd.append('nearby_hospitals', (f.nearbyHospitals ?? []).join(','));
+    fd.append('nearby_police_stations', (f.nearbyPoliceStations ?? []).join(','));
+    fd.append('additional_note', f.additionalNote ?? '');
+
+    // image upload
+    const images: TuiFileLike[] = f.images ?? [];
+    for (const file of images) {
+      let actualFile: File | null = null;
+
+      if (!file) continue;
+
+      // Taiga wrapped file
+      if ('file' in file && file.file instanceof File) {
+        actualFile = file.file;
+      }
+      // Native File
+      else if (file instanceof File) {
+        actualFile = file;
+      }
+
+      if (actualFile) {
+        fd.append('images', actualFile, actualFile.name);
+      }
+    }
+
+    console.log('Images to upload:', images);
+    console.log('FormData keys:', Array.from(fd.keys()));
+
+
+
+    console.log(`images: ${f.images}`)
+
+    this.housingService.createListing(fd).subscribe({
       next: () => {
         this.loading = false;
         // this.form.reset({ images: [] });
@@ -323,7 +357,7 @@ export class CreateListingComponent implements OnInit{
       error: (err) => {
         this.loading = false;
         this.errorMsg =
-          err?.error?.error ?? 'Failed to create listing. Please try again....';
+          err?.error?.error ?? 'Failed to create listing. Please try again';
         this.alerts
           .open(this.errorMsg, {
             label: 'Error',

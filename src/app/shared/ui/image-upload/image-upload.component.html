@@ -1,47 +1,15 @@
 <label tuiInputFiles>
   <input
-    [formControl]="control"
-    [accept]="accept"
-    [multiple]="multiple"
     tuiInputFiles
-    />
-    {{ label }}
-  </label>
+    [formControl]="control"
+    [multiple]="true"
+    accept="image/*"
+    (reject)="onReject($event)"
+  />
+  {{ label }}
+</label>
 
-  <tui-files class="tui-space_top-1">
-    <!-- Rejected -->
-    @for (file of rejectedFiles; track file) {
-      <tui-file
-        state="error"
-        [file]="file"
-        (remove)="removeFile()"
-        />
-    }
-
-
-    <!-- Loading -->
-    @for (file of loadingFiles$ | async; track file) {
-      <tui-file
-        state="loading"
-        [file]="file"
-        (remove)="removeFile()"
-        />
-    }
-
-    <!-- Failed -->
-    @for (file of failedFiles$ | async; track file) {
-      <tui-file
-        state="error"
-        [file]="file"
-        (remove)="removeFile()"
-        />
-    }
-
-    <!-- Loaded -->
-    @for (file of loadedFiles$ | async; track file) {
-      <tui-file
-        [file]="file"
-        (remove)="removeFile()"
-        />
-    }
-  </tui-files>
+<tui-files class="tui-space_top-1">
+  <tui-file *ngFor="let file of accepted$ | async" [file]="file" (remove)="onRemove(file)" />
+  <tui-file *ngFor="let file of rejected" state="error" [file]="file" (remove)="onRemove(file)" />
+</tui-files>
