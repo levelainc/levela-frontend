@@ -1,11 +1,11 @@
 <form
-  tuiAppearance="floating"
-  tuiCardLarge
   tuiForm="l"
   [formGroup]="form"
+  tuiCardLarge="compact"
   (ngSubmit)="submit()"
   [style.max-width.rem]="38"
   tuiAnimated
+  class="tui-text_body-s"
 >
   <header tuiHeader>
     <h2 tuiTitle>
@@ -13,7 +13,6 @@
       <span tuiSubtitle>Add your space</span>
     </h2>
   </header>
-{{this.form.controls.userType.value}}
   <!-- group -->
   <label tuiLabel>Who are You?</label>
   <div
@@ -112,11 +111,54 @@
   @if(form.value.houseType===chips[chips.length-1]){
     <tui-textfield>
       <label tuiLabel>House Type</label>
-      <input tuiTextfield formControlName="customHouseType" placeholder="e.g. Custom house type" />
+      <input [style.text-style]="'bold'" tuiTextfield formControlName="customHouseType" placeholder="e.g. Custom house type" />
     </tui-textfield>
     <tui-error [formControl]="form.controls['customHouseType']" [error]="['required','maxlength'] | tuiFieldError | async" />
   }
 
+
+  <!-- Number of roommates -->
+  @if(form.value.userType==='Student'){
+  <label tuiLabel>
+    Enter the current No. of occupants
+  </label>
+  <div tuiGroup class="group">
+    <div>
+      <tui-textfield
+      >
+          <label tuiLabel>current occupants</label>
+          <input
+          tuiInputNumber
+          formControlName="currentOccupants"
+          placeholder="currentOccupants"
+          [max]="10"
+          [min]="1"
+          [step]="1"
+          type="number"
+          />
+      </tui-textfield>
+      <tui-error [formControl]="form.controls['currentOccupants']" [error]="['required'] | tuiFieldError | async" />
+    </div>
+    <div>
+      <tui-textfield
+      >
+          <label tuiLabel>max occupants</label>
+          <input
+          tuiInputNumber
+          tuiHintContent="max occupants"
+          formControlName="maxOccupants"
+          [max]="10"
+          [min]="1"
+          [step]="1"
+          placeholder="maxOccupants"
+          type="number"
+
+          />
+      </tui-textfield>
+      <tui-error [formControl]="form.controls['maxOccupants']" [error]="['required'] | tuiFieldError | async" />
+    </div>
+  </div>
+  }
 
 
   <!-- title -->
@@ -183,6 +225,18 @@
   </tui-textfield>
   <tui-error [formControl]="form.controls['nearbyHospitals']" [error]="['error'] | tuiFieldError | async" />
 
+  <!-- nearby police stations -->
+  <tui-textfield multi [rows]="4">
+    <label tuiLabel>Nearby Police Stations</label>
+    <input tuiInputChip  formControlName="nearbyPoliceStations" [unique]="true" />
+    <tui-input-chip
+    *tuiItem="let context"
+    [tuiHint]="context.item.length > 15 ? 'Please Keep it Short':''"
+    [appearance]="context.item.length > 15 ? 'negative':'primary'"
+    />
+  </tui-textfield>
+  <tui-error [formControl]="form.controls['nearbyPoliceStations']" [error]="['error'] | tuiFieldError | async" />
+
   <!-- additional note -->
   <tui-textfield>
     <label tuiLabel>Additional Note</label>
@@ -191,7 +245,7 @@
   <tui-error [formControl]="form.controls['additionalNote']" [error]="['maxlength'] | tuiFieldError | async" />
 
   <!-- upload images -->
-   
+
   <app-image-upload [control]="form.controls['images']" accept="image/*"  label="Upload room images"></app-image-upload>
 
   <footer class="tui-space_top-3">

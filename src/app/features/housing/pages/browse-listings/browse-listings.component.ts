@@ -3,6 +3,9 @@ import {
   Component,
   inject,
   OnInit,
+  Input,
+  Signal,
+  signal
 } from '@angular/core';
 import { CommonModule, AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -28,9 +31,10 @@ import {
   TuiLoader,
   tuiLoaderOptionsProvider,
 } from '@taiga-ui/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { TuiRepeatTimes } from '@taiga-ui/cdk';
+
 @Component({
   standalone: true,
   selector: 'app-browse-listings',
@@ -66,6 +70,10 @@ import { TuiRepeatTimes } from '@taiga-ui/cdk';
     TuiRepeatTimes,
     TuiProgressCircle,
     TuiAvatarStack,
+    FormsModule,
+    ReactiveFormsModule,
+    FormsModule,
+
 
 
 ],
@@ -112,6 +120,42 @@ export class BrowseListingsComponent implements OnInit {
   protected index = 0;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  protected readonly exampleControl = new FormControl(100);
+  protected readonly exampleYearControl = new FormControl<number | null>(null);
+  protected readonly badges = [
+      'primary',
+      'accent',
+      'success',
+      'error',
+      'warning',
+      'neutral',
+      'info',
+  ];
+
+  protected readonly buttons = ['primary', 'accent', 'destructive', 'flat', 'outline'];
+
+  @Input()
+  public theme: Signal<string> = signal('');
 }
 
 
