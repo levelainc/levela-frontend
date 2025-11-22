@@ -10,7 +10,7 @@ import {
 export interface ListingCell {
   title?: string;
   more?: string;
-  icon?: string;
+  icon?: any;
   background?:string;
   color?:string;
   price?:number | string;
@@ -18,7 +18,7 @@ export interface ListingCell {
 import { Title } from '@angular/platform-browser';
 import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
 import {tuiIsString} from '@taiga-ui/cdk/utils/miscellaneous';
-import { TuiTitle } from '@taiga-ui/core';
+import { TuiIcon, TuiTitle } from '@taiga-ui/core';
 import {TuiButton, tuiButtonOptionsProvider} from '@taiga-ui/core/components/button';
 import {TuiFormatDatePipe} from '@taiga-ui/core/pipes/format-date';
 import {TUI_CLOSE_WORD, TUI_COMMON_ICONS} from '@taiga-ui/core/tokens';
@@ -31,9 +31,9 @@ import { TuiCell } from '@taiga-ui/layout';
     AsyncPipe,
     TuiCell,
     TuiTitle,
-    TuiAmountPipe
-
-  ],
+    TuiAmountPipe,
+    TuiIcon
+],
   templateUrl: './housing-listing-card.component.html',
   styleUrl: './housing-listing-card.component.less',
   providers: [tuiButtonOptionsProvider({size: 's', appearance: 'secondary'})],
@@ -51,6 +51,15 @@ export class HousingListingCardComponent {
 
     @Input()
     public lines = 2;
+
+    @Input()
+    public RoommateIcon = '';
+
+    @Input()
+    public maxRoommates: number | string = '';
+
+    @Input()
+    public minRoommates: number | string = '';
 
     @Input()
     public timestamp: number | string = '';

@@ -114,7 +114,7 @@
         <label tuiLabel>House Type</label>
         <input [style.text-style]="'bold'" tuiTextfield formControlName="customHouseType" placeholder="e.g. Custom house type" />
       </tui-textfield>
-      <tui-error [formControl]="form.controls['customHouseType']" [error]="['required','maxlength'] | tuiFieldError | async" />
+      <tui-error [formControl]="form.controls['customHouseType']" [error]="['maxlength'] | tuiFieldError | async" />
     }
 
 

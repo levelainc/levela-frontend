@@ -1,6 +1,6 @@
 .listings-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.25rem;
   padding: 1rem;
 }
@@ -291,12 +291,12 @@ tui-loader {
   --tui-thickness: 0.25em;
 }
 
-:host{
-  --tui-font-text: 'Comic Sans MS', cursive;
-    --tui-font-text-m: bold 0.7rem/1.3rem var(--tui-font-text);
-    --tui-font-text-s: normal 0.5rem/1.25rem var(--tui-font-text);
-    --tui-background-accent-1: #c86dd7;
-}
+// :host{
+//   --tui-font-text: 'Comic Sans MS', cursive;
+//     --tui-font-text-m: bold 0.7rem/1.3rem var(--tui-font-text);
+//     --tui-font-text-s: normal 0.5rem/1.25rem var(--tui-font-text);
+//     --tui-background-accent-1: #c86dd7;
+// }
 
 @import '@taiga-ui/core/styles/taiga-ui-local.less';
 
@@ -309,7 +309,12 @@ tui-loader {
 
 tui-chip {
   margin: 0.5rem;
+  --tui-font-text-m: bold 1rem/1.5rem var(--tui-font-text);
+  --tui-font-text-s: normal 0.7rem/1.45rem var(--tui-font-text);
 }
 [tuiButton]{
   margin-right: 0.5rem;
+}
+img{
+  cursor: pointer;
 }

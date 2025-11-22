@@ -92,6 +92,7 @@ import { HousingListingCardComponent } from '../../../../shared/ui/housing-listi
     TuiScrollable,
     TuiLike,
     TuiFade,
+    TuiButtonGroup
 ],
 providers: [
   tuiLoaderOptionsProvider({

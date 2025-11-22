@@ -3,15 +3,12 @@
 </div>
 @if (cell.title||cell.price||cell.more) {
   <div tuiCell class="t-close">
-    <div tuiTitle="s">
-      {{cell.title}}
+    <div
+    tuiTitle="s">
+      <span
+      >{{cell.title}}</span>
       <span tuiSubtitle>
-        @if (cell.price) {
-          <span
-            class="t-type"
-            [textContent]="isString(cell.price) ? cell.price : (cell.price | tuiAmount:'Ksh':'left' | async)"
-          ></span>
-        }
+        {{cell.more}}
       </span>
     </div>
     <button
@@ -19,11 +16,16 @@
       tuiButton
       [style.background]="cell.background"
       [style.color]="cell.color"
-      [iconStart]="cell.icon"
       type="button"
 
     >
-          {{cell.more}}
+          <tui-icon [icon]="cell.icon"/>
+          @if (cell.price) {
+            <span
+              class="t-type"
+              [textContent]="isString(cell.price) ? cell.price : (cell.price | tuiAmount:'Ksh':'left' | async)"
+            ></span>
+          }/Mth
     </button>
   </div>
 }
@@ -40,12 +42,22 @@
       ></span>
   }
 </div>
-<h3
-  automation-id="tui-push__heading"
-  class="t-heading"
->
-  {{ heading }}
-</h3>
+
+<div tuiCell>
+  <div
+    automation-id="tui-push__heading"
+    tuiTitle
+  >
+    {{ heading }}
+  </div>
+  <button type="button" size="xs" tuiButton>
+    <tui-icon [icon]="RoommateIcon"/>
+      {{maxRoommates}}/{{minRoommates}}
+  </button>
+  <button tuiButton [size]="'xs'"  iconStart="@tui.chart-line">
+    8
+    </button>
+</div>
 <div class="t-content">
   <ng-content />
 </div>

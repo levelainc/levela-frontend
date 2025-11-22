@@ -135,7 +135,7 @@ export class CreateListingComponent implements OnInit{
 
   readonly form = new FormGroup({
     userType: new FormControl('',Validators.required),
-    customHouseType:new FormControl(''),
+    customHouseType:new FormControl('',Validators.maxLength(9)),
     houseType: new FormControl('',Validators.required),
     amenities:new FormControl<string[]>(this.amenityList,[Validators.required]),
     nearbySchools:new FormControl<string[]>([]),
@@ -275,11 +275,13 @@ export class CreateListingComponent implements OnInit{
   customHouseTypeValidator():ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const houseType = this.form.controls.houseType.value;
+      const customHouse = this.form.controls['customHouseType']?.value;
       if (houseType === this.chips[this.chips.length - 1] && !this.form.controls.customHouseType.value) {
         return { required: true }; // marks error
       }
-
-
+      if(customHouse && customHouse.length>16){
+        return { error: 'Value cannot exeed 16 characters' };
+      }
       return null; // valid
     };
   }
