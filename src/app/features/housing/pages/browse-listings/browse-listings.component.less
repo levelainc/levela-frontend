@@ -1,6 +1,6 @@
 .listings-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 0.5fr));
   gap: 1.25rem;
   padding: 1rem;
 }
@@ -295,4 +295,11 @@
 tui-loader {
   min-inline-size: 3.5rem;
   --tui-thickness: 0.25em;
+}
+
+:host{
+  --tui-font-text: 'Comic Sans MS', cursive;
+    --tui-font-text-m: bold 0.7rem/1.3rem var(--tui-font-text);
+    --tui-font-text-s: normal 0.5rem/1.25rem var(--tui-font-text);
+    --tui-background-accent-1: #c86dd7;
 }

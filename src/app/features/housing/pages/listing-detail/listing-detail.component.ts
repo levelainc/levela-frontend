@@ -4,21 +4,25 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule, AsyncPipe, DatePipe } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import {  of } from 'rxjs';
 import { HousingService } from '../../services/housing.service';
 import {
   TuiSurface,
   TuiTitle,
-  TuiIcon,
   TuiAppearance,
   TuiGroup,
+  TuiAutoColorPipe,
+  TuiIcon,
+  TuiLink,
 } from '@taiga-ui/core';
 import { TuiButton } from '@taiga-ui/core';
-import { TuiAvatar, TuiBadge } from '@taiga-ui/kit';
+import { TuiAvatar, TuiBadge, TuiChip } from '@taiga-ui/kit';
 import { TuiCardLarge, TuiCardMedium, TuiCell } from '@taiga-ui/layout';
+import { HousingListingCardComponent } from '../../../../shared/ui/housing-listing-card/housing-listing-card.component';
+import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
 
 @Component({
   standalone: true,
@@ -27,27 +31,35 @@ import { TuiCardLarge, TuiCardMedium, TuiCell } from '@taiga-ui/layout';
   styleUrls: ['./listing-detail.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    HousingListingCardComponent,
     CommonModule,
     AsyncPipe,
     DatePipe,
     TuiBadge,
     TuiSurface,
     TuiTitle,
-    TuiIcon,
     TuiCardLarge,
     TuiButton,
     TuiCardMedium,
     TuiCell,
     TuiAppearance,
     TuiGroup,
-    TuiAvatar
+    TuiAvatar,
+    TuiChip,
+    TuiAutoColorPipe,
+    TuiAmountPipe,
+    TuiIcon,
+    TuiAmountPipe,
+    TuiLink,
 ],
 })
 export class ListingDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly housingService = inject(HousingService);
   private readonly router = inject(Router);
+  close(){}
 
+  // The listing we are showing
   listing$ = this.route.paramMap.pipe(
     switchMap(params => {
       const id = params.get('id');
@@ -57,20 +69,13 @@ export class ListingDetailComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
   }
 
   backToBrowse(): void {
     this.router.navigate(['/housing']);
   }
-
-  addons = [
-    'Less than 30 min from campus',
-    'Furnished',
-    'Tiled',
-    'Secure',
-    'Running water 24/7',
-    'WIFI',
-    'Near city center'
-  ];
-
 }
+
+
+

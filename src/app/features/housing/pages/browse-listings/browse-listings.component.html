@@ -1,5 +1,3 @@
-
-
 <!-- search section -->
 <div>
   <div tuiTitle="l">
@@ -179,7 +177,7 @@
           </div> -->
 
   <!-- listings -->
-@if (listings$ | async; as listings) {
+<!-- @if (listings$ | async; as listings) {
   <div class="listings-grid">
     @for (listing of listings; track listing) {
       <div>
@@ -308,6 +306,71 @@
         </tui-avatar-stack>
     </p>
     <p>
+    </div>
+  } -->
+  @if(listings$|async;as listings){
+    <div class="listings-grid">
+      @for(listing of listings;track listing.id){
+        @let time = listing.created_at | date: 'd MMM y';
+
+        <tui-push
+        class="push"
+        [lines]="2"
+        (close)="router.navigate(['/housing', listing.id])"
+        [timestamp]="time??''"
+        [heading]="listing.title"
+        type="{{listing.price|tuiAmount:'Ksh':'left'|async}}"
+        >
+        <div>
+          <tui-icon style="zoom: 65%;"  icon="@tui.users-round"/>
+          {{listing.current_occupants}}/{{listing.max_occupants}}
+        </div>
+          <img [src]="listing.images?.[0]?.url" alt="">
+          <tui-icon icon="@tui.wallet" />
+          {{listing.description}}
+
+          <!-- <div
+              tuiAppearance="floating"
+              tuiButtonGroup
+          >
+              <button type="button">
+                  <tui-icon icon="@tui.heart" />
+                  Create
+              </button>
+
+              <button type="button">
+                  <tui-icon
+                      badge=""
+                      icon="@tui.repeat-2"
+                  />
+                  Pay
+              </button>
+
+              <button type="button">
+                  <tui-icon
+                      badge="@tui.lock"
+                      icon="@tui.external-link"
+                      class="custom"
+                  />
+                  Remove
+              </button>
+          </div> -->
+          <button
+            tuiButton
+            type="button"
+        >
+        <tui-icon icon="@tui.send" />
+            Request
+        </button>
+        <button
+            tuiLink
+            type="button"
+        >
+            Nice hooters!
+        </button>
+
+        </tui-push>
+      }
     </div>
   }
 

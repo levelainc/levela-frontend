@@ -1,0 +1,57 @@
+<div class="t-image">
+  <ng-content select="img" />
+</div>
+@if (cell.title||cell.sub||cell.more) {
+  <div tuiCell class="t-close">
+    <div tuiTitle="s">
+      {{cell.title}}
+      <span tuiSubtitle>{{cell.sub}}</span>
+    </div>
+    <button
+      size="xs"
+      tuiButton
+      [style.background]="cell.background"
+      [style.color]="cell.color"
+      [iconStart]="cell.icon"
+      type="button"
+
+    >
+          {{cell.more}}
+    </button>
+  </div>
+}
+<div class="t-top">
+  <span class="t-icon">
+      <ng-content select="tui-icon" />
+  </span>
+  @if (type) {
+    <span
+      class="t-type"
+      [textContent]="isString(type) ? type : (type | tuiAmount:'Ksh':'left' | async)"
+    ></span>
+  }
+  @if (timestamp) {
+      <span
+          class="t-time"
+          [textContent]="isString(timestamp) ? timestamp : (timestamp | tuiFormatDate | async)"
+      ></span>
+  }
+</div>
+<h3
+  automation-id="tui-push__heading"
+  class="t-heading"
+>
+  {{ heading }}
+</h3>
+<div class="t-content">
+  <ng-content />
+</div>
+<div class="t-actions">
+  <span class="t-button">
+      <ng-content select="[tuiButton]" />
+      <ng-content select="[tuiButton]" />
+  </span>
+  <span class="t-link">
+      <ng-content select="[tuiLink]" />
+  </span>
+</div>

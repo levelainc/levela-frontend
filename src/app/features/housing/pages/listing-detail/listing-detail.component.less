@@ -121,3 +121,68 @@ h3 {
   margin: 1.25rem 0 0.5rem;
   color: var(--tui-text-primary);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// test
+.demo-product-card {
+  max-width: 320px;
+  width: 100%;
+
+  .carousel-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .product-img {
+      width: 360px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  .product-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+
+  .product-description {
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    max-height: 3rem;
+    overflow: hidden;
+
+    &.expanded {
+      max-height: none;
+    }
+  }
+
+  .product-amenities {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .product-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+}

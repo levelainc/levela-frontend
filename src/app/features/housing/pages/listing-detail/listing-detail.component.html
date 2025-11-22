@@ -13,7 +13,55 @@
       >
       ← Back to Listings
     </button>
-    <!-- Header Image -->
+
+
+
+
+
+
+
+    <!-- test -->
+    @let time = listing.created_at | date: 'd MMM y';
+    <app-housing-listing-card
+      [timestamp]="time?? ''"
+      [heading]="listing.title"
+      [lines]="2"
+      [type]="listing.price"
+      [cell]="{title:listing.house_type,sub:'Subtitle',icon:'@tui.target',more:'Available',background:' #aff218',color:'black'}"
+     >
+      <div>
+        <tui-icon style="zoom: 65%;"  icon="@tui.users-round"/>
+        {{listing.current_occupants}}/{{listing.max_occupants}}
+      </div>
+        <img [src]="listing.images?.[0]?.url" alt="">
+        <tui-icon icon="@tui.wallet" />
+      {{listing.description}}
+      <button
+        tuiButton
+        type="button"
+      >
+      <tui-icon icon="@tui.send" />
+          Request
+      </button>
+      <button
+        tuiButton
+        type="button"
+      >
+      <tui-icon icon="@tui.send" />
+          Request
+      </button>
+      <button
+          tuiLink
+          type="button"
+      >
+          Nice hooters!
+      </button>
+    </app-housing-listing-card>
+
+
+
+
+<!-- Header Image -->
     <div class="header-image" tuiSurface="flat">
       <img
         [src]="listing.images?.[0]?.url || 'placeholder.jpg'"
@@ -66,11 +114,12 @@
         </div>
         <!-- Addon Info -->
         <div class="addon-badges">
-          @for (tag of addons; track tag) {
-            <tui-badge appearance="positive" size="s">
-              {{ tag }}
-            </tui-badge>
-          }
+            @for(chip of listing.amenities;let i=$index;track i){
+              <tui-chip appearance="positive" size="s" [style.background-color]="chip | tuiAutoColor">
+                {{ chip }}
+              </tui-chip>
+            }
+
         </div>
         <!-- Occupancy Insight -->
         <h3>Occupancy</h3>

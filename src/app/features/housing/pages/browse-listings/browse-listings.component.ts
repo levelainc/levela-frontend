@@ -8,11 +8,12 @@ import {
   signal
 } from '@angular/core';
 import { CommonModule, AsyncPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HousingService } from '../../services/housing.service';
 import { Listing } from '../../models/housing.model';
-import { TuiAvatar, TuiAvatarStack, TuiBadge, TuiCarousel, TuiProgressCircle, TuiSkeleton, TuiTabs } from '@taiga-ui/kit';
+import { TuiAvatar, TuiAvatarStack, TuiBadge, TuiButtonGroup, TuiCarousel, TuiChevron, TuiProgressCircle, TuiPush, TuiSkeleton, TuiTabs } from '@taiga-ui/kit';
 import {
+  TuiCard,
   TuiCardLarge,
   TuiCardMedium,
   TuiCell,
@@ -30,10 +31,14 @@ import {
   TuiTextfield,
   TuiLoader,
   tuiLoaderOptionsProvider,
+  TuiLink,
+  TuiFormatDatePipe,
 } from '@taiga-ui/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject, switchMap } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, switchMap } from 'rxjs';
 import { TuiRepeatTimes } from '@taiga-ui/cdk';
+import { TuiAmountPipe, TuiCurrencyPipe, TuiFormatCardPipe } from '@taiga-ui/addon-commerce';
+import { TuiExpand } from '@taiga-ui/experimental';
 
 @Component({
   standalone: true,
@@ -73,9 +78,15 @@ import { TuiRepeatTimes } from '@taiga-ui/cdk';
     FormsModule,
     ReactiveFormsModule,
     FormsModule,
-
-
-
+    TuiPush,
+    TuiCurrencyPipe,
+    TuiAmountPipe,
+    TuiLink,
+    TuiExpand,
+    TuiCard,
+    TuiChevron,
+    TuiFormatDatePipe,
+    TuiButtonGroup,
 ],
 providers: [
   tuiLoaderOptionsProvider({
@@ -88,7 +99,8 @@ providers: [
 export class BrowseListingsComponent implements OnInit {
   private readonly housingService = inject(HousingService);
   protected readonly skeleton=false
-
+  public readonly collapsed = signal(true);
+  readonly router = inject(Router);
   private refresh$=new BehaviorSubject<void>(undefined)
   // listings$ = this.housingService.getAllListings();
   listings$=this.refresh$.pipe(
@@ -98,6 +110,8 @@ export class BrowseListingsComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
+
 
   getImageUrl(listing: Listing): string {
     return listing.images?.[0]?.url || 'placeholder.jpg';
@@ -119,27 +133,6 @@ export class BrowseListingsComponent implements OnInit {
   protected count = 3;
   protected index = 0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   protected readonly exampleControl = new FormControl(100);
   protected readonly exampleYearControl = new FormControl<number | null>(null);
   protected readonly badges = [
@@ -156,6 +149,16 @@ export class BrowseListingsComponent implements OnInit {
 
   @Input()
   public theme: Signal<string> = signal('');
+
+
+
+
+  // tests
+
+
+
+
+
 }
 
 

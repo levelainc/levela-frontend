@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, NgZone, OnInit, signal } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule, ValidatorFn, AbstractControl,ValidationErrors } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AsyncPipe, CommonModule, KeyValuePipe, NgFor } from '@angular/common';
+import { AsyncPipe, CommonModule, KeyValuePipe } from '@angular/common';
 
-import { TuiTextfield, TuiNotification, TuiAlertService, TuiButton, TuiError, TuiTitle, TuiAppearance, TuiLoader, TuiGroup, TuiAutoColorPipe, TuiHint, TuiIcon, tuiAppearanceMode, tuiAppearanceFocus, tuiAppearanceState } from '@taiga-ui/core';
-import { TuiFieldErrorPipe, TuiFileLike, TuiFile, TuiFiles, TuiTextarea, TuiStepper, TuiSlides, TuiBlock, TuiRadio, TuiChip, TuiItemsWithMore, TuiInputNumber, TUI_COUNTRIES, TuiInputChip, TuiToastService, TuiTextareaLimit, TuiInputRange, TuiChevron } from '@taiga-ui/kit';
+import { TuiTextfield, TuiNotification, TuiAlertService, TuiButton, TuiError, TuiTitle, TuiAppearance, TuiLoader, TuiGroup, TuiAutoColorPipe, TuiHint, TuiIcon, tuiAppearanceMode, tuiAppearanceFocus, tuiAppearanceState, tuiLoaderOptionsProvider } from '@taiga-ui/core';
+import { TuiFieldErrorPipe, TuiFileLike, TuiFile, TuiFiles, TuiTextarea, TuiStepper, TuiSlides, TuiBlock, TuiRadio, TuiChip, TuiItemsWithMore, TuiInputNumber, TUI_COUNTRIES, TuiInputChip, TuiToastService, TuiTextareaLimit, TuiInputRange, TuiChevron, TuiBadge, TuiBadgedContent, TuiBadgeNotification } from '@taiga-ui/kit';
 import { TuiCardLarge, TuiForm, TuiHeader, TuiItemGroup, TuiCardCollapsed, TuiCard } from '@taiga-ui/layout';
 import {type TuiCountryIsoCode} from '@taiga-ui/i18n';
 import { HousingService } from '../../services/housing.service';
@@ -69,7 +69,18 @@ import { TuiExpand } from '@taiga-ui/experimental';
     TuiCardCollapsed,
     TuiCard,
     TuiExpand,
-    TuiChevron
+    TuiChevron,
+    TuiLoader,
+    TuiBadge,
+    TuiBadgedContent,
+    TuiBadgeNotification
+],
+providers: [
+  tuiLoaderOptionsProvider({
+      size: 'l',
+      inheritColor: false,
+      overlay: true,
+  }),
 ],
 })
 export class CreateListingComponent implements OnInit{
@@ -80,7 +91,7 @@ export class CreateListingComponent implements OnInit{
   protected readonly countryCode:TuiCountryIsoCode='KE'
   private readonly toast=inject(TuiToastService)
   public readonly collapsed=signal(false)
-  loading = false;
+  protected loading = false;
   errorMsg = '';
   protected index=0;
   protected direction=0
@@ -333,13 +344,7 @@ export class CreateListingComponent implements OnInit{
         fd.append('images', actualFile, actualFile.name);
       }
     }
-
-    console.log('Images to upload:', images);
-    console.log('FormData keys:', Array.from(fd.keys()));
-
-
-
-    console.log(`images: ${f.images}`)
+    window.scrollTo({ top: 2, behavior: 'smooth' });
 
     this.housingService.createListing(fd).subscribe({
       next: () => {
