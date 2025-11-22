@@ -312,64 +312,46 @@
     <div class="listings-grid">
       @for(listing of listings;track listing.id){
         @let time = listing.created_at | date: 'd MMM y';
-
-        <tui-push
-        class="push"
-        [lines]="2"
-        (close)="router.navigate(['/housing', listing.id])"
-        [timestamp]="time??''"
-        [heading]="listing.title"
-        type="{{listing.price|tuiAmount:'Ksh':'left'|async}}"
+        <app-housing-listing-card
+          [timestamp]="time?? ''"
+          [heading]="listing.title"
+          [lines]="2"
+          [cell]="{title:listing.house_type,price:listing.price,icon:'@tui.target',more:'Available',background:' #aff218',color:'black'}"
         >
-        <div>
-          <tui-icon style="zoom: 65%;"  icon="@tui.users-round"/>
-          {{listing.current_occupants}}/{{listing.max_occupants}}
-        </div>
-          <img [src]="listing.images?.[0]?.url" alt="">
-          <tui-icon icon="@tui.wallet" />
-          {{listing.description}}
+          <div>
+            <button tuiButton  iconStart="@tui.users-round">
+            {{listing.current_occupants}}/{{listing.max_occupants}}
+            </button>
+          </div>
+            <img [src]="listing.images?.[0]?.url" alt="">
+            <tui-icon icon="@tui.calendar-plus" />
+            <tui-scrollbar>
+              <div tuiFade="vertical" tuiScrollable class="fade">
+                @for(chip of listing.amenities;let i=$index;track i){
+                  <tui-chip appearance="positive" size="xs">
+                    {{ chip }}
+                  </tui-chip>
+                }
+              </div>
+            </tui-scrollbar>
+          <!-- button grp -->
+          <input type="checkbox" tuiLike="var(--tui-status-accent)" size="s" checkedIcon="@tui.heart-filled" uncheckedIcon="@tui.heart" appearance="flat">
+          <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.repeat-2" uncheckedIcon="@tui.repeat-2" appearance="flat">
+          <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.share" uncheckedIcon="@tui.share" appearance="flat">
+          <!-- <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.bookmark-filled" uncheckedIcon="@tui.bookmark" appearance="flat"> -->
 
-          <!-- <div
-              tuiAppearance="floating"
-              tuiButtonGroup
-          >
-              <button type="button">
-                  <tui-icon icon="@tui.heart" />
-                  Create
-              </button>
-
-              <button type="button">
-                  <tui-icon
-                      badge=""
-                      icon="@tui.repeat-2"
-                  />
-                  Pay
-              </button>
-
-              <button type="button">
-                  <tui-icon
-                      badge="@tui.lock"
-                      icon="@tui.external-link"
-                      class="custom"
-                  />
-                  Remove
-              </button>
-          </div> -->
           <button
-            tuiButton
-            type="button"
-        >
-        <tui-icon icon="@tui.send" />
-            Request
-        </button>
-        <button
-            tuiLink
-            type="button"
-        >
-            Nice hooters!
-        </button>
-
-        </tui-push>
+              tuiButton
+              type="button"
+              [size]="'xs'"
+              iconStart="@tui.send"
+          >
+              Request
+          </button>
+          <button tuiButton [size]="'xs'"  iconStart="@tui.chart-line">
+            8
+            </button>
+        </app-housing-listing-card>
       }
     </div>
   }

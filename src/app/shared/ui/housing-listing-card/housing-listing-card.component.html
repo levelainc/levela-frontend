@@ -1,11 +1,18 @@
 <div class="t-image">
   <ng-content select="img" />
 </div>
-@if (cell.title||cell.sub||cell.more) {
+@if (cell.title||cell.price||cell.more) {
   <div tuiCell class="t-close">
     <div tuiTitle="s">
       {{cell.title}}
-      <span tuiSubtitle>{{cell.sub}}</span>
+      <span tuiSubtitle>
+        @if (cell.price) {
+          <span
+            class="t-type"
+            [textContent]="isString(cell.price) ? cell.price : (cell.price | tuiAmount:'Ksh':'left' | async)"
+          ></span>
+        }
+      </span>
     </div>
     <button
       size="xs"
@@ -24,13 +31,9 @@
   <span class="t-icon">
       <ng-content select="tui-icon" />
   </span>
-  @if (type) {
-    <span
-      class="t-type"
-      [textContent]="isString(type) ? type : (type | tuiAmount:'Ksh':'left' | async)"
-    ></span>
-  }
+
   @if (timestamp) {
+    Posted On
       <span
           class="t-time"
           [textContent]="isString(timestamp) ? timestamp : (timestamp | tuiFormatDate | async)"
@@ -48,10 +51,16 @@
 </div>
 <div class="t-actions">
   <span class="t-button">
-      <ng-content select="[tuiButton]" />
-      <ng-content select="[tuiButton]" />
+      <ng-content select="[tuiLike]"/>
+      <ng-content select="[tuiLike]"/>
+      <ng-content select="[tuiLike]"/>
   </span>
   <span class="t-link">
-      <ng-content select="[tuiLink]" />
+      <ng-content select="[tuiButton]" />
+      <ng-content select="[tuiButton]" />
   </span>
 </div>
+
+
+
+

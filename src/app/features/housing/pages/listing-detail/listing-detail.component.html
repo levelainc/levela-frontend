@@ -26,36 +26,41 @@
       [timestamp]="time?? ''"
       [heading]="listing.title"
       [lines]="2"
-      [type]="listing.price"
-      [cell]="{title:listing.house_type,sub:'Subtitle',icon:'@tui.target',more:'Available',background:' #aff218',color:'black'}"
+      [cell]="{title:listing.house_type,price:listing.price,icon:'@tui.target',more:'Available',background:' #aff218',color:'black'}"
      >
       <div>
-        <tui-icon style="zoom: 65%;"  icon="@tui.users-round"/>
+        <button tuiButton  iconStart="@tui.users-round">
         {{listing.current_occupants}}/{{listing.max_occupants}}
+        </button>
       </div>
         <img [src]="listing.images?.[0]?.url" alt="">
-        <tui-icon icon="@tui.wallet" />
-      {{listing.description}}
+        <tui-icon icon="@tui.calendar-plus" />
+        <tui-scrollbar>
+          <div tuiFade="vertical" tuiScrollable class="fade">
+            @for(chip of listing.amenities;let i=$index;track i){
+              <tui-chip appearance="positive" size="xs">
+                {{ chip }}
+              </tui-chip>
+            }
+          </div>
+        </tui-scrollbar>
+      <!-- button grp -->
+      <input type="checkbox" tuiLike="var(--tui-status-accent)" size="s" checkedIcon="@tui.heart-filled" uncheckedIcon="@tui.heart" appearance="flat">
+      <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.repeat-2" uncheckedIcon="@tui.repeat-2" appearance="flat">
+      <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.share" uncheckedIcon="@tui.share" appearance="flat">
+      <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.bookmark-filled" uncheckedIcon="@tui.bookmark" appearance="flat">
+
       <button
-        tuiButton
-        type="button"
-      >
-      <tui-icon icon="@tui.send" />
-          Request
-      </button>
-      <button
-        tuiButton
-        type="button"
-      >
-      <tui-icon icon="@tui.send" />
-          Request
-      </button>
-      <button
-          tuiLink
+          tuiButton
           type="button"
+          [size]="'xs'"
+          iconStart="@tui.send"
       >
-          Nice hooters!
+          Request
       </button>
+      <button tuiButton [size]="'xs'"  iconStart="@tui.chart-line">
+         8
+        </button>
     </app-housing-listing-card>
 
 

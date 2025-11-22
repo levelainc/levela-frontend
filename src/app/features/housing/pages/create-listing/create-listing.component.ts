@@ -263,7 +263,7 @@ export class CreateListingComponent implements OnInit{
       }
 
       for (const chip of value) {
-        if (chip.length > 15) {
+        if (chip.length > 20) {
           return { error: 'Values cannot exceed 15 characters' };
         }
       }

@@ -23,7 +23,7 @@ import { RouterLink } from '@angular/router';
     TuiSurface,
     TuiButton,
     TuiAppearance,
-    TuiLike
+    TuiLike,
 ],
   templateUrl: './my-listings.component.html',
   styleUrl: './my-listings.component.less'

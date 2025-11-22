@@ -9,11 +9,11 @@ import {
 } from '@angular/core';
 export interface ListingCell {
   title?: string;
-  sub?: string;
   more?: string;
   icon?: string;
   background?:string;
   color?:string;
+  price?:number | string;
 };
 import { Title } from '@angular/platform-browser';
 import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
@@ -48,9 +48,6 @@ export class HousingListingCardComponent {
 
     @Input()
     public heading = '';
-
-    @Input()
-    public type:number | string='' ;
 
     @Input()
     public lines = 2;

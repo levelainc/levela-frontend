@@ -1,6 +1,6 @@
 .listings-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 0.5fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.25rem;
   padding: 1rem;
 }
@@ -286,12 +286,6 @@
     box-shadow: none;
 }
 
-// .loader{
-//     display: flex;
-//     gap: 1rem;
-//     align-items: center;
-//     justify-content: center;
-// }
 tui-loader {
   min-inline-size: 3.5rem;
   --tui-thickness: 0.25em;
@@ -302,4 +296,20 @@ tui-loader {
     --tui-font-text-m: bold 0.7rem/1.3rem var(--tui-font-text);
     --tui-font-text-s: normal 0.5rem/1.25rem var(--tui-font-text);
     --tui-background-accent-1: #c86dd7;
+}
+
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
+.fade {
+  .scrollbar-hidden();
+  block-size: 2.6rem;
+  font: var(--tui-font-text-m);
+  overflow: auto;
+}
+
+tui-chip {
+  margin: 0.5rem;
+}
+[tuiButton]{
+  margin-right: 0.5rem;
 }

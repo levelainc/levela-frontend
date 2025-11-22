@@ -11,7 +11,7 @@ import { CommonModule, AsyncPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { HousingService } from '../../services/housing.service';
 import { Listing } from '../../models/housing.model';
-import { TuiAvatar, TuiAvatarStack, TuiBadge, TuiButtonGroup, TuiCarousel, TuiChevron, TuiProgressCircle, TuiPush, TuiSkeleton, TuiTabs } from '@taiga-ui/kit';
+import { TuiAvatar, TuiAvatarStack, TuiBadge, TuiButtonGroup, TuiCarousel, TuiChevron, TuiChip, TuiFade, TuiLike, TuiProgressCircle, TuiPush, TuiSkeleton, TuiTabs } from '@taiga-ui/kit';
 import {
   TuiCard,
   TuiCardLarge,
@@ -33,12 +33,15 @@ import {
   tuiLoaderOptionsProvider,
   TuiLink,
   TuiFormatDatePipe,
+  TuiScrollbar,
+  TuiScrollable,
 } from '@taiga-ui/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, firstValueFrom, switchMap } from 'rxjs';
 import { TuiRepeatTimes } from '@taiga-ui/cdk';
 import { TuiAmountPipe, TuiCurrencyPipe, TuiFormatCardPipe } from '@taiga-ui/addon-commerce';
 import { TuiExpand } from '@taiga-ui/experimental';
+import { HousingListingCardComponent } from '../../../../shared/ui/housing-listing-card/housing-listing-card.component';
 
 @Component({
   standalone: true,
@@ -79,14 +82,16 @@ import { TuiExpand } from '@taiga-ui/experimental';
     ReactiveFormsModule,
     FormsModule,
     TuiPush,
-    TuiCurrencyPipe,
-    TuiAmountPipe,
-    TuiLink,
-    TuiExpand,
     TuiCard,
     TuiChevron,
     TuiFormatDatePipe,
     TuiButtonGroup,
+    HousingListingCardComponent,
+    TuiChip,
+    TuiScrollbar,
+    TuiScrollable,
+    TuiLike,
+    TuiFade,
 ],
 providers: [
   tuiLoaderOptionsProvider({
