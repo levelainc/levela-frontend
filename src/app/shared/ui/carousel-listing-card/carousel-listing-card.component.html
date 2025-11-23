@@ -1,1 +1,209 @@
-<p>carousel-listing-card works!</p>
+<div>
+  <div
+  class="header"
+  [style.background-image]="background">
+  <div tuiCell>
+    <div tuiTitle>
+      <tui-pager
+      [count]="count"
+      [index]="activeIndex()"
+      [valueContent]="content"
+      />
+    </div>
+  </div>
+</div>
+
+
+@if (cell.title||cell.price||cell.more) {
+  <div tuiCell class="t-close">
+    <div
+    tuiTitle="s">
+      <span
+      >{{cell.title}}</span>
+      <span tuiSubtitle>
+        {{cell.more}}
+      </span>
+    </div>
+    <span
+      tuiGroup
+      [collapsed]="true"
+      tuiCellActions
+      tuiTheme="dark"
+      size="s"
+      >
+
+      <button
+          appearance="primary-grayscale"
+          tuiIconButton
+          type="button"
+          iconStart="@tui.fullscreen"
+          (click)="show()"
+      >
+      </button>
+      <button
+          appearance="primary-grayscale"
+          tuiIconButton
+          type="button"
+          iconStart="@tui.school"
+      >
+      </button>
+      <button
+          appearance="primary-grayscale"
+          tuiIconButton
+          type="button"
+          iconStart="@tui.message-circle-reply"
+      >
+      </button>
+    </span>
+
+    <div tuiCell>
+      <div tuiTitle>
+        <button
+          size="xs"
+          tuiButton
+          [style.background]="cell.background"
+          [style.color]="cell.color"
+          type="button"
+
+        >
+              <tui-icon [icon]="cell.icon" />
+              @if (cell.price) {
+                <span
+                  class="t-type"
+                  [textContent]="isString(cell.price) ? cell.price : (cell.price | tuiAmount:'Ksh':'left' | async)"
+                ></span>
+              }
+        </button>
+        <div tuiSubtitle>
+          Monthly
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+}
+  <div class="t-top">
+    <span class="t-icon">
+        <ng-content select="tui-icon" />
+    </span>
+
+
+    @if (timestamp) {
+      Posted On
+        <span
+            class="t-time"
+            [textContent]="isString(timestamp) ? timestamp : (timestamp | tuiFormatDate | async)"
+        ></span>
+
+    }
+  </div>
+
+  <div tuiCell>
+    <div
+      automation-id="tui-push__heading"
+      tuiTitle
+    >
+      {{ heading }}
+    </div>
+    <button type="button" size="xs" tuiButton>
+      <tui-icon [icon]="RoommateIcon"/>
+        {{minRoommates}}/{{maxRoommates}}
+    </button>
+    <button tuiButton [size]="'xs'"  iconStart="@tui.chart-line">
+      8
+      </button>
+  </div>
+  <div class="t-content">
+    <ng-content />
+  </div>
+  <div class="t-actions">
+    <span class="t-button">
+        <ng-content select="[tuiLike]"/>
+        <ng-content select="[tuiLike]"/>
+        <ng-content select="[tuiLike]"/>
+    </span>
+    <span class="t-link">
+        <ng-content select="[tuiButton]" />
+        <ng-content select="[tuiButton]" />
+    </span>
+  </div>
+
+
+<ng-template
+#content
+let-index>
+  <progress
+    max="100"
+    size="s"
+    tuiProgressBar
+    class="progress"
+    [class.progress_active]="activeIndex() === index"
+    [value]="activeIndex() === index | tuiMapper: toProgress | async"
+  ></progress>
+</ng-template>
+
+
+
+<!-- preview -->
+<ng-template
+#preview
+let-preview
+>
+<tui-preview
+    [initialScale]="1.0"
+    [rotatable]="true"
+    (tuiSwipe)="onSwipe($event)"
+>
+    <tui-preview-title>{{ cell.title }}</tui-preview-title>
+
+    <tui-preview-pagination
+        [length]="numberOfImages"
+        [(index)]="index"
+    />
+
+    <button
+        iconStart="@tui.trash"
+        tuiIconButton
+        tuiPreviewAction
+        type="button"
+        (click)="delete()"
+    >
+        Delete
+    </button>
+    <button
+        iconStart="@tui.download"
+        tuiIconButton
+        tuiPreviewAction
+        type="button"
+        (click)="download()"
+    >
+        Download
+    </button>
+    <button
+        iconStart="@tui.x"
+        tuiIconButton
+        tuiPreviewAction
+        type="button"
+        (click)="preview.complete()"
+    >
+        Close
+    </button>
+
+    <img class="preview" [src]="this.items" alt="">
+</tui-preview>
+</ng-template>
+
+<ng-template let-pContent #pContent>
+    <h1>Important document</h1>
+
+    <p>Hello everyone! This is some important document in A4 format, although it is made using html</p>
+
+    <p>
+        This shows that the component preview can work with absolutely any content: this way you can show any
+        template, image, pdf or even iframe with your favorite site. We will put this content in the center of the
+        portal and provide the user with control over it, and we will provide you with convenient levers to change
+        it and process actions.
+    </p>
+
+</ng-template>

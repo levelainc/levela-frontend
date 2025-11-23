@@ -59,4 +59,7 @@ export interface Listing {
 
 
 
-
+export interface listingImages {
+  id:number,
+  url:string
+}

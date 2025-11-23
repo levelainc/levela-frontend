@@ -21,10 +21,11 @@ import {
   TuiScrollbar,
 } from '@taiga-ui/core';
 import { TuiButton } from '@taiga-ui/core';
-import { TuiAvatar, TuiBadge, TuiChip, TuiFade, TuiLike } from '@taiga-ui/kit';
+import { TuiAvatar, TuiBadge, TuiCarousel, TuiCarouselButtons, TuiChip, TuiFade, TuiLike } from '@taiga-ui/kit';
 import { TuiCardLarge, TuiCardMedium, TuiCell } from '@taiga-ui/layout';
 import { HousingListingCardComponent } from '../../../../shared/ui/housing-listing-card/housing-listing-card.component';
 import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
+import { CarouselListingCardComponent } from '../../../../shared/ui/carousel-listing-card/carousel-listing-card.component';
 
 @Component({
   standalone: true,
@@ -34,6 +35,7 @@ import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     HousingListingCardComponent,
+    CarouselListingCardComponent,
     CommonModule,
     AsyncPipe,
     DatePipe,
@@ -57,12 +59,16 @@ import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
     TuiScrollable,
     TuiScrollbar,
     TuiLike,
+    TuiCarousel,
+    TuiCarouselButtons
+
 ],
 })
 export class ListingDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly housingService = inject(HousingService);
   private readonly router = inject(Router);
+
 
   // The listing we are showing
   listing$ = this.route.paramMap.pipe(
@@ -80,6 +86,8 @@ export class ListingDetailComponent implements OnInit {
   backToBrowse(): void {
     this.router.navigate(['/housing']);
   }
+
+
 }
 
 

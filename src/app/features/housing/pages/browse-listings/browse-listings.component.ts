@@ -11,7 +11,7 @@ import { CommonModule, AsyncPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { HousingService } from '../../services/housing.service';
 import { Listing } from '../../models/housing.model';
-import { TuiAvatar, TuiAvatarStack, TuiBadge, TuiButtonGroup, TuiCarousel, TuiChevron, TuiChip, TuiFade, TuiLike, TuiProgressCircle, TuiPush, TuiSkeleton, TuiTabs } from '@taiga-ui/kit';
+import { TuiAvatar, TuiAvatarStack, TuiBadge, TuiButtonGroup, TuiCarousel, TuiChevron, TuiChip, TuiConnected, TuiFade, TuiLike, TuiProgressCircle, TuiPush, TuiSkeleton, TuiTabs } from '@taiga-ui/kit';
 import {
   TuiCard,
   TuiCardLarge,
@@ -42,6 +42,7 @@ import { TuiRepeatTimes } from '@taiga-ui/cdk';
 import { TuiAmountPipe, TuiCurrencyPipe, TuiFormatCardPipe } from '@taiga-ui/addon-commerce';
 import { TuiExpand } from '@taiga-ui/experimental';
 import { HousingListingCardComponent } from '../../../../shared/ui/housing-listing-card/housing-listing-card.component';
+import { CarouselListingCardComponent } from '../../../../shared/ui/carousel-listing-card/carousel-listing-card.component';
 
 @Component({
   standalone: true,
@@ -87,12 +88,14 @@ import { HousingListingCardComponent } from '../../../../shared/ui/housing-listi
     TuiFormatDatePipe,
     TuiButtonGroup,
     HousingListingCardComponent,
+    CarouselListingCardComponent,
     TuiChip,
     TuiScrollbar,
     TuiScrollable,
     TuiLike,
     TuiFade,
-    TuiButtonGroup
+    TuiButtonGroup,
+    TuiConnected
 ],
 providers: [
   tuiLoaderOptionsProvider({
@@ -116,8 +119,6 @@ export class BrowseListingsComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-
 
   getImageUrl(listing: Listing): string {
     return listing.images?.[0]?.url || 'placeholder.jpg';

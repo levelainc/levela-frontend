@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, switchMap, tap, timer } from 'rxjs';
 import { Listing } from '../models/housing.model';
 
 @Injectable({
@@ -17,7 +17,15 @@ export class HousingService {
       .pipe(map(response => response.listings));
   }
 
-
+  // getAllListings(): Observable<Listing[]> {
+  //   return timer(2000).pipe(
+  //     switchMap(() =>
+  //       this.http
+  //         .get<{ listings: Listing[] }>(`${this.baseUrl}/api/housing/listings`)
+  //         .pipe(map(response => response.listings))
+  //     )
+  //   );
+  // }
   getListingById(id: string): Observable<Listing> {
     return this.http.get<Listing>(`${this.baseUrl}/api/housing/listing/${id}`);
   }

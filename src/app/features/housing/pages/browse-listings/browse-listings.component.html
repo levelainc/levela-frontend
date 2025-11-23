@@ -1,10 +1,12 @@
 <!-- search section -->
 <div>
-  <div tuiTitle="l">
-    Select Your House
-    <span tuiSubtitle>
-      Over 50,000+ house collection
-    </span>
+  <div tuiCell>
+    <div tuiTitle="l" >
+      Select Your House
+      <span tuiSubtitle>
+        Over 50,000+ house collection
+      </span>
+    </div>
   </div>
   <!-- <search tuiSearch>
   <form [formGroup]="form">
@@ -101,49 +103,48 @@
     <div class="listings-grid">
       @for(listing of listings;track listing.id){
         @let time = listing.created_at | date: 'd MMM y';
-        <app-housing-listing-card
-          [timestamp]="time?? ''"
-          [heading]="listing.title"
-          [lines]="2"
-          [RoommateIcon]="'@tui.users'"
-          [minRoommates]="listing.current_occupants"
-          [maxRoommates]="listing.max_occupants"
-          [cell]="{title:listing.house_type=='Other'?listing.custom_house_type:listing.house_type,price:listing.price,icon:'@tui.target',more:'Available',background:' #aff218',color:'black'}"
-        >
+        <app-carousel-listing-card
+            [count]="listing.images.length"
+            [listingImages]="listing.images"
+            [timestamp]="time?? ''"
+            [heading]="listing.title"
+            [lines]="2"
+            [RoommateIcon]="'@tui.users'"
+            [minRoommates]="listing.current_occupants"
+            [maxRoommates]="listing.max_occupants"
+            [cell]="{title:listing.house_type=='Other'?listing.custom_house_type:listing.house_type,price:listing.price,icon:'@tui.target',more:'Males Only',background:' #aff218',color:'black'}"
+            >
 
-            <!-- <button tuiIconButton  iconStart="@tui.users-round">
-            {{listing.current_occupants}}/{{listing.max_occupants}}
-            </button> -->
-
-            <img [src]="listing.images?.[0]?.url" alt="" [routerLink]="['/housing', listing.id]">
             <tui-icon icon="@tui.calendar-plus" />
-            <tui-scrollbar [hidden]="true">
-              <div tuiFade="vertical" tuiScrollable class="fade">
-                @for(chip of listing.amenities;let i=$index;track i){
-                  <tui-chip
-                  [appearance]="'primary'"
-                  [style.color]="'black'"
-                  size="xs">
-                    {{ chip }}
-                  </tui-chip>
-                }
-              </div>
-            </tui-scrollbar>
-          <!-- button grp -->
-          <input type="checkbox" tuiLike="var(--tui-status-accent)" size="s" checkedIcon="@tui.heart-filled" uncheckedIcon="@tui.heart" appearance="flat">
-          <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.repeat-2" uncheckedIcon="@tui.repeat-2" appearance="flat">
-          <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.share-2" uncheckedIcon="@tui.share-2" appearance="flat">
-          <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.bookmark-filled" uncheckedIcon="@tui.bookmark" appearance="flat">
+              <tui-scrollbar [hidden]="true">
+                <div tuiFade="vertical" tuiScrollable class="fade">
+                  @for(chip of listing.amenities;let i=$index;track i){
+                    <tui-chip
+                    [appearance]="'primary'"
+                    [style.color]="'black'"
+                    size="xs">
+                      {{ chip }}
+                    </tui-chip>
+                  }
+                </div>
+              </tui-scrollbar>
 
-          <button
-              tuiButton
-              type="button"
-              [size]="'xs'"
-              iconStart="@tui.send"
-          >
-              Request
-          </button>
-        </app-housing-listing-card>
+              <!-- button grp -->
+              <input type="checkbox" tuiLike="var(--tui-status-accent)" size="s" checkedIcon="@tui.heart-filled" uncheckedIcon="@tui.heart" appearance="flat">
+              <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.repeat-2" uncheckedIcon="@tui.repeat-2" appearance="flat">
+              <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.share-2" uncheckedIcon="@tui.share-2" appearance="flat">
+              <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.bookmark-filled" uncheckedIcon="@tui.bookmark" appearance="flat">
+
+              <button
+                  tuiButton
+                  type="button"
+                  [size]="'xs'"
+                  iconStart="@tui.send"
+              >
+                  Request
+              </button>
+
+        </app-carousel-listing-card>
       }
     </div>
   }@else{
