@@ -24,11 +24,10 @@
         {{cell.more}}
       </span>
     </div>
-    <span
+    <div
       tuiGroup
       [collapsed]="true"
       tuiCellActions
-      tuiTheme="dark"
       size="s"
       >
 
@@ -36,6 +35,7 @@
           appearance="primary-grayscale"
           tuiIconButton
           type="button"
+          tuiHint="Preview Photos"
           iconStart="@tui.fullscreen"
           (click)="show()"
       >
@@ -54,7 +54,7 @@
           iconStart="@tui.message-circle-reply"
       >
       </button>
-    </span>
+    </div>
 
     <div tuiCell>
       <div tuiTitle>
@@ -103,6 +103,7 @@
     <div
       automation-id="tui-push__heading"
       tuiTitle
+      class="t-heading"
     >
       {{ heading }}
     </div>
@@ -192,18 +193,4 @@ let-preview
 
     <img class="preview" [src]="this.items" alt="">
 </tui-preview>
-</ng-template>
-
-<ng-template let-pContent #pContent>
-    <h1>Important document</h1>
-
-    <p>Hello everyone! This is some important document in A4 format, although it is made using html</p>
-
-    <p>
-        This shows that the component preview can work with absolutely any content: this way you can show any
-        template, image, pdf or even iframe with your favorite site. We will put this content in the center of the
-        portal and provide the user with control over it, and we will provide you with convenient levers to change
-        it and process actions.
-    </p>
-
 </ng-template>

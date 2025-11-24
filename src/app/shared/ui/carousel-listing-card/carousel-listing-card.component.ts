@@ -1,9 +1,9 @@
 import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
-import { TuiGroup, TuiIcon, TuiTitle } from '@taiga-ui/core';
+import { TuiAppearance, TuiGroup, TuiHint, TuiIcon, TuiTitle } from '@taiga-ui/core';
 import {TuiFormatDatePipe} from '@taiga-ui/core/pipes/format-date';
 import { TuiCardLarge, TuiCell } from '@taiga-ui/layout';
 import {RouterLink} from '@angular/router';
-import {TuiBadge, TuiBadgedContent, TuiBadgeNotification, TuiCarousel, TuiConnected, TuiPagination} from '@taiga-ui/kit';
+import {TuiBadge, TuiBadgedContent, TuiBadgeNotification, TuiCarousel, TuiConnected, TuiPagination, TuiSwitch} from '@taiga-ui/kit';
 import { listingImages } from '../../../features/housing/models/housing.model';
 
 import {
@@ -15,7 +15,8 @@ import {
     ViewChild,
     Input,
     Output,
-    PLATFORM_ID, signal
+    PLATFORM_ID,
+    signal,
 } from '@angular/core';
 export interface ListingCell {
   title?: string;
@@ -59,22 +60,18 @@ import {type PolymorpheusContent, PolymorpheusOutlet} from '@taiga-ui/polymorphe
     TuiAmountPipe,
     TuiIcon,
     TuiCarousel,
-    RouterLink,
-    TuiPagination,
-    TuiCardLarge,
-    TuiConnected,
+    TuiAppearance,
     TuiPager,
     TuiProgress,
     TuiMapperPipe,
     TuiGroup,
     TuiBadgedContent,
-    TuiBadge,
-    TuiBadgeNotification
-
+    TuiHint,
   ],
   templateUrl: './carousel-listing-card.component.html',
   styleUrl: './carousel-listing-card.component.less',
-  providers: [tuiButtonOptionsProvider({size: 's', appearance: 'secondary'})],
+  providers: [tuiButtonOptionsProvider(
+    {size: 'm', appearance: 'primary',})],
       host: {
           '[style.--t-lines]': 'lines',
       },
@@ -96,7 +93,7 @@ export class CarouselListingCardComponent {
   public heading = '';
 
   @Input()
-  public lines = 2;
+  public lines = 3;
 
   @Input()
   public RoommateIcon = '';
