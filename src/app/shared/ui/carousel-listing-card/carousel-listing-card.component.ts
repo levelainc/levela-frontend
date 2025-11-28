@@ -31,7 +31,6 @@ export interface ListingPreview {
   title?:string;
   length?:number;
 };
-import { Title } from '@angular/platform-browser';
 import {tuiIsString} from '@taiga-ui/cdk/utils/miscellaneous';
 import {TUI_CLOSE_WORD, TUI_COMMON_ICONS} from '@taiga-ui/core/tokens';
 

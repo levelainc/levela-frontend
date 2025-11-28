@@ -102,7 +102,7 @@
   @if(listings$|async;as listings){
     <div class="listings-grid">
       @for(listing of listings;track listing.id){
-        @let time = listing.created_at | date: 'd MMM y';
+        @let time = listing.created_at ? (listing.created_at | tuiFormatDate | async)+' '+'ago': '';
         <app-carousel-listing-card
             [count]="listing.images.length"
             [listingImages]="listing.images"
@@ -115,7 +115,7 @@
             [cell]="{title:listing.house_type=='Other'?listing.custom_house_type:listing.house_type,price:listing.price,icon:'@tui.target',more:'Males Only',background:' #aff218',color:'black'}"
             >
 
-            <tui-icon icon="@tui.calendar-plus" />
+            <tui-icon icon="@tui.clock" />
               <tui-scrollbar [hidden]="true">
                 <div tuiFade="vertical" tuiScrollable class="fade">
                   @for(chip of listing.amenities;let i=$index;track i){

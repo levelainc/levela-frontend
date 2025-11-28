@@ -90,7 +90,6 @@
 
 
     @if (timestamp) {
-      Posted On
         <span
             class="t-time"
             [textContent]="isString(timestamp) ? timestamp : (timestamp | tuiFormatDate | async)"

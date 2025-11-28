@@ -2,20 +2,18 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  OnInit,
-  Input,
-  Signal,
-  signal
+  Injectable
 } from '@angular/core';
+
+import { formatDistance, toDate } from 'date-fns';
 import { CommonModule, AsyncPipe } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { HousingService } from '../../services/housing.service';
 import { Listing } from '../../models/housing.model';
-import { TuiAvatar, TuiAvatarStack, TuiBadge, TuiButtonGroup, TuiCarousel, TuiChevron, TuiChip, TuiConnected, TuiFade, TuiLike, TuiProgressCircle, TuiPush, TuiSkeleton, TuiTabs } from '@taiga-ui/kit';
+import { TuiAvatar,TuiCarousel, TuiChip, TuiFade, TuiLike, TuiPush, TuiTabs } from '@taiga-ui/kit';
 import {
   TuiCard,
   TuiCardLarge,
-  TuiCardMedium,
   TuiCell,
   TuiSearch
 } from '@taiga-ui/layout';
@@ -23,26 +21,27 @@ import {
   TuiButton,
   TuiTitle,
   TuiAppearance,
-  TuiSurface,
   TuiDropdown,
-  TuiDropdownHover,
   TuiDataList,
   TuiIcon,
   TuiTextfield,
   TuiLoader,
   tuiLoaderOptionsProvider,
-  TuiLink,
-  TuiFormatDatePipe,
   TuiScrollbar,
   TuiScrollable,
+  TuiFormatDatePipe,
+  TuiFormatDateService,
 } from '@taiga-ui/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject, firstValueFrom, switchMap } from 'rxjs';
-import { TuiRepeatTimes } from '@taiga-ui/cdk';
-import { TuiAmountPipe, TuiCurrencyPipe, TuiFormatCardPipe } from '@taiga-ui/addon-commerce';
-import { TuiExpand } from '@taiga-ui/experimental';
-import { HousingListingCardComponent } from '../../../../shared/ui/housing-listing-card/housing-listing-card.component';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BehaviorSubject, Observable, switchMap, timer,map} from 'rxjs';
 import { CarouselListingCardComponent } from '../../../../shared/ui/carousel-listing-card/carousel-listing-card.component';
+
+@Injectable()
+export class FormatService extends TuiFormatDateService{
+  public override format(timestamp:number):Observable<string>{
+    return  timer(0,1000).pipe(map(()=>formatDistance(timestamp,Date.now())))
+  }
+}
 
 @Component({
   standalone: true,
@@ -53,15 +52,10 @@ import { CarouselListingCardComponent } from '../../../../shared/ui/carousel-lis
   imports: [
     CommonModule,
     AsyncPipe,
-    RouterLink,
     TuiAppearance,
-    TuiBadge,
     TuiButton,
-    TuiCardMedium,
-    TuiSurface,
     TuiTitle,
     TuiDropdown,
-    TuiDropdownHover,
     TuiDataList,
     TuiIcon,
     TuiButton,
@@ -70,32 +64,21 @@ import { CarouselListingCardComponent } from '../../../../shared/ui/carousel-lis
     TuiCardLarge,
     TuiCell,
     TuiTabs,
-    RouterLink,
-    TuiBadge,
     TuiCarousel,
     TuiAvatar,
-    TuiSkeleton,
     TuiLoader,
-    TuiRepeatTimes,
-    TuiProgressCircle,
-    TuiAvatarStack,
     FormsModule,
     ReactiveFormsModule,
     FormsModule,
     TuiPush,
     TuiCard,
-    TuiChevron,
-    TuiFormatDatePipe,
-    TuiButtonGroup,
-    HousingListingCardComponent,
     CarouselListingCardComponent,
     TuiChip,
     TuiScrollbar,
     TuiScrollable,
     TuiLike,
     TuiFade,
-    TuiButtonGroup,
-    TuiConnected
+    TuiFormatDatePipe,
 ],
 providers: [
   tuiLoaderOptionsProvider({
@@ -103,68 +86,26 @@ providers: [
       inheritColor: false,
       overlay: true,
   }),
+  {
+    provide: TuiFormatDateService,
+    useClass: FormatService,
+  }
 ],
 })
-export class BrowseListingsComponent implements OnInit {
+export class BrowseListingsComponent {
   private readonly housingService = inject(HousingService);
-  protected readonly skeleton=false
-  public readonly collapsed = signal(true);
-  readonly router = inject(Router);
   private refresh$=new BehaviorSubject<void>(undefined)
-  // listings$ = this.housingService.getAllListings();
-  listings$=this.refresh$.pipe(
-    switchMap(()=>this.housingService.getAllListings())
-  )
-  protected open=false
-  ngOnInit(): void {
-
-  }
-
-  getImageUrl(listing: Listing): string {
-    return listing.images?.[0]?.url || 'placeholder.jpg';
-  }
-
-  readonly form = new FormGroup({
-    location: new FormControl(''),
-    roomType: new FormControl(''),
-    priceRange: new FormControl([0, 100]),
-    verified: new FormControl(false),
-    segmented: new FormControl(null),
-    filter: new FormControl([]),
-    assignedToMe: new FormControl(false),
-  });
-
-  readonly items = ['Apartment', 'Hostel', 'Bedsitter'];
-  readonly filters = ['Balcony', 'Pet-friendly', 'Self-contained'];
-  activeItemIndex=0;
-  protected count = 3;
-  protected index = 0;
-
-  protected readonly exampleControl = new FormControl(100);
-  protected readonly exampleYearControl = new FormControl<number | null>(null);
-  protected readonly badges = [
-      'primary',
-      'accent',
-      'success',
-      'error',
-      'warning',
-      'neutral',
-      'info',
-  ];
-
-  protected readonly buttons = ['primary', 'accent', 'destructive', 'flat', 'outline'];
-
-  @Input()
-  public theme: Signal<string> = signal('');
-
-
-
-
-  // tests
-
-
-
-
+  listings$ = this.refresh$.pipe(
+    switchMap(() => this.housingService.getAllListings()),
+    map(listings =>
+      listings.map(listing => ({
+        ...listing,
+        created_at: listing.created_at
+          ? new Date(listing.created_at.replace(' ', 'T') + ':00')
+          : null
+      }))
+    )
+  );
 
 }
 
