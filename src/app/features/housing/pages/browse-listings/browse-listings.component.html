@@ -10,6 +10,16 @@
   >
     <!-- listings -->
   <div allListing>
+    <div>
+      <div tuiCell>
+        <div tuiTitle="l" >
+          Select Your House
+          <span tuiSubtitle>
+            Over 50,000+ house collection
+          </span>
+        </div>
+      </div>
+    </div>
     @if(topListings$|async;as listings){
       <div class="listings-grid">
         @for(listing of listings;track listing.id){

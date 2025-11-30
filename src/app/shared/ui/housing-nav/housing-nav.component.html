@@ -32,12 +32,13 @@
 </nav>
 
 <!-- Tab Content -->
-<div class="tab-content">
+
+<div class="tab-content" [tuiSlides]="direction()">
   @for(tab of topFilters; let i = $index; track i){
     @switch(activeTabIndex){
       @case(i){
         @if(i!==0){
-          <ng-container>
+          <ng-container >
             @if(listingsByFilter[tab]?.length;){
               <div class="listings-grid">
                 @for(listing of listingsByFilter[tab]; track listing.id){
@@ -97,3 +98,5 @@
     }
   }
 </div>
+
+

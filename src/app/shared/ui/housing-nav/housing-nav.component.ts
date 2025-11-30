@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input,OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterOutlet,type Routes } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, Input,OnInit } from '@angular/core';
+import { NavigationEnd, NavigationStart, Router, RouterLink, RouterOutlet,type Routes } from '@angular/router';
 import { TuiItem } from '@taiga-ui/cdk';
 import { TuiButton, TuiFormatDatePipe, TuiHint, TuiIcon, TuiScrollable, TuiScrollbar, TuiTitle } from '@taiga-ui/core';
-import { TuiChip, TuiLike, TuiTab, TuiTabsWithMore } from '@taiga-ui/kit';
+import { TuiChip, TuiLike, TuiSlides, TuiTab, TuiTabsWithMore } from '@taiga-ui/kit';
 import { TuiCell, TuiNavigation } from '@taiga-ui/layout';
-import { filter } from 'rxjs';
-
+import { filter, map, pairwise } from 'rxjs';
+import {toSignal} from '@angular/core/rxjs-interop';
 // Import your HousingService and Listing model
 import { Listing } from '../../../features/housing/models/housing.model';
 import { HousingService } from '../../../features/housing/services/housing.service';
@@ -36,7 +36,8 @@ import { formatDistance } from 'date-fns';
     TuiFormatDatePipe,
     AsyncPipe,
     CommonModule,
-    TuiLike
+    TuiLike,
+    TuiSlides
   ],
 })
 export class HousingNavComponent {
@@ -97,10 +98,19 @@ export class HousingNavComponent {
     this.activeTabIndex = index;
     const filter = this.topFilters[index];
     this.loadListings(filter);
+    window.scrollTo({ top: 2, behavior: 'smooth' });
   }
 
-  @Input()
-  public display=''
+  // slides transition
+  protected readonly direction = toSignal(
+    inject(Router).events.pipe(
+        filter((event) => event instanceof NavigationStart),
+        map(({url}: any) => Number(url.split('/').at(-1))),
+        pairwise(),
+        map(([prev, next]) => next - prev),
+    ),
+    {initialValue: 1},
+);
 
 }
 

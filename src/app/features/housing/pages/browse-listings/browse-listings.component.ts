@@ -32,7 +32,7 @@ import {
   TuiFormatDateService,
 } from '@taiga-ui/core';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject,type Observable,of, switchMap, timer,map, filter} from 'rxjs';
+import { BehaviorSubject,type Observable,of, switchMap, timer,map, filter, shareReplay} from 'rxjs';
 import { CarouselListingCardComponent } from '../../../../shared/ui/carousel-listing-card/carousel-listing-card.component';
 import { NavigationEnd, Router,type Routes } from '@angular/router';
 import { HousingNavComponent } from '../../../../shared/ui/housing-nav/housing-nav.component';
@@ -135,7 +135,8 @@ export class BrowseListingsComponent implements OnInit{
           ? new Date(listing.created_at + 'Z')
           : null
       }))
-    )
+    ),
+    shareReplay(1)
   );
 
   protected readonly urls = ['', 'all-listings'];
