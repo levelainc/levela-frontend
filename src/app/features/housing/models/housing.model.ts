@@ -37,7 +37,7 @@ export interface Listing {
   description: string;
   price: number;
   location: string;
-  created_at: string;
+  created_at: Date|null;
   user_type:string,
   custom_house_type:string,
   house_type:string,

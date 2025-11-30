@@ -39,7 +39,7 @@ import {AsyncPipe, isPlatformServer} from '@angular/common';
 import {TUI_IS_E2E, TuiMapperPipe} from '@taiga-ui/cdk';
 import {TuiPager, TuiProgress} from '@taiga-ui/kit';
 import {map, type Observable, of, takeWhile, tap, timer} from 'rxjs';
-
+import { formatDistance } from 'date-fns';
 
 
 import {tuiClamp, TuiSwipe, type TuiSwipeEvent} from '@taiga-ui/cdk';

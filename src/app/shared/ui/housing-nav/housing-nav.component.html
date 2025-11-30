@@ -13,10 +13,6 @@
     <tui-icon icon="@tui.house-plus"/> Requests
   </button>
 
-  <div tuiCell="l">
-    <div tuiTitle>Top Listings</div>
-  </div>
-
   <!-- Tabs -->
   <tui-tabs-with-more
     [(activeItemIndex)]="activeTabIndex"
@@ -42,12 +38,13 @@
             @if(listingsByFilter[tab]?.length;){
               <div class="listings-grid">
                 @for(listing of listingsByFilter[tab]; track listing.id){
+                  @let time = listing.created_at ? (listing.created_at.getTime() | tuiFormatDate | async) : '';
                   <app-carousel-listing-card
                     [count]="listing.images.length"
                     [listingImages]="listing.images"
                     [heading]="listing.title"
                     [lines]="2"
-                    [timestamp]="''"
+                    [timestamp]="time?? ''"
                     [RoommateIcon]="'@tui.users'"
                     [minRoommates]="listing.current_occupants"
                     [maxRoommates]="listing.max_occupants"

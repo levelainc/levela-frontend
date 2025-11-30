@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, Input,OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterLink, RouterOutlet,type Routes } from '@angular/router';
 import { TuiItem } from '@taiga-ui/cdk';
-import { TuiButton, TuiFormatDatePipe, TuiHint, TuiIcon, TuiScrollable, TuiScrollbar, TuiTitle } from '@taiga-ui/core';
+import { TuiAppearance, tuiAppearance, TuiButton, TuiFormatDatePipe, TuiHint, TuiIcon, TuiScrollable, TuiScrollbar, TuiTitle } from '@taiga-ui/core';
 import { TuiChip, TuiLike, TuiSlides, TuiTab, TuiTabsWithMore } from '@taiga-ui/kit';
 import { TuiCell, TuiNavigation } from '@taiga-ui/layout';
 import { filter, map, pairwise } from 'rxjs';
@@ -35,6 +35,7 @@ import { formatDistance } from 'date-fns';
     TuiChip,
     TuiFormatDatePipe,
     AsyncPipe,
+    TuiAppearance,
     CommonModule,
     TuiLike,
     TuiSlides
@@ -83,15 +84,24 @@ export class HousingNavComponent {
     }
   }
 
-  // Lazy load listings for the active tab
+
   loadListings(filter: string) {
     if (this.listingsByFilter[filter]?.length) return; // already loaded
 
     this.housingService.getListingsByFilter(filter).subscribe({
-      next: (res) => this.listingsByFilter[filter] = res,
+      next: (res) => {
+        // Map each listing to convert created_at to Date
+        this.listingsByFilter[filter] = res.map(listing => ({
+          ...listing,
+          created_at: listing.created_at
+            ? new Date(listing.created_at + 'Z')
+            : null
+        }));
+      },
       error: (err) => console.error(err),
     });
   }
+
 
   // Called when tab changes
   onTabChange(index: number) {
