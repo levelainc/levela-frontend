@@ -11,6 +11,7 @@ import { filter } from 'rxjs';
 import {TuiButton, TuiHint, TuiIcon, TuiTitle } from "@taiga-ui/core";
 import {  TuiTab, TuiTabsWithMore } from '@taiga-ui/kit';
 import { TuiItem } from '@taiga-ui/cdk';
+import { HousingNavComponent } from '../../../shared/ui/housing-nav/housing-nav.component';
 
 @Component({
   selector: 'app-app-shell',
@@ -30,19 +31,14 @@ import { TuiItem } from '@taiga-ui/cdk';
     TuiTitle,
     TuiIcon,
     TuiButton,
-    TuiHint
+    TuiHint,
+    HousingNavComponent
 ],
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.less'],
 })
 export class AppShellComponent {
-  protected current='basic'
-  readonly items = ['Apartment', 'Hostel', 'Bedsitter'];
-  readonly filters = ['Balcony', 'Pet-friendly', 'Self-contained'];
-  activeItemIndex=0;
-  id?:Number
   showInfoSection=false;
-
   showHousingNav=false;
   showCreateListingNav=false
   constructor(private router:Router){

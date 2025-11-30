@@ -17,15 +17,43 @@ export class HousingService {
       .pipe(map(response => response.listings));
   }
 
-  // getAllListings(): Observable<Listing[]> {
-  //   return timer(2000).pipe(
-  //     switchMap(() =>
-  //       this.http
-  //         .get<{ listings: Listing[] }>(`${this.baseUrl}/api/housing/listings`)
-  //         .pipe(map(response => response.listings))
-  //     )
-  //   );
-  // }
+  getTopListings(): Observable<Listing[]> {
+    return this.http
+      .get<{ top_listings: Listing[] }>(`${this.baseUrl}/api/housing/listings/top`)
+      .pipe(map(response => response.top_listings));
+  }
+
+  getListingsByFilter(filter: string, page: number = 1, per_page: number = 50): Observable<Listing[]> {
+    const params: any = { page, per_page };
+
+    if (filter) {
+      params.filter = filter; // <-- pass tab filter to backend
+    }
+
+    return this.http
+      .get<{ listings: Listing[] }>(`${this.baseUrl}/api/housing/listings`, { params })
+      .pipe(map(res => res.listings));
+  }
+
+
+  getTopFilters(): Observable<string[]> {
+    return this.http
+      .get<{
+        top_listings: any[];
+        top_amenities: string[];
+        top_house_types: string[];
+      }>(`${this.baseUrl}/api/housing/listings/top`)
+      .pipe(
+        map(res => {
+          const topSevenHouseTypes = (res.top_house_types || []).slice(0, 7);
+          const topThreeAmenities = (res.top_amenities || []).slice(0, 3);
+          // Merge into single array
+          return ['All Listings',...topSevenHouseTypes,...topThreeAmenities,];
+        })
+      );
+  }
+
+
   getListingById(id: string): Observable<Listing> {
     return this.http.get<Listing>(`${this.baseUrl}/api/housing/listing/${id}`);
   }
@@ -54,4 +82,7 @@ export class HousingService {
 
     return this.http.delete(`${this.baseUrl}/api/housing/listing/${id}`);
   }
+
+
+
 }

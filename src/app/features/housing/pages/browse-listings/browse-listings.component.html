@@ -1,3 +1,69 @@
+@if (showHousingNav) {
+  @if (!showInfoSection) {
+    <div>
+      <app-infosection></app-infosection>
+    </div>
+  }
+  <div class="listings-grid"></div>
+  <app-housing-nav
+  [topFilters]="topFilters"
+  >
+    <!-- listings -->
+  <div allListing>
+    @if(topListings$|async;as listings){
+      <div class="listings-grid">
+        @for(listing of listings;track listing.id){
+          @let time = listing.created_at ? (listing.created_at.getTime() | tuiFormatDate | async) : '';
+          <app-carousel-listing-card
+              [count]="listing.images.length"
+              [listingImages]="listing.images"
+              [timestamp]="time?? ''"
+              [heading]="listing.title"
+              [lines]="2"
+              [RoommateIcon]="'@tui.users'"
+              [minRoommates]="listing.current_occupants"
+              [maxRoommates]="listing.max_occupants"
+              [cell]="{title:listing.house_type=='Other'?listing.custom_house_type:listing.house_type,price:listing.price,icon:'@tui.target',more:'Males Only',background:' #aff218',color:'black'}"
+              >
+
+              <tui-icon icon="@tui.clock" />
+                <tui-scrollbar [hidden]="true">
+                  <div tuiFade="vertical" tuiScrollable class="fade">
+                    @for(chip of listing.amenities;let i=$index;track i){
+                      <tui-chip
+                      [appearance]="'primary'"
+                      [style.color]="'black'"
+                      size="xs">
+                        {{ chip }}
+                      </tui-chip>
+                    }
+                  </div>
+                </tui-scrollbar>
+
+
+                <input type="checkbox" tuiLike="var(--tui-status-accent)" size="s" checkedIcon="@tui.heart-filled" uncheckedIcon="@tui.heart" appearance="flat">
+                <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.repeat-2" uncheckedIcon="@tui.repeat-2" appearance="flat">
+                <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.share-2" uncheckedIcon="@tui.share-2" appearance="flat">
+                <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.bookmark-filled" uncheckedIcon="@tui.bookmark" appearance="flat">
+
+                <button
+                    tuiButton
+                    type="button"
+                    [size]="'xs'"
+                    iconStart="@tui.send"
+                >
+                    Request
+                </button>
+
+          </app-carousel-listing-card>
+        }
+      </div>
+    }@else{
+      <tui-loader/>
+    }
+  </div>
+</app-housing-nav>
+}
 <!-- search section -->
 <div>
   <div tuiCell>
@@ -8,148 +74,97 @@
       </span>
     </div>
   </div>
-  <!-- <search tuiSearch>
-  <form [formGroup]="form">
-    <fieldset tuiTextfieldSize="s">
-      <tui-textfield iconStart="@tui.map-pin">
+<!-- <search tuiSearch>
+<form [formGroup]="form">
+<fieldset tuiTextfieldSize="s">
+<tui-textfield iconStart="@tui.map-pin">
+<input
+formControlName="search"
+placeholder="Location"
+tuiTextfield
+/>
+</tui-textfield>
+
+<tui-textfield iconStart="@tui.house">
+<input
+formControlName="search"
+placeholder="Room Type"
+tuiTextfield
+/>
+</tui-textfield>
+
+<tui-textfield
+iconStart="@tui.euro"
+tuiTextfieldSize="s"
+>
+<input
+  formControlName="price"
+  placeholder="Price"
+  tuiTextfield
+  />
+</tui-textfield>
+
+
+<tui-textfield iconStart="@tui.shield">
+  <input
+    formControlName="search"
+    placeholder="Verification Status"
+    tuiTextfield
+    />
+  </tui-textfield>
+
+
+  <button
+    size="s"
+    tuiButton
+    type="button"
+    >
+    Search
+  </button>
+
+</fieldset>
+<fieldset>
+  <tui-segmented size="s">
+    <label *ngFor="let segment of filters">
+      <input
+        formControlName="segmented"
+        type="radio"
+        [value]="segment"
+        />
+        {{ segment || 'All' }}
+      </label>
+    </tui-segmented>
+    <tui-filter
+      formControlName="filter"
+      size="s"
+      [items]="filters"
+      />
+      Results: 999
+
+      <label tuiLabel>
         <input
-          formControlName="search"
-          placeholder="Location"
-          tuiTextfield
+          formControlName="switch"
+          tuiSwitch
+          type="checkbox"
           />
-        </tui-textfield>
+          Assigned to me
+        </label>
 
-        <tui-textfield iconStart="@tui.house">
-          <input
-            formControlName="search"
-            placeholder="Room Type"
-            tuiTextfield
-            />
-          </tui-textfield>
-
-          <tui-textfield
-            iconStart="@tui.euro"
-            tuiTextfieldSize="s"
-            >
-            <input
-              formControlName="price"
-              placeholder="Price"
-              tuiTextfield
-              />
-            </tui-textfield>
-
-
-            <tui-textfield iconStart="@tui.shield">
-              <input
-                formControlName="search"
-                placeholder="Verification Status"
-                tuiTextfield
-                />
-              </tui-textfield>
-
-
-              <button
-                size="s"
-                tuiButton
-                type="button"
-                >
-                Search
-              </button>
-
-            </fieldset>
-            <fieldset>
-              <tui-segmented size="s">
-                <label *ngFor="let segment of filters">
-                  <input
-                    formControlName="segmented"
-                    type="radio"
-                    [value]="segment"
-                    />
-                    {{ segment || 'All' }}
-                  </label>
-                </tui-segmented>
-                <tui-filter
-                  formControlName="filter"
-                  size="s"
-                  [items]="filters"
-                  />
-                  Results: 999
-
-                  <label tuiLabel>
-                    <input
-                      formControlName="switch"
-                      tuiSwitch
-                      type="checkbox"
-                      />
-                      Assigned to me
-                    </label>
-
-                    <button
-                      iconStart="@tui.rotate-ccw"
-                      size="s"
-                      tuiIconButton
-                      type="button"
-                      [style.border-radius.%]="100"
-                      >
-                    </button>
-                  </fieldset>
-                </form>
-              </search> -->
+        <button
+          iconStart="@tui.rotate-ccw"
+          size="s"
+          tuiIconButton
+          type="button"
+          [style.border-radius.%]="100"
+          >
+        </button>
+      </fieldset>
+    </form>
+  </search> -->
 </div>
 
-  <!-- listings -->
 
-  @if(listings$|async;as listings){
-    <div class="listings-grid">
-      @for(listing of listings;track listing.id){
-        @let time = listing.created_at ? (listing.created_at | tuiFormatDate | async)+' '+'ago': '';
-        <app-carousel-listing-card
-            [count]="listing.images.length"
-            [listingImages]="listing.images"
-            [timestamp]="time?? ''"
-            [heading]="listing.title"
-            [lines]="2"
-            [RoommateIcon]="'@tui.users'"
-            [minRoommates]="listing.current_occupants"
-            [maxRoommates]="listing.max_occupants"
-            [cell]="{title:listing.house_type=='Other'?listing.custom_house_type:listing.house_type,price:listing.price,icon:'@tui.target',more:'Males Only',background:' #aff218',color:'black'}"
-            >
 
-            <tui-icon icon="@tui.clock" />
-              <tui-scrollbar [hidden]="true">
-                <div tuiFade="vertical" tuiScrollable class="fade">
-                  @for(chip of listing.amenities;let i=$index;track i){
-                    <tui-chip
-                    [appearance]="'primary'"
-                    [style.color]="'black'"
-                    size="xs">
-                      {{ chip }}
-                    </tui-chip>
-                  }
-                </div>
-              </tui-scrollbar>
-
-              <!-- button grp -->
-              <input type="checkbox" tuiLike="var(--tui-status-accent)" size="s" checkedIcon="@tui.heart-filled" uncheckedIcon="@tui.heart" appearance="flat">
-              <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.repeat-2" uncheckedIcon="@tui.repeat-2" appearance="flat">
-              <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.share-2" uncheckedIcon="@tui.share-2" appearance="flat">
-              <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s" checkedIcon="@tui.bookmark-filled" uncheckedIcon="@tui.bookmark" appearance="flat">
-
-              <button
-                  tuiButton
-                  type="button"
-                  [size]="'xs'"
-                  iconStart="@tui.send"
-              >
-                  Request
-              </button>
-
-        </app-carousel-listing-card>
-      }
-    </div>
-  }@else{
-    <tui-loader/>
-  }
 
 <!-- trending searches -->
 <section class="trending-section">

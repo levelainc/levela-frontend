@@ -73,7 +73,7 @@ import { TuiExpand } from '@taiga-ui/experimental';
     TuiLoader,
     TuiBadge,
     TuiBadgedContent,
-    TuiBadgeNotification
+    TuiBadgeNotification,
 ],
 providers: [
   tuiLoaderOptionsProvider({
@@ -84,6 +84,7 @@ providers: [
 ],
 })
 export class CreateListingComponent implements OnInit{
+  public time!:number;
   private readonly alerts = inject(TuiAlertService);
   private readonly housingService = inject(HousingService);
   private readonly router = inject(Router);
@@ -251,6 +252,7 @@ export class CreateListingComponent implements OnInit{
       }
     })
 
+    window.scrollTo({ top: 2, behavior: 'smooth' });
 
   }
 
@@ -301,7 +303,7 @@ export class CreateListingComponent implements OnInit{
 
   submit(): void {
     if (this.form.invalid) return;
-
+    this.time=Date.now()
     this.loading = true;
     this.errorMsg = '';
 
@@ -375,8 +377,5 @@ export class CreateListingComponent implements OnInit{
       },
     });
   }
-
-
-
 
 }

@@ -1,0 +1,90 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
+// listing
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.25rem;
+  padding: 1rem;
+}
+
+.listing-card {
+  cursor: pointer;
+  padding: 1rem;
+  background: var(--tui-base-01);
+  border-radius: 1rem;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  .thumbnail {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .price {
+    background: #ffdd2d;
+  }
+}
+
+[tuiCardMedium]{
+  inline-size: 14rem;
+  block-size: 10rem;
+}
+[tuiCell]{
+  padding: 0;
+}
+
+
+.image {
+  ::after{
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  transition: background-size 0.4s ease;
+  }
+  &:hover::after {
+    transform: scale(1.1);
+  }
+}
+
+
+
+
+
+	.tabs {
+    inline-size: ~'calc(90% - 15.625rem)';
+    justify-content: flex-end;
+    box-shadow: none;
+}
+
+tui-loader {
+  min-inline-size: 3.5rem;
+  --tui-thickness: 0.25em;
+}
+
+
+
+
+.fade {
+  .scrollbar-hidden();
+  block-size: 2.6rem;
+  font: var(--tui-font-text-m);
+  overflow: auto;
+}
+
+tui-chip {
+  margin: 0.5rem;
+  --tui-font-text-m: bold 1rem/1.5rem var(--tui-font-text);
+  --tui-font-text-s: normal 0.7rem/1.45rem var(--tui-font-text);
+}
+[tuiButton]{
+  margin-right: 0.5rem;
+}
+img{
+  cursor: pointer;
+}

@@ -1,0 +1,99 @@
+<nav tuiNavigationNav [style.position]="'sticky'">
+  <!-- Navigation Buttons -->
+  <button tuiButton size="xs" routerLink="/housing" tuiTooltip="Home" tuiHint="Home">
+    <tui-icon icon="@tui.house"/>
+  </button>
+  <button tuiButton routerLink="/housing/create" size="xs">
+    <tui-icon icon="@tui.circle-plus"/> Create Listing
+  </button>
+  <button tuiButton routerLink="/housing/mine" size="xs">
+    <tui-icon icon="@tui.layout-list"/> My Listing
+  </button>
+  <button tuiButton routerLink="/housing/mine" size="xs">
+    <tui-icon icon="@tui.house-plus"/> Requests
+  </button>
+
+  <div tuiCell="l">
+    <div tuiTitle>Top Listings</div>
+  </div>
+
+  <!-- Tabs -->
+  <tui-tabs-with-more
+    [(activeItemIndex)]="activeTabIndex"
+    (activeItemIndexChange)="onTabChange($event)"
+    [size]="'m'"
+    underline="red"
+    class="tabs"
+  >
+    @for(tab of topFilters; let i = $index; track i){
+      <button tuiTab type="button" *tuiItem>{{tab}}</button>
+    }
+  </tui-tabs-with-more>
+</nav>
+
+<!-- Tab Content -->
+<div class="tab-content">
+  @for(tab of topFilters; let i = $index; track i){
+    @switch(activeTabIndex){
+      @case(i){
+        @if(i!==0){
+          <ng-container>
+            @if(listingsByFilter[tab]?.length;){
+              <div class="listings-grid">
+                @for(listing of listingsByFilter[tab]; track listing.id){
+                  <app-carousel-listing-card
+                    [count]="listing.images.length"
+                    [listingImages]="listing.images"
+                    [heading]="listing.title"
+                    [lines]="2"
+                    [timestamp]="''"
+                    [RoommateIcon]="'@tui.users'"
+                    [minRoommates]="listing.current_occupants"
+                    [maxRoommates]="listing.max_occupants"
+                    [cell]="{
+                      title: listing.house_type=='Other'?listing.custom_house_type:listing.house_type,
+                      price: listing.price,
+                      icon: '@tui.target',
+                      more: 'Males Only',
+                      background: '#aff218',
+                      color: 'black'
+                    }"
+                  >
+                    <tui-icon icon="@tui.clock" />
+
+                    <tui-scrollbar [hidden]="true">
+                      <div tuiFade="vertical" tuiScrollable class="fade">
+                        @for(chip of listing.amenities; track $index){
+                          <tui-chip appearance="primary" size="xs" [style.color]="'black'">
+                            {{ chip }}
+                          </tui-chip>
+                        }
+                      </div>
+                    </tui-scrollbar>
+
+                    <input type="checkbox" tuiLike="var(--tui-status-accent)" size="s"
+                      checkedIcon="@tui.heart-filled" uncheckedIcon="@tui.heart" appearance="flat">
+                    <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s"
+                      checkedIcon="@tui.repeat-2" uncheckedIcon="@tui.repeat-2" appearance="flat">
+                    <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s"
+                      checkedIcon="@tui.share-2" uncheckedIcon="@tui.share-2" appearance="flat">
+                    <input type="checkbox" tuiLike="var(--tui-status-positive)" size="s"
+                      checkedIcon="@tui.bookmark-filled" uncheckedIcon="@tui.bookmark" appearance="flat">
+
+                    <button tuiButton type="button" [size]="'xs'" iconStart="@tui.send">
+                      Request
+                    </button>
+                  </app-carousel-listing-card>
+                }
+              </div>
+            } @else {
+              <p>Loading {{tab}} listings...</p>
+            }
+          </ng-container>
+        }@else {
+          <ng-content select="[allListing]"></ng-content>
+        }
+      }
+    }
+  }
+</div>

@@ -2,14 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  Injectable
+  Injectable,
+  OnInit,
+  PLATFORM_ID
 } from '@angular/core';
-
-import { formatDistance, toDate } from 'date-fns';
-import { CommonModule, AsyncPipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { formatDistance } from 'date-fns';
+import { CommonModule, AsyncPipe,isPlatformBrowser } from '@angular/common';
 import { HousingService } from '../../services/housing.service';
-import { Listing } from '../../models/housing.model';
 import { TuiAvatar,TuiCarousel, TuiChip, TuiFade, TuiLike, TuiPush, TuiTabs } from '@taiga-ui/kit';
 import {
   TuiCard,
@@ -33,16 +32,22 @@ import {
   TuiFormatDateService,
 } from '@taiga-ui/core';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject, Observable, switchMap, timer,map} from 'rxjs';
+import { BehaviorSubject,type Observable,of, switchMap, timer,map, filter} from 'rxjs';
 import { CarouselListingCardComponent } from '../../../../shared/ui/carousel-listing-card/carousel-listing-card.component';
+import { NavigationEnd, Router,type Routes } from '@angular/router';
+import { HousingNavComponent } from '../../../../shared/ui/housing-nav/housing-nav.component';
+import { InfosectionComponent } from '../../../../shared/ui/infosection/infosection.component';
 
 @Injectable()
 export class FormatService extends TuiFormatDateService{
+  private readonly delay$ = isPlatformBrowser(inject(PLATFORM_ID))
+  ? timer(0, 1000)
+  : of(0);
   public override format(timestamp:number):Observable<string>{
-    return  timer(0,1000).pipe(map(()=>formatDistance(timestamp,Date.now())))
+    return  this.delay$.pipe(
+      map(()=>formatDistance(new Date(timestamp),new Date(),{addSuffix:true})))
   }
 }
-
 @Component({
   standalone: true,
   selector: 'app-browse-listings',
@@ -50,6 +55,8 @@ export class FormatService extends TuiFormatDateService{
   styleUrls: ['./browse-listings.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    HousingNavComponent,
+    InfosectionComponent,
     CommonModule,
     AsyncPipe,
     TuiAppearance,
@@ -92,7 +99,19 @@ providers: [
   }
 ],
 })
-export class BrowseListingsComponent {
+export class BrowseListingsComponent implements OnInit{
+  showInfoSection=false;
+  showHousingNav=false;
+  showCreateListingNav=false
+  constructor(private router:Router){
+    this.router.events
+    .pipe(filter(event=>event instanceof NavigationEnd))
+    .subscribe((e: NavigationEnd)=>{
+      this.showHousingNav=e.urlAfterRedirects.startsWith('/housing')
+      this.showInfoSection=e.urlAfterRedirects.startsWith('/housing/')
+      this.showCreateListingNav=e.urlAfterRedirects.startsWith('/housing/create')
+    })
+  }
   private readonly housingService = inject(HousingService);
   private refresh$=new BehaviorSubject<void>(undefined)
   listings$ = this.refresh$.pipe(
@@ -101,11 +120,32 @@ export class BrowseListingsComponent {
       listings.map(listing => ({
         ...listing,
         created_at: listing.created_at
-          ? new Date(listing.created_at.replace(' ', 'T') + ':00')
+          ? new Date(listing.created_at + 'Z')
           : null
       }))
     )
   );
+
+  topListings$ = this.refresh$.pipe(
+    switchMap(() => this.housingService.getTopListings()),
+    map(listings =>
+      listings.map(listing => ({
+        ...listing,
+        created_at: listing.created_at
+          ? new Date(listing.created_at + 'Z')
+          : null
+      }))
+    )
+  );
+
+  protected readonly urls = ['', 'all-listings'];
+  topFilters: string[] = [];
+  ngOnInit(): void {
+    this.housingService.getTopFilters().subscribe(filters => {
+      this.topFilters = filters;
+    });
+  }
+
 
 }
 
