@@ -247,8 +247,8 @@
 
     <!-- upload images -->
 
-    <app-image-upload [control]="imagesControl" accept="image/*"  label="Upload room images"></app-image-upload>
-
+    <app-image-upload [control]="imagesControl" accept="image/*"  label="Upload room images" [size]="5" />
+    <tui-error [formControl]="form.controls['images']" [error]="['maxlength'] | tuiFieldError | async" />
     <footer class="tui-space_top-3">
       <button appearance="secondary" tuiButton type="button" routerLink="/housing">Cancel</button>
       <button tuiButton type="submit" [disabled]="form.invalid || loading">

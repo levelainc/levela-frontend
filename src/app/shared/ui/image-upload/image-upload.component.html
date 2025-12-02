@@ -1,17 +1,18 @@
-<label tuiInputFiles>
+<label tuiInputFiles >
   <input
     tuiInputFiles
+    [maxFileSize]="maxBytes"
     [formControl]="control"
     [multiple]="true"
     accept="image/*"
     (reject)="onReject($event)"
     />
-  {{ label }}
+  {{ label +' '+ '(5MB Max)' }}
 </label>
 
-<tui-files class="tui-space_top-1">
+<tui-files class="tui-space_top-1" [max]="3" [(expanded)]="expanded">
   @for (file of accepted$ | async; track file) {
-    <tui-file [file]="file" (remove)="onRemove(file)" />
+    <tui-file state="normal" [size]="'m'" [showDelete]="true" [file]="file" (remove)="onRemove(file)" />
   }
   @for (file of rejected; track file) {
     <tui-file state="error" [file]="file" (remove)="onRemove(file)" />

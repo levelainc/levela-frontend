@@ -12,7 +12,7 @@ import { forkJoin, Observable, of, Subject, timer } from 'rxjs';
 import { map, switchMap, finalize, max } from 'rxjs/operators';
 import { ImageUploadComponent } from '../../../../shared/ui/image-upload/image-upload.component';
 import { ɵɵDir } from "@angular/cdk/scrolling";
-import { TuiAutoFocus, TuiActiveZone, TuiItem,  } from '@taiga-ui/cdk';
+import { TuiAutoFocus, TuiActiveZone, TuiItem, TuiValidationError,  } from '@taiga-ui/cdk';
 import {TuiAmountPipe, TuiCurrencyPipe} from '@taiga-ui/addon-commerce';
 import { TuiExpand } from '@taiga-ui/experimental';
 @Component({
@@ -149,7 +149,7 @@ export class CreateListingComponent implements OnInit{
     additionalNote: new FormControl('', [Validators.maxLength(100)]),
     price: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     city: new FormControl('', Validators.required),
-    images: new FormControl<File[]>([], Validators.required),
+    images: new FormControl<File[]>([], [Validators.required,maxFilesLengthAndSize(10,5)]),
   });
 
   get imagesControl(): FormControl<File[]> {
@@ -378,4 +378,25 @@ export class CreateListingComponent implements OnInit{
     });
   }
 
+}
+
+export function maxFilesLengthAndSize(maxFiles: number, maxFileSizeMB: number): ValidatorFn {
+  return (control: AbstractControl) => {
+    const files = control.value as File[] | null;
+    if (!files || files.length === 0) return null;
+
+    // Check number of files
+    if (files.length > maxFiles) {
+      return { maxFiles: new TuiValidationError(`Error: maximum limit - ${maxFiles} files for upload`) };
+    }
+
+    // Check each file's size
+    const maxBytes = maxFileSizeMB * 1024 * 1024;
+    const tooLarge = files.find(f => f.size > maxBytes);
+    if (tooLarge) {
+      return { maxSize: new TuiValidationError(`Error: maximum file size - ${maxFileSizeMB} MB`) };
+    }
+
+    return null; // valid
+  };
 }

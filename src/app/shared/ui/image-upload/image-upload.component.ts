@@ -27,14 +27,24 @@ import { switchMap, map, finalize } from 'rxjs/operators';
 })
 export class ImageUploadComponent implements OnInit {
   @Input() control!: FormControl<File[]>;
-  label="Upload images"
+  label="Upload images "
+
+  @Input()
+  expanded=false
+
+  @Input()
+  size!:number
+
+  get maxBytes(): number {
+    return this.size * 1024 * 1024;
+  }
   protected accepted$!: Observable<File[]>;
   ngOnInit(): void {
-    if (!this.control) throw new Error('FormControl is required for app-image-upload');
+    if (!this.control) throw new Error('FormControl is required for image upload');
 
     this.control.setValue(this.control.value ?? []);
     // Initialize Subjects
-    
+
 
     this.accepted$ = this.control.valueChanges.pipe(
       map(() => tuiFilesAccepted(this.control))
