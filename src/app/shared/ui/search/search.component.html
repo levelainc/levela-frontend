@@ -1,0 +1,99 @@
+<!-- search section -->
+<div>
+  <search tuiSearch>
+    <form [formGroup]="form">
+      <fieldset tuiTextfieldSize="s">
+        <tui-textfield iconStart="@tui.map-pin" [tuiSkeleton]="loading">
+          <input
+          formControlName="search"
+          placeholder="Location"
+          tuiTextfield
+          />
+        </tui-textfield>
+
+        <tui-textfield iconStart="@tui.house" [tuiSkeleton]="loading">
+          <input
+          formControlName="search"
+          placeholder="Room Type"
+          tuiTextfield
+          />
+        </tui-textfield>
+
+        <tui-textfield
+        iconStart="@tui.euro"
+        tuiTextfieldSize="s"
+        [tuiSkeleton]="loading"
+        >
+          <input
+            formControlName="price"
+            placeholder="Price"
+            tuiTextfield
+            />
+        </tui-textfield>
+
+
+        <tui-textfield iconStart="@tui.shield" [tuiSkeleton]="loading">
+          <input
+            formControlName="search"
+            placeholder="Verification Status"
+            tuiTextfield
+            />
+        </tui-textfield>
+
+
+        <button
+          size="s"
+          tuiButton
+          type="button"
+          [tuiSkeleton]="loading"
+          >
+          Search
+        </button>
+
+      </fieldset>
+      <fieldset>
+        <!-- <tui-segmented size="s" [tuiSkeleton]="loading">
+          @for(segmented of topFilters;track $index){
+          <label>
+              <input
+              [tuiSkeleton]="loading"
+              formControlName="segmented"
+              type="radio"
+              [value]="segmented"
+              />
+              {{ segmented || 'All' }}
+          </label>
+        }
+        </tui-segmented> -->
+        <tui-filter
+          formControlName="filter"
+          size="s"
+          [items]="topFilters"
+          [tuiSkeleton]="loading"
+          
+          />
+          <span [tuiSkeleton]="loading">
+            Results: 999
+          </span>
+
+          <label tuiLabel [tuiSkeleton]="loading">
+            <input
+              formControlName="switch"
+              tuiSwitch
+              type="checkbox"
+              />
+              Assigned to me
+            </label>
+
+            <button
+              iconStart="@tui.rotate-ccw"
+              size="s"
+              tuiIconButton
+              type="button"
+              [style.border-radius.%]="100"
+              >
+            </button>
+          </fieldset>
+    </form>
+  </search>
+</div>

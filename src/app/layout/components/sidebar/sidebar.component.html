@@ -7,9 +7,9 @@
     <button tuiAsideItem iconStart="@tui.warehouse" tuiChevron>
       Housing
       <ng-template>
-        <a tuiAsideItem routerLink="/housing">Browse Listings</a>
-        <a tuiAsideItem routerLink="/housing/mine">My Listings</a>
-        <a tuiAsideItem routerLink="/housing/post">Post New Listing</a>
+        <button iconStart="@tui.layout-list" type="button" tuiAsideItem routerLink="/housing">Home</button>
+        <button iconStart="@tui.notebook-pen" type="button" tuiAsideItem routerLink="/housing/mine">My listings</button>
+        <button iconStart="@tui.circle-plus" type="button" tuiAsideItem routerLink="/housing/create">New</button>
       </ng-template>
     </button>
   </tui-aside-group>
@@ -25,8 +25,8 @@
             Categories
             <ng-template>
               <a tuiAsideItem routerLink="/marketplace/categories">Beauty</a>
-              <a tuiAsideItem routerLink="/marketplace/categories">Electronics</a>
-              <a tuiAsideItem routerLink="/marketplace/categories">Stationery</a>
+              <a tuiAsideItem routerLink="/marketplace/categories/b">Electronics</a>
+              <a tuiAsideItem routerLink="/marketplace/categories/c">Stationery</a>
             </ng-template>
           </button>
         </tui-aside-group>

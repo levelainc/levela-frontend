@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject, Input,OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterLink, RouterOutlet,type Routes } from '@angular/router';
 import { TuiItem } from '@taiga-ui/cdk';
-import { TuiAppearance, tuiAppearance, TuiButton, TuiFormatDatePipe, TuiHint, TuiIcon, TuiScrollable, TuiScrollbar, TuiTitle } from '@taiga-ui/core';
-import { TuiChip, TuiLike, TuiSlides, TuiTab, TuiTabsWithMore } from '@taiga-ui/kit';
-import { TuiCell, TuiNavigation } from '@taiga-ui/layout';
+import { TuiAppearance, tuiAppearance, TuiButton, TuiFormatDatePipe, TuiHint, TuiIcon, TuiLoader, tuiLoaderOptionsProvider, TuiScrollable, TuiScrollbar, TuiTitle } from '@taiga-ui/core';
+import { TuiButtonClose, TuiChip, TuiFloatingContainer, TuiLike, TuiSkeleton, TuiSlides, TuiTab, TuiTabsWithMore } from '@taiga-ui/kit';
+import { TuiAppBar, TuiCell, TuiNavigation } from '@taiga-ui/layout';
 import { filter, map, pairwise } from 'rxjs';
 import {toSignal} from '@angular/core/rxjs-interop';
-// Import your HousingService and Listing model
 import { Listing } from '../../../features/housing/models/housing.model';
 import { HousingService } from '../../../features/housing/services/housing.service';
 import { CarouselListingCardComponent } from '../carousel-listing-card/carousel-listing-card.component';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { formatDistance } from 'date-fns';
-
+import { TuiSheetDialog, type TuiSheetDialogOptions } from '@taiga-ui/addon-mobile';
+import { SearchComponent } from '../search/search.component';
 @Component({
   selector: 'app-housing-nav',
   templateUrl: './housing-nav.component.html',
@@ -26,8 +26,9 @@ import { formatDistance } from 'date-fns';
     TuiItem,
     RouterLink,
     RouterOutlet,
+    TuiButtonClose,
     TuiTab,
-    TuiTitle,
+    TuiSheetDialog,
     TuiHint,
     CarouselListingCardComponent,
     TuiScrollbar,
@@ -38,7 +39,19 @@ import { formatDistance } from 'date-fns';
     TuiAppearance,
     CommonModule,
     TuiLike,
-    TuiSlides
+    TuiSlides,
+    TuiLoader,
+    SearchComponent,
+    TuiFloatingContainer,
+    TuiAppBar,
+    TuiSkeleton,
+  ],
+  providers: [
+    tuiLoaderOptionsProvider({
+      size: 'm',
+      inheritColor: false,
+      overlay: true,
+    }),
   ],
 })
 export class HousingNavComponent {
@@ -121,6 +134,14 @@ export class HousingNavComponent {
     ),
     {initialValue: 1},
 );
+
+
+// sheet dialog
+  // protected readonly options: Partial<TuiSheetDialogOptions> = {
+  //   closeable: true,
+  //   fullscreen: true,
+  // };
+ protected open=false
 
 }
 

@@ -38,6 +38,7 @@ import { NavigationEnd, Router,type Routes } from '@angular/router';
 import { HousingNavComponent } from '../../../../shared/ui/housing-nav/housing-nav.component';
 import { InfosectionComponent } from '../../../../shared/ui/infosection/infosection.component';
 
+
 @Injectable()
 export class FormatService extends TuiFormatDateService{
   private readonly delay$ = isPlatformBrowser(inject(PLATFORM_ID))
@@ -86,6 +87,7 @@ export class FormatService extends TuiFormatDateService{
     TuiLike,
     TuiFade,
     TuiFormatDatePipe,
+
 ],
 providers: [
   tuiLoaderOptionsProvider({
@@ -139,13 +141,14 @@ export class BrowseListingsComponent implements OnInit{
     shareReplay(1)
   );
 
-  protected readonly urls = ['', 'all-listings'];
   topFilters: string[] = [];
   ngOnInit(): void {
     this.housingService.getTopFilters().subscribe(filters => {
       this.topFilters = filters;
     });
   }
+
+
 
 
 }

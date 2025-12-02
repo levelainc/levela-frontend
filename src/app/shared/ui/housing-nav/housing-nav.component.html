@@ -12,9 +12,18 @@
   <button tuiButton routerLink="/housing/mine" size="xs">
     <tui-icon icon="@tui.house-plus"/> Requests
   </button>
+  <button
+  tuiButton
+  type="button"
+  iconStart="@tui.list-filter-plus"
+  (click)="open = true"
+>
+  Filter
+</button>
 
   <!-- Tabs -->
   <tui-tabs-with-more
+    [tuiSkeleton]="topFilters.length===0"
     [(activeItemIndex)]="activeTabIndex"
     (activeItemIndexChange)="onTabChange($event)"
     [size]="'m'"
@@ -85,7 +94,10 @@
                 }
               </div>
             } @else {
-              <p>Loading {{tab}} listings...</p>
+              <tui-loader
+              [showLoader]="true"
+              textContent="Loading..."
+              />
             }
           </ng-container>
         }@else {
@@ -95,5 +107,41 @@
     }
   }
 </div>
-
-
+<!-- sheet -->
+ <ng-template #bar>
+  <tui-app-bar>
+    <button
+      tuiAppBarBack
+      tuiSlot="left"
+    >
+      Back
+    </button>
+    Advanced Filter
+    <button
+      tuiButton
+      iconStart="@tui.cog"
+      title="settings"
+      tuiSlot="right"
+    ></button>
+  </tui-app-bar>
+ </ng-template>
+<ng-template
+let-observer
+[tuiSheetDialogOptions]="{label: bar, bar: false, fullscreen: true}"
+[(tuiSheetDialog)]="open"
+>
+  <app-search></app-search>
+  <p [style.flex-grow]="1"></p>
+<footer tuiFloatingContainer>
+    <button
+        appearance="secondary"
+        size="m"
+        tuiButton
+        type="button"
+        iconStart="@tui.circle-x"
+        (click)="observer.complete()"
+    >
+        close
+    </button>
+</footer>
+</ng-template>

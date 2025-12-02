@@ -1,16 +1,37 @@
-<header tuiNavigationHeader>
+<header tuiNavigationHeader class="header">
   <!-- Left: Drawer + Logo -->
   <button tuiIconButton tuiNavigationDrawer [(open)]="openDrawer" type="button" title="menu" >
-    <tui-data-list size="s">
+    <!-- <tui-data-list size="s">
       <button iconStart="@tui.palette" routerLink="/color-generator" tuiOption type="button">Theme Generator</button>
       <button iconStart="@tui.layout-dashboard" routerLink="/dashboards/iot" tuiOption type="button">IoT Dashboard</button>
       <button iconStart="@tui.layout-dashboard" routerLink="/dashboards/crypto" tuiOption type="button">Crypto Dashboard</button>
       <button iconStart="@tui.log-in" routerLink="/pages/login" tuiOption type="button">Log in</button>
       <button iconStart="@tui.key-round" routerLink="/pages/sign-up" tuiOption type="button">Sign up</button>
-    </tui-data-list>
+    </tui-data-list> -->
   </button>
 
   <span tuiNavigationLogo class="logo">Levela</span>
+  <button tuiButton tuiChevron tuiDropdownOpen [tuiDropdown]="profileDropdown">
+    Profile
+  </button>
+  <ng-template #profileDropdown>
+    <tui-data-list size="s">
+      <a tuiOption [routerLink]="'/profile'">Profile</a>
+      <a tuiOption [routerLink]="'/settings'">Settings</a>
+      <button tuiOption (click)="logout()">Logout</button>
+    </tui-data-list>
+  </ng-template>
+
+  <button tuiButton iconStart="@tui.target">
+    Sales
+  </button>
+  <button tuiButton iconStart="@tui.badge-question-mark">
+    Help
+  </button>
+  <button tuiButton iconStart="@tui.shield-check">
+    Pricing
+  </button>
+
 
   <!-- Center: Search -->
   <hr />
@@ -21,10 +42,10 @@
         <tui-search-results [results]="results$ | async">
           <tui-search-history [popular]="popular"></tui-search-history>
           <ng-template let-item>
-            <a tuiCell [href]="item.href">
+            <!-- <a tuiCell [href]="item.href">
               <tui-avatar [src]="item.icon || '@tui.file'"></tui-avatar>
               <span tuiTitle>{{ item.title }}<span tuiSubtitle>{{ item.subtitle }}</span></span>
-            </a>
+            </a> -->
           </ng-template>
         </tui-search-results>
       </ng-template>
@@ -32,6 +53,9 @@
   </div>
   <hr />
   <!-- Right: User Info -->
+  <button tuiButton iconStart="@tui.cog">
+    Settings
+  </button>
   @if (user$ | async; as user) {
     <div class="header-right">
       <span tuiFade="horizontal">{{ user.full_name }}</span>
@@ -49,11 +73,25 @@
   } @else {
     <a tuiButton [routerLink]="'/auth/login'">
       Login
-      <tui-icon icon="@tui.lock-open" [style.font-size.em]="1" [style.margin-left.rem]="0.5"></tui-icon>
+      <tui-icon icon="@tui.lock-open"></tui-icon>
     </a>
   }
 
-
+  <!-- Location -->
+  <button tuiButton iconStart="@tui.map-pin-plus" tuiDropdownOpen [tuiDropdown]="profileDropdown">
+    
+  </button>
+  <ng-template #profileDropdown>
+    <tui-data-list size="s">
+      <a tuiOption [routerLink]="'/profile'">Kenya</a>
+      <a tuiOption [routerLink]="'/settings'">Japan</a>
+      <a tuiOption [routerLink]="'/settings'">China</a>
+      <a tuiOption [routerLink]="'/settings'">Korea</a>
+      <a tuiOption [routerLink]="'/settings'">Indonesia</a>
+      <a tuiOption [routerLink]="'/settings'">Malaysia</a>
+      <button tuiOption (click)="logout()">Singapore</button>
+    </tui-data-list>
+  </ng-template>
   <!-- Icons + Dark Mode -->
   <div class="header-right">
     <button tuiIconButton tuiHint="Notifications"><tui-icon icon="@tui.bell"></tui-icon></button>

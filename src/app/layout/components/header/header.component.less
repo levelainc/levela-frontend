@@ -3,7 +3,7 @@
 //   transform: translate3d(0, 0, 0);
 // }
 
-[tuiNavigationHeader] {
+[tuiNavigationHeader],[tuiTheme="light"] {
   white-space: nowrap;
   inline-size: 100% !important;
   box-shadow: none !important;
@@ -11,4 +11,60 @@
   &::before {
       display: none;
   }
+
+
+  --tui-background-base: #0f0a00;
+  --tui-background-base-alt: #584703;
+  --tui-background-elevation-1: #f8f6d5;
+  --tui-background-elevation-2: #141100;
+
+  --tui-background-neutral-1: rgba(73, 56, 1, 0.5);
+  --tui-background-neutral-1-hover: rgba(85, 77, 4, 0.801);
+  --tui-background-neutral-1-pressed: rgba(0, 0, 0, 0.12);
+  --tui-background-neutral-2: rgba(233, 218, 16, 0.822); /* progress color*/
+  --tui-background-neutral-2-hover: rgba(80, 68, 3, 0.753);
+  --tui-background-neutral-2-pressed: rgba(82, 61, 4, 0.644);
+  --tui-background-accent-1: #525201d0;
+  --tui-background-accent-1-hover: #cbbf79;
+  --tui-background-accent-1-pressed: #fdb500;
+
+  --tui-background-accent-2: #4d0216d7;
+  --tui-background-accent-2-hover: #66154ece;
+  --tui-background-accent-2-pressed: #df0d30d8;
+
+  --tui-background-accent-opposite: #8a8987d2;
+  --tui-background-accent-opposite-hover: #575103f1;
+  --tui-background-accent-opposite-pressed: #ffd000da;
+
+
+  // text
+  --tui-text-primary: rgb(253, 248, 171);
+  --tui-text-secondary: rgb(247, 244, 198);
+  --tui-text-tertiary: rgba(248, 233, 157, 0.918);
+  --tui-text-primary-on-accent-1: #f7f08d;
+  --tui-text-action: #fdef6b;
+  --tui-text-action-hover: #524b03;
+  --tui-text-positive: #c6f104;
+  --tui-text-negative: #dd4c1e;
+
+  /*  STATUS COLORS */
+  --tui-status-positive: rgba(83, 191, 162, 1);
+  --tui-status-positive-pale: rgba(83, 191, 162, 0.12);
+  --tui-status-positive-pale-hover: rgba(83, 191, 162, 0.24);
+
+  --tui-status-negative: rgba(239, 79, 95, 1);
+  --tui-status-negative-pale: rgba(239, 79, 95, 0.12);
+  --tui-status-negative-pale-hover: rgba(239, 79, 95, 0.24);
+
+  --tui-status-warning: rgba(255, 201, 105, 1);
+  --tui-status-warning-pale: rgba(255, 201, 105, 0.12);
+  --tui-status-warning-pale-hover: rgba(255, 201, 105, 0.24);
+
+  --tui-status-info: rgba(148, 191, 233, 1);
+  --tui-status-info-pale: rgba(148, 191, 233, 0.12);
+  --tui-status-info-pale-hover: rgba(148, 191, 233, 0.24);
+  --tui-status-accent: #e28cc8;
 }
+// .header{
+//   backdrop-filter:blur(50px)
+// }
