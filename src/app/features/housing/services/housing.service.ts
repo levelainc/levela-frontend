@@ -17,21 +17,32 @@ export class HousingService {
       .pipe(map(response => response.listings));
   }
 
+  // filters for tabs
   getTopListings(): Observable<Listing[]> {
     return this.http
       .get<{ top_listings: Listing[] }>(`${this.baseUrl}/api/housing/listings/top`)
       .pipe(map(response => response.top_listings));
   }
 
+  // filtered listings for for tabs
   getListingsByFilter(filter: string, page: number = 1, per_page: number = 50): Observable<Listing[]> {
     const params: any = { page, per_page };
 
     if (filter) {
-      params.filter = filter; // <-- pass tab filter to backend
+      params.filter = filter; //  tab filter to backend
     }
 
     return this.http
       .get<{ listings: Listing[] }>(`${this.baseUrl}/api/housing/listings`, { params })
+      .pipe(map(res => res.listings));
+  }
+
+  // filters for search
+  getListingsByFilters(filters: {houseTypes: string[]}) {
+    const params: any = {};
+    if (filters.houseTypes?.length) params.filter = filters.houseTypes.join(','); // use 'filter' param for backend tab filter
+
+    return this.http.get<{ listings: Listing[] }>(`${this.baseUrl}/api/housing/listings`, { params })
       .pipe(map(res => res.listings));
   }
 

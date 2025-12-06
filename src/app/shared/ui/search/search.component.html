@@ -2,11 +2,6 @@
 <div>
   <search tuiSearch>
     <form [formGroup]="form" tuiForm="m">
-
-
-
-
-
       <fieldset>
         <!-- house type -->
         <label tuiLabel [tuiSkeleton]="loading">
@@ -53,7 +48,6 @@
 
         <!-- gender -->
         <tui-textfield
-        iconStart="@tui.venus"
         [tuiSkeleton]="loading"
         tuiChevron
         tuiDropdownMobile="Select Gender"
@@ -61,17 +55,35 @@
         >
             <label tuiLabel>Gender</label>
             <input
+            #input
             placeholder="Select Gender"
-            tuiSelect
+            tuiTextfield
             formControlName="gender"
             />
-            <tui-data-list-wrapper
-            *tuiTextfieldDropdown
-            new
-            [items]="gender"
-            [tuiPlatform]="value ?? 'ios'"
-            [tuiAppearance]="'primary'"
-        />
+            @let userGender=usersGender|tuiFilterByInput;
+            @if(userGender;as g){
+              <ng-container
+              >
+              @if(input.value && g.length){
+                <tui-data-list-wrapper
+                  *tuiTextfieldDropdown
+                  new
+                  [items]="g"
+                  [tuiPlatform]="value ?? 'ios'"
+                  [tuiAppearance]="'primary'"
+              />
+              }@else {
+                <tui-data-list-wrapper
+                  *tuiTextfieldDropdown
+                  new
+                  [items]="g"
+                  [tuiPlatform]="value ?? 'ios'"
+                  [tuiAppearance]="'primary'"
+              />
+              }
+            </ng-container>
+            }
+
         <tui-icon
           [icon]="genders.icon"
           [tuiTooltip]="genders.tooltip"
@@ -111,6 +123,7 @@
           tuiButton
           type="button"
           [tuiSkeleton]="loading"
+          (click)="submitSearch()"
           >
           Search
         </button>
@@ -139,7 +152,7 @@
 
           />
           <span [tuiSkeleton]="loading">
-            Results: 999
+            Results: {{filteredListings.length}}
           </span>
 
           <label tuiLabel [tuiSkeleton]="loading">
@@ -163,6 +176,47 @@
     </form>
   </search>
 </div>
+
+<tui-loader [showLoader]="loading" />
+@if(filteredListings.length!==0){
+  <div tuiConnected tuiCardLarge class="results">
+    @for(list of filteredListings;track list.id){
+      @let time = list.created_at ? (list.created_at.getTime() | tuiFormatDate | async) : '';
+      <button tuiCell="l" [routerLink]="['/housing', list.id]">
+        <tui-avatar
+        [size]="'xl'"
+        [style.background]="'linear-gradient(#ECDD00FF, #B4DA0AFF)'"
+        [tuiAvatarOutline]="'linear-gradient(#ECDD00FF, #B4DA0AFF)'"
+        [src]="list.images?.[0]?.url" />
+        <div tuiTitle>
+          <div tuiSubtitle>
+            <span [style.color]="'var(--tui-text-positive)'">
+              <tui-icon [style.zoom]="'70%'" icon="@tui.user" />{{list.current_occupants}}/{{list.max_occupants}}</span>
+            •
+            <span>{{time??''}}</span>
+          </div>
+          {{list.title}}
+          <span tuiSubtitle>
+            {{list.house_type}}
+          </span>
+        </div>
+
+        <div tuiTitle>
+          <div tuiSubtitle>
+            <span [style.color]="'var(--tui-text-positive)'">
+              <tui-icon [style.zoom]="'70%'" icon="@tui.map-pin" />{{list.location}}
+            </span>
+          </div>
+            {{list.user_type}}
+          <span tuiSubtitle>
+            {{list.price|tuiAmount:'Ksh':'left'|async}}
+          </span>
+        </div>
+      </button>
+    }
+  </div>
+}
+
 
 
 

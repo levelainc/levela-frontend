@@ -1,40 +1,56 @@
-import { Component, inject, OnInit,ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, Injectable, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiAppearance, TuiButton, TuiDataList, TuiIcon, TuiLabel, TuiLoader, TuiOptGroup, TuiOption, TuiSelectLike, TuiTextfield, TuiTextfieldDropdownDirective, TuiWithTextfieldDropdown } from '@taiga-ui/core';
+import { TuiAppearance, TuiButton, TuiDataList, TuiFormatDatePipe, TuiFormatDateService, TuiIcon, TuiLabel, TuiLoader, TuiSelectLike, TuiTextfield, TuiTextfieldDropdownDirective, TuiTitle } from '@taiga-ui/core';
 import {
   TuiFilter,
-  TuiSegmented,
   TuiSkeleton,
   TuiSwitch,
   TuiChevron,
   TuiDataListWrapper,
   TuiFilterByInputPipe,
-  TuiHideSelectedPipe,
   TuiInputChip,
   TuiMultiSelect,
   TuiMultiSelectGroupDirective,
-  TuiMultiSelectGroupComponent,
   TuiSelect,
   TuiTooltip,
+  TuiAvatar,
+  TuiConnected,
+  TuiAvatarOutline,
    } from '@taiga-ui/kit';
-  import {tuiIsString, TuiItem, TuiPlatform, type TuiIdentityMatcher,type TuiBooleanHandler} from '@taiga-ui/cdk';
-import { TuiForm, TuiSearch } from '@taiga-ui/layout';
+  import {TuiPlatform,type TuiBooleanHandler} from '@taiga-ui/cdk';
+import { TuiForm, TuiSearch, TuiInputSearch, TuiCell, TuiCardLarge } from '@taiga-ui/layout';
 import { HousingService } from '../../../features/housing/services/housing.service';
-import {type TuiStringMatcher} from '@taiga-ui/cdk';
+import { formatDistance } from 'date-fns';
 import { TuiDropdownMobile } from '@taiga-ui/addon-mobile';
-const ROMAN_TO_LATIN: Record<string, string> = {
-  I: '1',
-  II: '2',
-  III: '3',
-  IV: '4',
-  V: '5',
-  VI: '6',
-  VII: '7',
-  VIII: '8',
-};
-interface User {
-  readonly name: string;
-  readonly index: number;
+import { Listing } from '../../../features/housing/models/housing.model';
+import { RouterLink } from '@angular/router';
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
+import { timer,of, Observable, map } from 'rxjs';
+import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
+interface ListingsQueryParams {
+  filter?: string;
+  location?: string;
+  min_price?: string;
+  max_price?: string;
+  roommates?: string;
+  page?: number;
+  per_page?: number;
+}
+interface ListingFilters {
+  houseTypes: string[];
+  gender?: string;
+  verified?: string;
+}
+
+@Injectable()
+export class FormatService extends TuiFormatDateService{
+  private readonly delay$ = isPlatformBrowser(inject(PLATFORM_ID))
+  ? timer(0, 1000)
+  : of(0);
+  public override format(timestamp:number):Observable<string>{
+    return  this.delay$.pipe(
+      map(()=>formatDistance(new Date(timestamp),new Date(),{addSuffix:true})))
+  }
 }
 @Component({
   selector: 'app-search',
@@ -44,7 +60,6 @@ interface User {
     TuiSearch,
     TuiIcon,
     ReactiveFormsModule,
-    TuiSegmented,
     TuiFilter,
     TuiSkeleton,
     TuiLoader,
@@ -65,23 +80,40 @@ interface User {
     TuiAppearance,
     TuiPlatform,
     TuiSelect,
-    TuiTooltip
+    TuiTooltip,
+    TuiCell,
+    TuiAvatar,
+    TuiTitle,
+    TuiConnected,
+    TuiCardLarge,
+    RouterLink,
+    TuiAvatarOutline,
+    TuiFormatDatePipe,
+    AsyncPipe,
+    TuiAmountPipe
 ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.less',
+  providers:[
+    {
+        provide: TuiFormatDateService,
+        useClass: FormatService,
+      }
+  ]
 })
 export class SearchComponent implements OnInit{
   private readonly housingService=inject(HousingService)
   topFilters: string[] = [];
-  protected loading=true
+  filteredListings: Listing[] = [];
+  protected loading=false
 
-  protected readonly gender=['Male','Female','Other'] as const;
+  protected readonly usersGender=['Male','Female','Other'] as const;
   protected readonly verified=['Verified','Unverified'] as const;
 
   ngOnInit(): void {
     this.housingService.getTopFilters().subscribe(filters => {
       this.topFilters = filters;
-      if(filters.length) this.loading=false
+      // if(filters.length) this.loading=false
     });
   }
 
@@ -90,8 +122,6 @@ export class SearchComponent implements OnInit{
     gender:new FormControl(''),
     verified:new FormControl('')
   })
-
-
 
   protected readonly platforms = ['web', 'ios', 'android'] as const;
   protected value: 'android' | 'ios' | 'web' | null = 'android';
@@ -120,10 +150,37 @@ export class SearchComponent implements OnInit{
       case 'Female':
         return { icon: '@tui.venus', tooltip: 'Hello Venus', appearance: 'accent' };
       case 'Other':
-        return { icon: '@tui.users', tooltip: 'Happy Alphabet day', appearance: 'warning' };
+        return { icon: '@tui.non-binary', tooltip: 'Happy Alphabet day', appearance: '' };
       default:
-        return { icon: '@tui.shield-user', tooltip: 'Gender', appearance: '' };
+        return { icon: '@tui.circle-small', tooltip: 'Gender', appearance: '' };
     }
   }
+
+  getSelectedFilters(): ListingFilters {
+    return {
+      houseTypes: this.form.controls.select.value ||[], // string[]
+      gender: this.form.controls.gender.value||undefined,    // string
+      verified: this.form.controls.verified.value||undefined // string
+    };
+  }
+  submitSearch() {
+    const filters = this.getSelectedFilters(); // typed as ListingFilters
+    this.loading = true;
+    this.housingService.getListingsByFilters(filters).subscribe({
+      next: (res) => {
+        const listings = res.map(listing => ({
+          ...listing,
+          created_at: listing.created_at ? new Date(listing.created_at + 'Z') : null
+        }));
+        this.filteredListings=listings
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
+      }
+    });
+  }
+
+
 
 }

@@ -114,8 +114,6 @@ export class HousingNavComponent {
       error: (err) => console.error(err),
     });
   }
-
-
   // Called when tab changes
   onTabChange(index: number) {
     this.activeTabIndex = index;

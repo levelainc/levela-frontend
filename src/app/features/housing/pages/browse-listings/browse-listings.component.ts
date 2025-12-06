@@ -34,7 +34,7 @@ import {
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject,type Observable,of, switchMap, timer,map, filter, shareReplay} from 'rxjs';
 import { CarouselListingCardComponent } from '../../../../shared/ui/carousel-listing-card/carousel-listing-card.component';
-import { NavigationEnd, Router,type Routes } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { HousingNavComponent } from '../../../../shared/ui/housing-nav/housing-nav.component';
 import { InfosectionComponent } from '../../../../shared/ui/infosection/infosection.component';
 
