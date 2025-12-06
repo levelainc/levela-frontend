@@ -1,43 +1,108 @@
 <!-- search section -->
 <div>
   <search tuiSearch>
-    <form [formGroup]="form">
-      <fieldset tuiTextfieldSize="s">
-        <tui-textfield iconStart="@tui.map-pin" [tuiSkeleton]="loading">
-          <input
-          formControlName="search"
-          placeholder="Location"
-          tuiTextfield
-          />
-        </tui-textfield>
+    <form [formGroup]="form" tuiForm="m">
 
-        <tui-textfield iconStart="@tui.house" [tuiSkeleton]="loading">
-          <input
-          formControlName="search"
-          placeholder="Room Type"
-          tuiTextfield
-          />
-        </tui-textfield>
 
+
+
+
+      <fieldset>
+        <!-- house type -->
+        <label tuiLabel [tuiSkeleton]="loading">
+          <tui-textfield
+              multi
+              tuiChevron
+              tuiDropdownMobile="Select House Type"
+              [disabledItemHandler]="disabledItemHandler"
+          >
+              <label tuiLabel>House Type</label>
+              <input
+                  placeholder="Select House Type"
+                  tuiInputChip
+                  formControlName="select"
+              />
+              @let filtered = topFilters | tuiFilterByInput;
+              @if (filtered;as data) {
+              <ng-template
+              let-close
+              tuiTextfieldDropdown
+              >
+                  <tui-data-list-wrapper
+                  new
+                  tuiMultiSelectGroup
+                  [items]="data"
+                  tuiAppearance="primary"
+                  [tuiPlatform]="value ?? 'ios'"
+                  />
+                  <button
+                  appearance="accent"
+                  size="m"
+                  tuiButton
+                  tuiDropdownButton
+                  type="button"
+                  (click)="close()"
+                  >
+                      Done
+                  </button>
+
+              </ng-template>
+            }
+          </tui-textfield>
+        </label>
+
+        <!-- gender -->
         <tui-textfield
-        iconStart="@tui.euro"
-        tuiTextfieldSize="s"
+        iconStart="@tui.venus"
         [tuiSkeleton]="loading"
+        tuiChevron
+        tuiDropdownMobile="Select Gender"
+        [disabledItemHandler]="disabledItemHandler"
         >
-          <input
-            formControlName="price"
-            placeholder="Price"
-            tuiTextfield
+            <label tuiLabel>Gender</label>
+            <input
+            placeholder="Select Gender"
+            tuiSelect
+            formControlName="gender"
             />
+            <tui-data-list-wrapper
+            *tuiTextfieldDropdown
+            new
+            [items]="gender"
+            [tuiPlatform]="value ?? 'ios'"
+            [tuiAppearance]="'primary'"
+        />
+        <tui-icon
+          [icon]="genders.icon"
+          [tuiTooltip]="genders.tooltip"
+          [appearance]="genders.appearance" />
         </tui-textfield>
 
-
-        <tui-textfield iconStart="@tui.shield" [tuiSkeleton]="loading">
+        <!-- Verification Status -->
+        <tui-textfield
+        [tuiSkeleton]="loading"
+        tuiChevron
+        tuiDropdownMobile="Choose verification status"
+        [disabledItemHandler]="disabledItemHandler"
+        >
+        <label tuiLabel>Verification Status</label>
           <input
-            formControlName="search"
-            placeholder="Verification Status"
-            tuiTextfield
+            formControlName="verified"
+            placeholder="Status"
+            tuiSelect
             />
+            <tui-data-list-wrapper
+            *tuiTextfieldDropdown
+            new
+            [items]="verified"
+            [tuiPlatform]="value ?? 'ios'"
+            [tuiAppearance]="'primary'"
+        />
+        <tui-icon
+            [icon]="verifiedIcon.icon"
+            [tuiTooltip]="verifiedIcon.tooltip"
+            [appearance]="verifiedIcon.appearance"
+        />
         </tui-textfield>
 
 
@@ -70,7 +135,8 @@
           size="s"
           [items]="topFilters"
           [tuiSkeleton]="loading"
-          
+
+
           />
           <span [tuiSkeleton]="loading">
             Results: 999
@@ -97,3 +163,6 @@
     </form>
   </search>
 </div>
+
+
+

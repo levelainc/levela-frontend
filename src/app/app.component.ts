@@ -4,13 +4,17 @@ import { RouterOutlet } from '@angular/router';
 import { AppShellComponent } from "./layout/components/app-shell/app-shell.component";
 import {WA_LOCAL_STORAGE, WA_WINDOW} from '@ng-web-apis/common';
 import {TUI_DARK_MODE, TUI_DARK_MODE_KEY, TuiButton} from '@taiga-ui/core';
+import { TuiPlatform } from "@taiga-ui/cdk";
+
 @Component({
   selector: 'app-root',
   imports: [
     TuiRoot,
     AppShellComponent,
     TuiAppearance,
-      TuiRoot
+    TuiRoot,
+    TuiPlatform,
+    
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.less'

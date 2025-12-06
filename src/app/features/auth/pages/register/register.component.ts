@@ -18,10 +18,11 @@ import {
   TuiTitle,
   TuiAlertService
 } from '@taiga-ui/core';
-import { TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { TuiCardLarge, TuiForm, TuiHeader } from '@taiga-ui/layout';
 import { AuthService } from '../../../../core/services/auth.service';
-
+import { forkJoin, Observable, of, Subject, timer,interval, scan, startWith } from 'rxjs';
+import { map, switchMap, finalize, max } from 'rxjs/operators';
+import { TuiFieldErrorPipe,tuiValidationErrorsProvider} from '@taiga-ui/kit';import { tuiIsFalsy } from '@taiga-ui/cdk';
 @Component({
   standalone: true,
   selector: 'app-register',
@@ -45,6 +46,20 @@ import { AuthService } from '../../../../core/services/auth.service';
     TuiLink,
     TuiIcon
   ],
+  providers:[
+      tuiValidationErrorsProvider({
+        required: 'Fill this field!',
+        email: 'Enter a valid email',
+        maxlength: ({requiredLength}: {requiredLength: string}) =>
+            `Maximum length is ${requiredLength}`,
+        minlength: ({requiredLength}: {requiredLength: string}) =>
+            of(`Minimum length is ${requiredLength}`),
+        min: interval(2000).pipe(
+            scan(tuiIsFalsy, false),
+            map((val) => (val ? 'Fix please' : 'Min number 3')),
+            startWith('Min number 3'),
+        ),
+    }),]
 })
 export class RegisterComponent {
   readonly form = new FormGroup({

@@ -5,10 +5,13 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { TuiFile, TuiFiles, TuiFileLike, tuiFilesAccepted } from '@taiga-ui/kit';
+import { TuiFile, TuiFiles, TuiFileLike, tuiFilesAccepted, TuiAvatar } from '@taiga-ui/kit';
 import { CommonModule, AsyncPipe } from '@angular/common';
 import { Subject, Observable, of, forkJoin, timer } from 'rxjs';
 import { switchMap, map, finalize } from 'rxjs/operators';
+import { TuiItem } from '@taiga-ui/cdk';
+import { TuiIcon, TuiLink, TuiTitle } from '@taiga-ui/core';
+import { TuiCell } from '@taiga-ui/layout';
 
 @Component({
   selector: 'app-image-upload',
@@ -22,7 +25,12 @@ import { switchMap, map, finalize } from 'rxjs/operators';
     AsyncPipe,
     TuiFiles,
     TuiFile,
-
+    TuiItem,
+    TuiAvatar,
+    TuiLink,
+    TuiIcon,
+    TuiCell,
+    TuiTitle
 ],
 })
 export class ImageUploadComponent implements OnInit {
@@ -49,6 +57,7 @@ export class ImageUploadComponent implements OnInit {
     this.accepted$ = this.control.valueChanges.pipe(
       map(() => tuiFilesAccepted(this.control))
     );
+
   }
 
 
@@ -62,5 +71,13 @@ export class ImageUploadComponent implements OnInit {
   protected onRemove(file: File): void {
     this.rejected = this.rejected.filter(f => f !== file);
     this.control.setValue(this.control.value?.filter(f => f !== file) ?? []);
+  }
+
+  createPreview(file: File): string {
+    return file ? URL.createObjectURL(file) : '';
+  }
+
+  get file():File{
+    return this.file
   }
 }

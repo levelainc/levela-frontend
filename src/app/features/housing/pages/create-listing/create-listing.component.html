@@ -174,7 +174,7 @@
       <label tuiLabel>House Description</label>
       <textarea [limit]="1000" tuiTextarea formControlName="description" placeholder="Describe the property" [max]=4 [min]=4></textarea>
     </tui-textfield>
-    <tui-error [formControl]="form.controls['additionalNote']" [error]="['maxlength'] | tuiFieldError | async" />
+    <tui-error [formControl]="form.controls['description']" [error]="['maxlength'] | tuiFieldError | async" />
 
     <!-- price -->
     <tui-textfield>

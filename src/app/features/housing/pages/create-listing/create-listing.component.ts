@@ -4,15 +4,15 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AsyncPipe, CommonModule, KeyValuePipe } from '@angular/common';
 
 import { TuiTextfield, TuiNotification, TuiAlertService, TuiButton, TuiError, TuiTitle, TuiAppearance, TuiLoader, TuiGroup, TuiAutoColorPipe, TuiHint, TuiIcon, tuiAppearanceMode, tuiAppearanceFocus, tuiAppearanceState, tuiLoaderOptionsProvider } from '@taiga-ui/core';
-import { TuiFieldErrorPipe, TuiFileLike, TuiFile, TuiFiles, TuiTextarea, TuiStepper, TuiSlides, TuiBlock, TuiRadio, TuiChip, TuiItemsWithMore, TuiInputNumber, TUI_COUNTRIES, TuiInputChip, TuiToastService, TuiTextareaLimit, TuiInputRange, TuiChevron, TuiBadge, TuiBadgedContent, TuiBadgeNotification } from '@taiga-ui/kit';
+import { TuiFieldErrorPipe, TuiFileLike, TuiFile, TuiFiles, TuiTextarea, TuiStepper, TuiSlides, TuiBlock, TuiRadio, TuiChip, TuiItemsWithMore, TuiInputNumber, TUI_COUNTRIES, TuiInputChip, TuiToastService, TuiTextareaLimit, TuiInputRange, TuiChevron, TuiBadge, TuiBadgedContent, TuiBadgeNotification ,tuiValidationErrorsProvider} from '@taiga-ui/kit';
 import { TuiCardLarge, TuiForm, TuiHeader, TuiItemGroup, TuiCardCollapsed, TuiCard } from '@taiga-ui/layout';
 import {type TuiCountryIsoCode} from '@taiga-ui/i18n';
 import { HousingService } from '../../services/housing.service';
-import { forkJoin, Observable, of, Subject, timer } from 'rxjs';
+import { forkJoin, Observable, of, Subject, timer,interval, scan, startWith } from 'rxjs';
 import { map, switchMap, finalize, max } from 'rxjs/operators';
 import { ImageUploadComponent } from '../../../../shared/ui/image-upload/image-upload.component';
 import { ɵɵDir } from "@angular/cdk/scrolling";
-import { TuiAutoFocus, TuiActiveZone, TuiItem, TuiValidationError,  } from '@taiga-ui/cdk';
+import { TuiAutoFocus, TuiActiveZone, TuiItem, TuiValidationError, tuiIsFalsy,  } from '@taiga-ui/cdk';
 import {TuiAmountPipe, TuiCurrencyPipe} from '@taiga-ui/addon-commerce';
 import { TuiExpand } from '@taiga-ui/experimental';
 @Component({
@@ -81,6 +81,19 @@ providers: [
       inheritColor: false,
       overlay: true,
   }),
+  tuiValidationErrorsProvider({
+    required: 'Fill this field!',
+    email: 'Enter a valid email',
+    maxlength: ({requiredLength}: {requiredLength: string}) =>
+        `Maximum length is ${requiredLength}`,
+    minlength: ({requiredLength}: {requiredLength: string}) =>
+        of(`Minimum length is ${requiredLength}`),
+    min: interval(2000).pipe(
+        scan(tuiIsFalsy, false),
+        map((val) => (val ? 'Fix please' : 'Min number 3')),
+        startWith('Min number 3'),
+    ),
+}),
 ],
 })
 export class CreateListingComponent implements OnInit{
