@@ -1,6 +1,6 @@
 import { Component, inject, Injectable, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiAppearance, TuiButton, TuiDataList, TuiFormatDatePipe, TuiFormatDateService, TuiIcon, TuiLabel, TuiLoader, TuiSelectLike, TuiTextfield, TuiTextfieldDropdownDirective, TuiTitle } from '@taiga-ui/core';
+import { TuiAutoColorPipe,TuiInitialsPipe,type TuiSizeXS,type TuiSizeXXL,TuiAppearance, TuiButton, TuiDataList, TuiFormatDatePipe, TuiFormatDateService, TuiIcon, TuiLabel, TuiLoader, TuiSelectLike, TuiTextfield, TuiTextfieldDropdownDirective, TuiTitle, TuiLink } from '@taiga-ui/core';
 import {
   TuiFilter,
   TuiSkeleton,
@@ -16,6 +16,9 @@ import {
   TuiAvatar,
   TuiConnected,
   TuiAvatarOutline,
+  TuiAvatarLabeled,
+  TuiAvatarStack,
+  TuiFade,
    } from '@taiga-ui/kit';
   import {TuiPlatform,type TuiBooleanHandler} from '@taiga-ui/cdk';
 import { TuiForm, TuiSearch, TuiInputSearch, TuiCell, TuiCardLarge } from '@taiga-ui/layout';
@@ -24,7 +27,7 @@ import { formatDistance } from 'date-fns';
 import { TuiDropdownMobile } from '@taiga-ui/addon-mobile';
 import { Listing } from '../../../features/housing/models/housing.model';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe, isPlatformBrowser } from '@angular/common';
+import { AsyncPipe, isPlatformBrowser, SlicePipe } from '@angular/common';
 import { timer,of, Observable, map } from 'rxjs';
 import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
 interface ListingsQueryParams {
@@ -55,6 +58,10 @@ export class FormatService extends TuiFormatDateService{
 @Component({
   selector: 'app-search',
   imports: [
+    TuiFade,
+    TuiAutoColorPipe,
+    TuiInitialsPipe,
+    TuiAvatarStack,
     TuiForm,
     TuiTextfield,
     TuiSearch,
@@ -90,7 +97,10 @@ export class FormatService extends TuiFormatDateService{
     TuiAvatarOutline,
     TuiFormatDatePipe,
     AsyncPipe,
-    TuiAmountPipe
+    TuiAmountPipe,
+    TuiAvatarLabeled,
+    SlicePipe,
+    TuiLink
 ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.less',
@@ -114,6 +124,10 @@ export class SearchComponent implements OnInit{
     this.housingService.getTopFilters().subscribe(filters => {
       this.topFilters = filters;
       // if(filters.length) this.loading=false
+
+      // load recent searches
+      this.recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+
     });
   }
 
@@ -165,6 +179,7 @@ export class SearchComponent implements OnInit{
   }
   submitSearch() {
     const filters = this.getSelectedFilters(); // typed as ListingFilters
+    this.saveRecentSearch(filters)
     this.loading = true;
     this.housingService.getListingsByFilters(filters).subscribe({
       next: (res) => {
@@ -181,6 +196,59 @@ export class SearchComponent implements OnInit{
     });
   }
 
+  recentSearches: any[] = [];
+
+  saveRecentSearch(filters: ListingFilters) {
+    const entry = {
+      ...filters,
+      timestamp: Date.now(),
+    };
+
+    let saved: Array<ListingFilters & { timestamp: number }> =
+      JSON.parse(localStorage.getItem('recentSearches') || '[]');
+
+    saved = saved.filter((s) => {
+      const { timestamp, ...rest } = s;
+      return JSON.stringify(rest) !== JSON.stringify(filters);
+    });
+
+    saved.unshift(entry);
+    saved = saved.slice(0, 10);
+
+    localStorage.setItem('recentSearches', JSON.stringify(saved));
+    this.recentSearches = saved;
+  }
+
+
+  restoreSearch(s: ListingFilters) {
+    this.form.patchValue({
+      select: s.houseTypes,
+      gender: s.gender,
+      verified: s.verified,
+    });
+
+    this.submitSearch();
+  }
+
+
+  formatRecentLabel(s: ListingFilters & { timestamp: number }): string {
+    const parts = [];
+
+    if (s.houseTypes?.length) parts.push(s.houseTypes.join(', '));
+    if (s.gender) parts.push(`Gender: ${s.gender}`);
+    if (s.verified) parts.push(`Status: ${s.verified}`);
+
+    return parts.join(' • ') || 'Empty search';
+  }
+
+  protected readonly size: ReadonlyArray<TuiSizeXS | TuiSizeXXL> = [
+    'xxl',
+    'xl',
+    'l',
+    'm',
+    's',
+    'xs',
+];
 
 
 }

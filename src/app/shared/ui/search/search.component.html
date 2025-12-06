@@ -168,7 +168,7 @@
               iconStart="@tui.rotate-ccw"
               size="s"
               tuiIconButton
-              type="button"
+              type="reset"
               [style.border-radius.%]="100"
               >
             </button>
@@ -177,6 +177,29 @@
   </search>
 </div>
 
+<!-- <div class="labeled" tuiFade>
+  @for (s of recentSearches | slice: 0 : 10; track s.timestamp;) {
+    @let name=formatRecentLabel(s);
+  <tui-avatar-labeled [label]="name|slice:0:11" tuiFade [tuiFadeHeight]="'1rem'">
+    <tui-avatar (click)="restoreSearch(s)">
+      {{name|tuiInitials}}
+    </tui-avatar>
+  </tui-avatar-labeled>
+  }
+</div> -->
+
+@if(filteredListings.length===0){
+  @for (s of recentSearches | slice: 0 : 10; track s.timestamp;) {
+    @let name=formatRecentLabel(s);
+    <ul class="tui-list">
+      <li class="tui-list__item">
+        <a (click)="restoreSearch(s)" tuiLink>
+          <tui-icon icon="@tui.history" />{{' '+name}}
+        </a>
+      </li>
+    </ul>
+  }
+}
 <tui-loader [showLoader]="loading" />
 @if(filteredListings.length!==0){
   <div tuiConnected tuiCardLarge class="results">
@@ -184,6 +207,7 @@
       @let time = list.created_at ? (list.created_at.getTime() | tuiFormatDate | async) : '';
       <button tuiCell="l" [routerLink]="['/housing', list.id]">
         <tui-avatar
+        [round]="false"
         [size]="'xl'"
         [style.background]="'linear-gradient(#ECDD00FF, #B4DA0AFF)'"
         [tuiAvatarOutline]="'linear-gradient(#ECDD00FF, #B4DA0AFF)'"
