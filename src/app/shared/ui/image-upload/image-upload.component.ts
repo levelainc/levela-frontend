@@ -60,8 +60,6 @@ export class ImageUploadComponent implements OnInit {
 
   }
 
-
-
   protected rejected: readonly File[] = [];
 
   protected onReject(files: readonly File[]): void {

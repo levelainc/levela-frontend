@@ -49,7 +49,7 @@
         </span>
       </label>
 
-      <label tuiBlock appearance="warning"  [tuiAppearanceState]="'active'">
+      <label tuiBlock appearance="warning">
         <span tuiTitle>
           {{this.block[3]}}
           <span tuiSubtitle>
@@ -70,25 +70,24 @@
       [linesLimit]="linesLimit"
       (lastIndexChange)="lastIndex = $event"
       >
-        @for(chip of chips;let i=$index;track i ){
+        @for(chip of chips;let i=$index;track i){
           <ng-container>
             <label
             tuiChip
-            size="xs"
+            size="s"
             *tuiItem
-            [appearance]="chip? 'info':'negative'"
+            [appearance]="form.controls.houseType.touched ? 'primary' : 'warning'"
             [class.item_visible]="i <= lastIndex"
 
             >
-              {{chip}}
               <input
+              tuiRadio
               type="radio"
               [value]="chip"
               formControlName="houseType"
-              size="xs"
-              appearance="info"
-              name="houseType"
-              tuiChip>
+              [size]="'s'"
+              name="houseType">
+              {{chip}}
             </label>
             <tui-error [formControl]="form.controls['houseType']" [error]="['required','maxlength'] | tuiFieldError | async" />
           </ng-container>

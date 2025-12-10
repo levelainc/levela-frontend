@@ -19,9 +19,11 @@ import {
   TuiAvatarLabeled,
   TuiAvatarStack,
   TuiFade,
+  TuiChip,
+  TuiItemsWithMore,
    } from '@taiga-ui/kit';
-  import {TuiPlatform,type TuiBooleanHandler} from '@taiga-ui/cdk';
-import { TuiForm, TuiSearch, TuiInputSearch, TuiCell, TuiCardLarge } from '@taiga-ui/layout';
+  import { TUI_FALSE_HANDLER, TuiItem, TuiPlatform, type TuiBooleanHandler, TuiValueChanges } from '@taiga-ui/cdk';
+import { TuiForm, TuiSearch, TuiInputSearch, TuiCell, TuiCardLarge, TuiItemGroup } from '@taiga-ui/layout';
 import { HousingService } from '../../../features/housing/services/housing.service';
 import { formatDistance } from 'date-fns';
 import { TuiDropdownMobile } from '@taiga-ui/addon-mobile';
@@ -100,7 +102,12 @@ export class FormatService extends TuiFormatDateService{
     TuiAmountPipe,
     TuiAvatarLabeled,
     SlicePipe,
-    TuiLink
+    TuiLink,
+    TuiItemGroup,
+    TuiChip,
+    TuiItemsWithMore,
+    TuiItem,
+    TuiValueChanges
 ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.less',
@@ -113,7 +120,9 @@ export class FormatService extends TuiFormatDateService{
 })
 export class SearchComponent implements OnInit{
   private readonly housingService=inject(HousingService)
+  protected linesLimit=1
   topFilters: string[] = [];
+  protected checked = this.topFilters.map(TUI_FALSE_HANDLER);
   filteredListings: Listing[] = [];
   protected loading=false
 

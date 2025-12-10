@@ -130,27 +130,41 @@
 
       </fieldset>
       <fieldset>
-        <!-- <tui-segmented size="s" [tuiSkeleton]="loading">
-          @for(segmented of topFilters;track $index){
-          <label>
-              <input
-              [tuiSkeleton]="loading"
-              formControlName="segmented"
-              type="radio"
-              [value]="segmented"
-              />
-              {{ segmented || 'All' }}
-          </label>
-        }
-        </tui-segmented> -->
-        <tui-filter
-          formControlName="filter"
-          size="s"
-          [items]="topFilters"
-          [tuiSkeleton]="loading"
+          <div
+          tuiItemGroup
+          [horizontal]="true"
+          [autoscroll]="true"
+          >
+          <tui-items-with-more [linesLimit]="linesLimit">
+            @for(chip of topFilters;track $index){
+              <label *tuiItem tuiChip>
+                {{chip}}
+                <input
+                type="checkbox"
+                tuiChip
+                [value]="chip"
+                [appearance]="checked[$index] ? 'accent' : 'positive'">
+              </label>
+            }
+            <ng-template
+            let-index
+            tuiMore
+            >
+                <button
+                    appearance="neutral"
+                    iconEnd="@tui.chevron-down"
+                    size="s"
+                    tuiChip
+                    type="button"
+                    class="more"
+                    (click)="linesLimit = 100"
+                >
+                    More {{ topFilters.length - index - 1 }}
+                </button>
+            </ng-template>
+          </tui-items-with-more>
 
-
-          />
+          </div>
           <span [tuiSkeleton]="loading">
             Results: {{filteredListings.length}}
           </span>
@@ -160,6 +174,8 @@
               formControlName="switch"
               tuiSwitch
               type="checkbox"
+              (change)="submitSearch()"
+
               />
               Assigned to me
             </label>

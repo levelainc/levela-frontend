@@ -4,7 +4,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AsyncPipe, CommonModule, KeyValuePipe } from '@angular/common';
 
 import { TuiTextfield, TuiNotification, TuiAlertService, TuiButton, TuiError, TuiTitle, TuiAppearance, TuiLoader, TuiGroup, TuiAutoColorPipe, TuiHint, TuiIcon, tuiAppearanceMode, tuiAppearanceFocus, tuiAppearanceState, tuiLoaderOptionsProvider } from '@taiga-ui/core';
-import { TuiFieldErrorPipe, TuiFileLike, TuiFile, TuiFiles, TuiTextarea, TuiStepper, TuiSlides, TuiBlock, TuiRadio, TuiChip, TuiItemsWithMore, TuiInputNumber, TUI_COUNTRIES, TuiInputChip, TuiToastService, TuiTextareaLimit, TuiInputRange, TuiChevron, TuiBadge, TuiBadgedContent, TuiBadgeNotification ,tuiValidationErrorsProvider} from '@taiga-ui/kit';
+import { TuiFieldErrorPipe, TuiFileLike, TuiFile, TuiFiles, TuiTextarea, TuiStepper, TuiSlides, TuiBlock, TuiRadio, TuiChip, TuiItemsWithMore, TuiInputNumber, TUI_COUNTRIES, TuiInputChip, TuiToastService, TuiTextareaLimit, TuiInputRange, TuiChevron, TuiBadge, TuiBadgedContent, TuiBadgeNotification ,tuiValidationErrorsProvider, TuiCheckbox} from '@taiga-ui/kit';
 import { TuiCardLarge, TuiForm, TuiHeader, TuiItemGroup, TuiCardCollapsed, TuiCard } from '@taiga-ui/layout';
 import {type TuiCountryIsoCode} from '@taiga-ui/i18n';
 import { HousingService } from '../../services/housing.service';
@@ -12,7 +12,7 @@ import { forkJoin, Observable, of, Subject, timer,interval, scan, startWith } fr
 import { map, switchMap, finalize, max } from 'rxjs/operators';
 import { ImageUploadComponent } from '../../../../shared/ui/image-upload/image-upload.component';
 import { ɵɵDir } from "@angular/cdk/scrolling";
-import { TuiAutoFocus, TuiActiveZone, TuiItem, TuiValidationError, tuiIsFalsy,  } from '@taiga-ui/cdk';
+import { TuiAutoFocus, TuiActiveZone, TuiItem, TuiValidationError, tuiIsFalsy, TuiRepeatTimes,  } from '@taiga-ui/cdk';
 import {TuiAmountPipe, TuiCurrencyPipe} from '@taiga-ui/addon-commerce';
 import { TuiExpand } from '@taiga-ui/experimental';
 @Component({
@@ -74,6 +74,9 @@ import { TuiExpand } from '@taiga-ui/experimental';
     TuiBadge,
     TuiBadgedContent,
     TuiBadgeNotification,
+    TuiCheckbox,
+    TuiRepeatTimes
+
 ],
 providers: [
   tuiLoaderOptionsProvider({
@@ -110,7 +113,7 @@ export class CreateListingComponent implements OnInit{
   protected index=0;
   protected direction=0
   protected linesLimit=1;
-  protected checked=[false]
+  protected checked=[true,false,true]
   protected readonly step = 1;
   protected readonly chips=[
     'Single Room',
@@ -172,9 +175,9 @@ export class CreateListingComponent implements OnInit{
   // Reactive streams for image upload
   readonly failedFiles$ = new Subject<TuiFileLike[]>();
   readonly loadingFiles$ = new Subject<TuiFileLike[]>();
-  readonly loadedFiles$: Observable<TuiFileLike[]> = this.form.controls['images'].valueChanges.pipe(
-    switchMap((files) => this.processFiles(files))
-  );
+  // readonly loadedFiles$: Observable<TuiFileLike[]> = this.form.controls['images'].valueChanges.pipe(
+  //   switchMap((files) => this.processFiles(files))
+  // );
 
   removeFile(file?: TuiFileLike): void {
     if (!file) {
@@ -186,27 +189,27 @@ export class CreateListingComponent implements OnInit{
     );
   }
 
-  private processFiles(files: TuiFileLike[] | null): Observable<TuiFileLike[]> {
-    this.failedFiles$.next([]);
-    if (!files?.length) return of([]);
+  // private processFiles(files: TuiFileLike[] | null): Observable<TuiFileLike[]> {
+  //   this.failedFiles$.next([]);
+  //   if (!files?.length) return of([]);
 
-    const tasks = files.map(file =>
-      timer(500).pipe(
-        map(() => {
-          if (Math.random() > 0.2) return file;
-          this.failedFiles$.next([file]);
-          return null;
-        })
-      )
-    );
+  //   const tasks = files.map(file =>
+  //     timer(500).pipe(
+  //       map(() => {
+  //         if (Math.random() > 0.2) return file;
+  //         this.failedFiles$.next([file]);
+  //         return null;
+  //       })
+  //     )
+  //   );
 
-    this.loadingFiles$.next(files);
+  //   this.loadingFiles$.next(files);
 
-    return forkJoin(tasks).pipe(
-      map(results => results.filter((f): f is TuiFileLike => f !== null)),
-      finalize(() => this.loadingFiles$.next([]))
-    );
-  }
+  //   return forkJoin(tasks).pipe(
+  //     map(results => results.filter((f): f is TuiFileLike => f !== null)),
+  //     finalize(() => this.loadingFiles$.next([]))
+  //   );
+  // }
 
   // custom validation
   ngOnInit(): void {
